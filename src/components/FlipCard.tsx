@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import type { TarotCard } from '../data/tarotCards';
 import { type Lang, t } from '../i18n';
 import { TarotCardFace } from './TarotCardFace';
+import { playFlipSound } from '../utils/sounds';
 
 interface FlipCardProps {
   card: TarotCard;
@@ -23,16 +24,6 @@ export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed,
     return () => clearTimeout(timer);
   }, [delay]);
 
-  const playFlipSound = () => {
-    try {
-      const audio = new Audio(
-        'https://cdn.pixabay.com/download/audio/2022/10/30/audio_82d334823e.mp3?filename=card-flip-1-47870.mp3'
-      );
-      audio.volume = 0.5;
-      audio.play().catch(() => {});
-    } catch (e) {}
-  };
-
   const handleClick = () => {
     if (!canFlip || isFlipped) return;
     playFlipSound();
@@ -41,7 +32,7 @@ export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed,
 
   return (
     <div
-      className="relative w-80 h-[450px] cursor-pointer group perspective-1000"
+      className="relative cursor-pointer group perspective-1000 w-[200px] h-[280px] sm:w-80 sm:h-[450px]"
       onClick={handleClick}
       style={{
         opacity: canFlip ? 1 : 0.5,
@@ -57,14 +48,13 @@ export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed,
           transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
         }}
       >
-        {/* Card Back */}
         <div
-          className="absolute inset-0 rounded-3xl shadow-2xl"
+          className="absolute inset-0 rounded-2xl sm:rounded-3xl shadow-2xl"
           style={{
             backfaceVisibility: 'hidden',
           }}
         >
-          <div className="w-full h-full rounded-3xl bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 border-4 border-white/20 overflow-hidden relative">
+          <div className="w-full h-full rounded-2xl sm:rounded-3xl bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 border-2 sm:border-4 border-white/20 overflow-hidden relative">
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
 
             <svg viewBox="0 0 300 450" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
@@ -121,8 +111,8 @@ export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed,
             {canFlip && !isFlipped && (
               <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 to-transparent">
                 <div className="text-center">
-                  <div className="glass-icon text-6xl mb-4 animate-bounce">👆</div>
-                  <span className="text-white text-xl font-semibold tracking-widest">
+                  <div className="glass-icon text-3xl sm:text-6xl mb-2 sm:mb-4 animate-bounce">👆</div>
+                  <span className="text-white text-sm sm:text-xl font-semibold tracking-widest">
                     {t('clickToReveal', lang)}
                   </span>
                 </div>
@@ -131,16 +121,15 @@ export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed,
           </div>
         </div>
 
-        {/* Card Front */}
         <div
-          className="absolute inset-0 rounded-3xl shadow-2xl"
+          className="absolute inset-0 rounded-2xl sm:rounded-3xl shadow-2xl"
           style={{
             backfaceVisibility: 'hidden',
             transform: 'rotateY(180deg)',
           }}
         >
           <div
-            className={`w-full h-full rounded-3xl bg-gradient-to-br from-slate-800 to-slate-900 border-3 ${
+            className={`w-full h-full rounded-2xl sm:rounded-3xl bg-gradient-to-br from-slate-800 to-slate-900 border-2 sm:border-3 ${
               isReversed
                 ? 'border-rose-500/60'
                 : 'border-amber-400/60'
@@ -156,7 +145,7 @@ export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed,
 
       {canFlip && !isFlipped && (
         <div
-          className={`absolute -inset-2 rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 ${
+          className={`absolute -inset-2 rounded-2xl sm:rounded-3xl blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10 ${
             isReversed
               ? 'bg-gradient-to-r from-rose-600/50 to-purple-600/50'
               : 'bg-gradient-to-r from-purple-600/50 to-indigo-600/50'
@@ -215,17 +204,17 @@ export function CardSpread({
   if (!canStart) return null;
 
   return (
-    <div className="flex flex-col items-center gap-12">
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-4 mb-4">
-          <h2 className="text-4xl font-bold text-slate-200 tracking-widest">
+    <div className="flex flex-col items-center gap-6 sm:gap-12 w-full px-2 sm:px-0">
+      <div className="text-center mb-4 sm:mb-8">
+        <div className="inline-flex items-center gap-4 mb-2 sm:mb-4">
+          <h2 className="text-2xl sm:text-4xl font-bold text-slate-200 tracking-widest">
             {t('clickToFlip', lang)}
           </h2>
         </div>
-        <p className="text-slate-400 text-2xl">{t('clickToFlipSub', lang)}</p>
+        <p className="text-slate-400 text-sm sm:text-2xl">{t('clickToFlipSub', lang)}</p>
       </div>
 
-      <div className={`flex gap-10 ${cards.length === 3 ? 'flex-row' : ''}`}>
+      <div className={`flex gap-3 sm:gap-10 justify-center flex-wrap ${cards.length === 3 ? '' : ''}`}>
         {cards.map((item, i) => (
           <div
             key={item.card.id}
@@ -246,19 +235,19 @@ export function CardSpread({
       </div>
 
       {flippedCards.size > 0 && flippedCards.size < cards.length && (
-        <div className="flex items-center gap-3 text-amber-400 text-base animate-pulse">
+        <div className="flex items-center gap-3 text-amber-400 text-sm sm:text-base animate-pulse">
           <span>{t('cardsRemaining', lang, { count: cards.length - flippedCards.size })}</span>
         </div>
       )}
 
       {allFlipped && (
-        <div className="animate-fade-in mt-8">
+        <div className="animate-fade-in mt-4 sm:mt-8">
           <button
             onClick={handleInterpret}
-            className="group relative px-16 py-6 bg-gradient-to-r from-purple-600/80 to-indigo-600/80 hover:from-purple-500/80 hover:to-indigo-500/80 backdrop-blur-xl rounded-2xl border border-purple-400/30 hover:border-purple-400/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/40"
+            className="group relative px-8 sm:px-16 py-4 sm:py-6 bg-gradient-to-r from-purple-600/80 to-indigo-600/80 hover:from-purple-500/80 hover:to-indigo-500/80 backdrop-blur-xl rounded-2xl border border-purple-400/30 hover:border-purple-400/60 transition-all duration-500 hover:scale-105 hover:shadow-2xl hover:shadow-purple-500/40"
           >
-            <div className="flex items-center gap-4">
-              <svg className="w-8 h-8" viewBox="0 0 100 100" fill="none">
+            <div className="flex items-center gap-3 sm:gap-4">
+              <svg className="w-6 h-6 sm:w-8 sm:h-8" viewBox="0 0 100 100" fill="none">
                 <defs>
                   <linearGradient id="aiBtnGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                     <stop offset="0%" stopColor="#FFFFFF" />
@@ -270,7 +259,7 @@ export function CardSpread({
                 <circle cx="50" cy="50" r="25" stroke="url(#aiBtnGrad)" strokeWidth="2" fill="none" opacity="0.7" />
                 <polygon points="50,30 54,42 67,42 57,50 61,62 50,54 39,62 43,50 33,42 46,42" fill="url(#aiBtnGrad)" />
               </svg>
-              <span className="text-white text-2xl font-bold tracking-widest">{t('aiAnalysis', lang)}</span>
+              <span className="text-white text-lg sm:text-2xl font-bold tracking-widest">{t('aiAnalysis', lang)}</span>
             </div>
           </button>
         </div>

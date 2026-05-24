@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { type Lang, t } from '../i18n';
+import { playShuffleSound, stopShuffleSound, playDealSound } from '../utils/sounds';
 
 interface ShuffleAnimationProps {
   onComplete: () => void;
@@ -10,36 +11,6 @@ interface ShuffleAnimationProps {
 
 export function ShuffleAnimation({ onComplete, onBack, cardCount, lang }: ShuffleAnimationProps) {
   const [isShuffling, setIsShuffling] = useState(false);
-  const [shuffleAudio, setShuffleAudio] = useState<HTMLAudioElement | null>(null);
-
-  useEffect(() => {
-    const audio = new Audio('https://cdn.pixabay.com/download/audio/2022/03/15/audio_6b9295d588.mp3?filename=card-shuffle-1-37164.mp3');
-    audio.volume = 0.6;
-    setShuffleAudio(audio);
-    return () => { audio.pause(); };
-  }, []);
-
-  const playShuffleSound = () => {
-    if (shuffleAudio) {
-      shuffleAudio.currentTime = 0;
-      shuffleAudio.play().catch(() => {});
-    }
-  };
-
-  const stopShuffleSound = () => {
-    if (shuffleAudio) {
-      shuffleAudio.pause();
-      shuffleAudio.currentTime = 0;
-    }
-  };
-
-  const playDealSound = () => {
-    try {
-      const audio = new Audio('https://cdn.pixabay.com/download/audio/2021/08/02/audio_04195e9a8a.mp3?filename=whoosh-6316.mp3');
-      audio.volume = 0.5;
-      audio.play().catch(() => {});
-    } catch (e) {}
-  };
 
   const handleStartShuffle = async () => {
     setIsShuffling(true);
@@ -52,15 +23,15 @@ export function ShuffleAnimation({ onComplete, onBack, cardCount, lang }: Shuffl
   };
 
   return (
-    <div className="flex flex-col items-center justify-center gap-10 w-full">
+    <div className="flex flex-col items-center justify-center gap-6 sm:gap-10 w-full px-4">
       <div className="text-center animate-fade-in">
-        <h2 className="text-4xl md:text-5xl font-bold purple-text-gradient mb-4 tracking-wider">
+        <h2 className="text-2xl sm:text-4xl md:text-5xl font-bold purple-text-gradient mb-3 sm:mb-4 tracking-wider">
           {t('readyShuffle', lang)}
         </h2>
-        <p className="text-gray-500 text-base">{t('readyShuffleSub', lang)}</p>
+        <p className="text-gray-500 text-sm sm:text-base">{t('readyShuffleSub', lang)}</p>
       </div>
 
-      <div className="relative flex items-center justify-center" style={{ width: '420px', height: '320px' }}>
+      <div className="relative flex items-center justify-center w-[260px] h-[200px] sm:w-[420px] sm:h-[320px]">
         {[...Array(cardCount)].map((_, i) => {
           const offset = i - Math.floor(cardCount / 2);
           const rotateBase = offset * 3;
@@ -70,8 +41,8 @@ export function ShuffleAnimation({ onComplete, onBack, cardCount, lang }: Shuffl
               key={i}
               className="absolute"
               style={{
-                width: '160px',
-                height: '240px',
+                width: '100px',
+                height: '150px',
                 transform: isShuffling
                   ? `translateX(${(Math.random() - 0.5) * 60}px) translateY(${(Math.random() - 0.5) * 30}px) rotate(${(Math.random() - 0.5) * 20}deg)`
                   : `translateX(${translateX}px) rotate(${rotateBase}deg)`,
@@ -80,7 +51,7 @@ export function ShuffleAnimation({ onComplete, onBack, cardCount, lang }: Shuffl
               }}
             >
               <div
-                className="w-full h-full rounded-2xl overflow-hidden relative"
+                className="w-full h-full rounded-xl sm:rounded-2xl overflow-hidden relative"
                 style={{
                   background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0c29 100%)',
                   border: '1px solid rgba(139, 92, 246, 0.25)',
@@ -100,7 +71,7 @@ export function ShuffleAnimation({ onComplete, onBack, cardCount, lang }: Shuffl
 
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="relative">
-                    <svg viewBox="0 0 80 80" className="w-20 h-20 opacity-60">
+                    <svg viewBox="0 0 80 80" className="w-12 h-12 sm:w-20 sm:h-20 opacity-60">
                       <defs>
                         <linearGradient id={`cardBack${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
                           <stop offset="0%" stopColor="#22d3ee" />
@@ -119,10 +90,10 @@ export function ShuffleAnimation({ onComplete, onBack, cardCount, lang }: Shuffl
                   </div>
                 </div>
 
-                <div className="absolute top-3 left-3 w-2 h-2 rounded-full bg-purple-400/40" />
-                <div className="absolute top-3 right-3 w-2 h-2 rounded-full bg-cyan-400/40" />
-                <div className="absolute bottom-3 left-3 w-2 h-2 rounded-full bg-cyan-400/40" />
-                <div className="absolute bottom-3 right-3 w-2 h-2 rounded-full bg-purple-400/40" />
+                <div className="absolute top-2 left-2 sm:top-3 sm:left-3 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-purple-400/40" />
+                <div className="absolute top-2 right-2 sm:top-3 sm:right-3 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-cyan-400/40" />
+                <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-cyan-400/40" />
+                <div className="absolute bottom-2 right-2 sm:bottom-3 sm:right-3 w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-purple-400/40" />
               </div>
             </div>
           );
@@ -132,7 +103,7 @@ export function ShuffleAnimation({ onComplete, onBack, cardCount, lang }: Shuffl
       <button
         onClick={handleStartShuffle}
         disabled={isShuffling}
-        className={`px-10 py-3.5 rounded-xl font-medium text-base transition-all duration-300 ${
+        className={`px-8 sm:px-10 py-3 sm:py-3.5 rounded-xl font-medium text-sm sm:text-base transition-all duration-300 ${
           isShuffling
             ? 'bg-white/[0.03] border border-white/10 text-gray-600 cursor-not-allowed'
             : 'purple-gradient text-white hover:shadow-lg hover:shadow-purple-500/25 hover:brightness-110'

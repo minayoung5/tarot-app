@@ -12,6 +12,7 @@ import type { TarotCard } from '../data/tarotCards';
 import type { ReadingHistoryItem } from '../types/history';
 import { useLang } from '../hooks/useLang';
 import { t, type Lang } from '../i18n';
+import { preloadSounds, playDealSound } from '../utils/sounds';
 
 type SpreadType = 'single' | 'three';
 type ModelType = 'timeline' | 'decision' | 'relationship';
@@ -119,31 +120,8 @@ export function Home() {
     if (savedHistory) {
       setHistory(JSON.parse(savedHistory));
     }
+    preloadSounds();
   }, []);
-
-  const playShuffleSound = () => {
-    try {
-      const audio = new Audio(
-        'https://cdn.pixabay.com/download/audio/2022/03/15/audio_6b9295d588.mp3?filename=card-shuffle-1-37164.mp3'
-      );
-      audio.volume = 0.6;
-      audio.play().catch(() => {});
-    } catch (e) {
-      console.log('无法播放音效');
-    }
-  };
-
-  const playDealSound = () => {
-    try {
-      const audio = new Audio(
-        'https://cdn.pixabay.com/download/audio/2022/10/30/audio_82d334823e.mp3?filename=card-flip-1-47870.mp3'
-      );
-      audio.volume = 0.5;
-      audio.play().catch(() => {});
-    } catch (e) {
-      console.log('无法播放音效');
-    }
-  };
 
   const generateInterpretation = (
     cards: Array<{ card: TarotCard; isReversed: boolean }>,
@@ -491,12 +469,12 @@ export function Home() {
       <SoundSelector />
 
       <div className="relative z-10 min-h-screen flex flex-col">
-        <header className="py-3 px-6 flex justify-between items-center fixed top-0 left-0 right-0 z-30" style={{
+        <header className="py-2 sm:py-3 px-4 sm:px-6 flex justify-between items-center fixed top-0 left-0 right-0 z-30" style={{
           background: 'rgba(8, 6, 15, 0.6)',
           backdropFilter: 'blur(20px) saturate(1.5)',
           borderBottom: '1px solid rgba(139, 92, 246, 0.08)',
         }}>
-          <h1 className="text-2xl font-bold tracking-widest" style={{
+          <h1 className="text-lg sm:text-2xl font-bold tracking-widest" style={{
             background: 'linear-gradient(135deg, #e2e8f0 0%, #c4b5fd 30%, #8b5cf6 60%, #22d3ee 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
@@ -528,25 +506,25 @@ export function Home() {
           </div>
         </header>
 
-        <main className="flex-1 relative px-6 flex items-center justify-center min-h-screen">
+        <main className="flex-1 relative px-3 sm:px-6 flex items-center justify-center min-h-screen">
           {phase !== 'spread-select' && (
             <button
               onClick={handleBack}
-              className="fixed top-16 left-6 z-30 text-gray-500 hover:text-white/80 transition-colors flex items-center gap-2 p-2 rounded-lg hover:bg-white/5"
+              className="fixed top-12 sm:top-16 left-3 sm:left-6 z-30 text-gray-500 hover:text-white/80 transition-colors flex items-center gap-1.5 sm:gap-2 p-1.5 sm:p-2 rounded-lg hover:bg-white/5"
             >
               <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="1.5">
                 <path d="M19 12H5" />
                 <polyline points="12 19 5 12 12 5" />
               </svg>
-              <span className="text-sm">{t('back', lang)}</span>
+              <span className="text-xs sm:text-sm">{t('back', lang)}</span>
             </button>
           )}
 
           {phase === 'spread-select' && (
             <div className="w-full max-w-5xl text-center">
-              <div className="mb-20">
+              <div className="mb-10 sm:mb-20">
                 <div className="animate-hero-title">
-                  <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-3" style={{
+                  <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-2 sm:mb-3" style={{
                     background: 'linear-gradient(135deg, #f1f5f9 0%, #c4b5fd 25%, #8b5cf6 50%, #22d3ee 75%, #f1f5f9 100%)',
                     backgroundSize: '200% 200%',
                     WebkitBackgroundClip: 'text',
@@ -560,12 +538,12 @@ export function Home() {
                     {t('heroLine1', lang)}
                   </h2>
                 </div>
-                <p className="animate-hero-sub text-lg md:text-xl text-gray-400 max-w-lg mx-auto font-light tracking-wide mb-4" style={{
+                <p className="animate-hero-sub text-sm sm:text-lg md:text-xl text-gray-400 max-w-lg mx-auto font-light tracking-wide mb-3 sm:mb-4" style={{
                   animationDelay: '0.3s',
                 }}>
                   {t('heroLine2', lang)}
                 </p>
-                <p className="animate-hero-sub text-2xl md:text-3xl font-semibold max-w-md mx-auto tracking-wide" style={{
+                <p className="animate-hero-sub text-lg sm:text-2xl md:text-3xl font-semibold max-w-md mx-auto tracking-wide" style={{
                   animationDelay: '0.5s',
                   background: 'linear-gradient(135deg, #c4b5fd 0%, #8b5cf6 50%, #22d3ee 100%)',
                   backgroundSize: '200% 200%',
@@ -578,10 +556,10 @@ export function Home() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+              <div className="grid grid-cols-2 gap-3 sm:gap-6 max-w-3xl mx-auto">
                 <button
                   onClick={() => handleSpreadChange('single')}
-                  className="group relative py-16 px-8 rounded-2xl transition-all duration-500 hover:scale-[1.03] animate-hero-card-1 overflow-hidden"
+                  className="group relative py-8 sm:py-16 px-4 sm:px-8 rounded-xl sm:rounded-2xl transition-all duration-500 hover:scale-[1.03] animate-hero-card-1 overflow-hidden"
                   style={{
                     background: 'rgba(255, 255, 255, 0.03)',
                     backdropFilter: 'blur(40px) saturate(1.5)',
@@ -597,8 +575,8 @@ export function Home() {
                     background: 'linear-gradient(90deg, transparent, rgba(196, 181, 253, 0.3), transparent)',
                   }} />
                   <div className="relative">
-                    <div className="h-24 mb-8 flex items-center justify-center">
-                      <svg viewBox="0 0 80 100" className="w-20 h-24 transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
+                    <div className="h-16 sm:h-24 mb-4 sm:mb-8 flex items-center justify-center">
+                      <svg viewBox="0 0 80 100" className="w-12 h-16 sm:w-20 sm:h-24 transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
                         <defs>
                           <linearGradient id="singleCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stopColor="#c4b5fd" />
@@ -621,14 +599,14 @@ export function Home() {
                         <line x1="40" y1="62" x2="40" y2="72" stroke="url(#singleCardGrad)" strokeWidth="0.5" opacity="0.4" />
                       </svg>
                     </div>
-                    <h3 className="text-xl font-semibold text-white/90 mb-2 tracking-wide">{t('singleCard', lang)}</h3>
-                    <p className="text-gray-500 text-sm font-light">{t('singleCardSub', lang)}</p>
+                    <h3 className="text-base sm:text-xl font-semibold text-white/90 mb-1 sm:mb-2 tracking-wide">{t('singleCard', lang)}</h3>
+                    <p className="text-gray-500 text-xs sm:text-sm font-light">{t('singleCardSub', lang)}</p>
                   </div>
                 </button>
 
                 <button
                   onClick={() => handleSpreadChange('three')}
-                  className="group relative py-16 px-8 rounded-2xl transition-all duration-500 hover:scale-[1.03] animate-hero-card-2 overflow-hidden"
+                  className="group relative py-8 sm:py-16 px-4 sm:px-8 rounded-xl sm:rounded-2xl transition-all duration-500 hover:scale-[1.03] animate-hero-card-2 overflow-hidden"
                   style={{
                     background: 'rgba(255, 255, 255, 0.03)',
                     backdropFilter: 'blur(40px) saturate(1.5)',
@@ -644,8 +622,8 @@ export function Home() {
                     background: 'linear-gradient(90deg, transparent, rgba(103, 232, 249, 0.3), transparent)',
                   }} />
                   <div className="relative">
-                    <div className="h-24 mb-8 flex items-center justify-center">
-                      <svg viewBox="0 0 100 100" className="w-24 h-24 transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
+                    <div className="h-16 sm:h-24 mb-4 sm:mb-8 flex items-center justify-center">
+                      <svg viewBox="0 0 100 100" className="w-16 h-16 sm:w-24 sm:h-24 transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
                         <defs>
                           <linearGradient id="threeCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stopColor="#22d3ee" />
@@ -670,8 +648,8 @@ export function Home() {
                         <line x1="53" y1="50" x2="62" y2="50" stroke="url(#threeCardGrad)" strokeWidth="0.5" opacity="0.5" />
                       </svg>
                     </div>
-                    <h3 className="text-xl font-semibold text-white/90 mb-2 tracking-wide">{t('threeCards', lang)}</h3>
-                    <p className="text-gray-500 text-sm font-light">{t('threeCardsSub', lang)}</p>
+                    <h3 className="text-base sm:text-xl font-semibold text-white/90 mb-1 sm:mb-2 tracking-wide">{t('threeCards', lang)}</h3>
+                    <p className="text-gray-500 text-xs sm:text-sm font-light">{t('threeCardsSub', lang)}</p>
                   </div>
                 </button>
               </div>
@@ -679,9 +657,9 @@ export function Home() {
           )}
 
           {phase === 'model-select' && (
-            <div className="w-full max-w-5xl">
-              <div className="text-center mb-14">
-                <h2 className="text-5xl md:text-6xl font-bold mb-6 tracking-tight" style={{
+            <div className="w-full max-w-5xl px-2 sm:px-0">
+              <div className="text-center mb-8 sm:mb-14">
+                <h2 className="text-3xl sm:text-5xl md:text-6xl font-bold mb-4 sm:mb-6 tracking-tight" style={{
                   background: 'linear-gradient(135deg, #f1f5f9 0%, #c4b5fd 30%, #8b5cf6 60%, #22d3ee 100%)',
                   backgroundSize: '200% 200%',
                   WebkitBackgroundClip: 'text',
@@ -695,12 +673,12 @@ export function Home() {
                 <p className="text-gray-500 font-light">{t('selectModelSub', lang)}</p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              <div className="grid grid-cols-3 gap-2 sm:gap-6 max-w-4xl mx-auto">
                 {(Object.keys(modelConfigs) as ModelType[]).map((type) => (
                   <button
                     key={type}
                     onClick={() => handleModelChange(type)}
-                    className="group relative py-12 px-6 rounded-2xl transition-all duration-500 hover:scale-[1.03] overflow-hidden"
+                    className="group relative py-6 sm:py-12 px-2 sm:px-6 rounded-xl sm:rounded-2xl transition-all duration-500 hover:scale-[1.03] overflow-hidden"
                     style={{
                       background: 'rgba(255, 255, 255, 0.03)',
                       backdropFilter: 'blur(40px) saturate(1.5)',
@@ -715,13 +693,13 @@ export function Home() {
                       background: 'linear-gradient(90deg, transparent, rgba(196, 181, 253, 0.25), transparent)',
                     }} />
                     <div className="relative">
-                      <div className="h-16 mb-6 flex items-center justify-center">
+                      <div className="h-10 sm:h-16 mb-3 sm:mb-6 flex items-center justify-center">
                         {modelConfigs[type].icon}
                       </div>
-                      <h3 className="text-lg font-semibold text-white/90 mb-3 text-center tracking-wide">{modelConfigs[type].name}</h3>
-                      <div className="space-y-1.5">
+                      <h3 className="text-sm sm:text-lg font-semibold text-white/90 mb-2 sm:mb-3 text-center tracking-wide">{modelConfigs[type].name}</h3>
+                      <div className="space-y-0.5 sm:space-y-1.5">
                         {modelConfigs[type].positions.map((pos, idx) => (
-                          <p key={idx} className="text-gray-500 text-xs text-center font-light">{pos}</p>
+                          <p key={idx} className="text-gray-500 text-[10px] sm:text-xs text-center font-light">{pos}</p>
                         ))}
                       </div>
                     </div>
