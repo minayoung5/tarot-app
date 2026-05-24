@@ -160,6 +160,20 @@ export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed,
           }`}
         />
       )}
+
+      {isFlipped && (
+        <div
+          className={`absolute top-2 left-1/2 -translate-x-1/2 z-20 px-3 py-1 backdrop-blur-xl rounded-full border shadow-lg animate-fade-in ${
+            isReversed
+              ? 'bg-rose-600/80 border-rose-400/40'
+              : 'bg-purple-600/80 border-purple-400/40'
+          } ${compact ? 'top-1' : ''}`}
+        >
+          <span className={`text-white font-semibold tracking-wider ${compact ? 'text-[10px]' : 'text-xs sm:text-sm'}`}>
+            {isReversed ? t('reversed', lang) : t('upright', lang)}
+          </span>
+        </div>
+      )}
     </div>
   );
 }
