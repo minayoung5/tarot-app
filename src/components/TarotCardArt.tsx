@@ -220,7 +220,7 @@ const majorSymbols: Record<string, string> = {
       <path d="M150,155 L170,175" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.55"/>
       <circle cx="150" cy="120" r="14" fill="none" stroke="COLOR" stroke-width="2" opacity="0.60"/>
       <circle cx="150" cy="120" r="10" fill="COLOR" opacity="0.20"/>
-      <rect x="135" y="220" width="30" height="40" rx="2" fill="COLOR" opacity="0.15" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
+      <rect x="135" y="220" width="30" height="40" rx="2" fill="COLOR" fill-opacity="0.15" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
       <path d="M140,230 L160,230" stroke="COLOR" stroke-width="1" opacity="0.45"/>
       <path d="M142,238 L158,238" stroke="COLOR" stroke-width="1" opacity="0.45"/>
       <path d="M144,246 L156,246" stroke="COLOR" stroke-width="1" opacity="0.45"/>
@@ -264,7 +264,7 @@ const majorSymbols: Record<string, string> = {
 
   '皇帝': `
     <g>
-      <rect x="90" y="180" width="120" height="140" rx="5" fill="COLOR" opacity="0.13" stroke="COLOR" stroke-width="2" opacity="0.55"/>
+      <rect x="90" y="180" width="120" height="140" rx="5" fill="COLOR" fill-opacity="0.13" stroke="COLOR" stroke-width="2" opacity="0.55"/>
       <path d="M90,180 L90,170 Q150,150 210,170 L210,180" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.60"/>
       <path d="M110,180 L105,165" stroke="COLOR" stroke-width="2" opacity="0.60"/>
       <path d="M105,165 Q108,158 112,165" fill="COLOR" opacity="0.45"/>
@@ -348,8 +348,8 @@ const majorSymbols: Record<string, string> = {
 
   '战车': `
     <g>
-      <rect x="100" y="180" width="100" height="70" rx="5" fill="COLOR" opacity="0.15" stroke="COLOR" stroke-width="2.5" opacity="0.60"/>
-      <path d="M100,180 Q150,150 200,180" fill="COLOR" opacity="0.13" stroke="COLOR" stroke-width="2" opacity="0.60"/>
+      <rect x="100" y="180" width="100" height="70" rx="5" fill="COLOR" fill-opacity="0.15" stroke="COLOR" stroke-width="2.5" opacity="0.60"/>
+      <path d="M100,180 Q150,150 200,180" fill="COLOR" fill-opacity="0.13" stroke="COLOR" stroke-width="2" opacity="0.60"/>
       <path d="M110,180 L110,160 L140,160 L140,180" fill="none" stroke="COLOR" stroke-width="2" opacity="0.55"/>
       <path d="M160,180 L160,160 L190,160 L190,180" fill="none" stroke="COLOR" stroke-width="2" opacity="0.55"/>
       <path d="M150,135 L150,180" stroke="COLOR" stroke-width="3" stroke-linecap="round" opacity="0.60"/>
@@ -408,7 +408,7 @@ const majorSymbols: Record<string, string> = {
     <g>
       <path d="M90,80 L100,60 L110,80" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.60"/>
       <path d="M95,80 L105,65 L115,80" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.45"/>
-      <path d="M80,100 Q100,85 120,100 Q100,115 80,100" fill="COLOR" opacity="0.20" stroke="COLOR" stroke-width="2" opacity="0.60"/>
+      <path d="M80,100 Q100,85 120,100 Q100,115 80,100" fill="COLOR" fill-opacity="0.20" stroke="COLOR" stroke-width="2" opacity="0.60"/>
       <path d="M80,100 L80,120 Q100,130 120,120 L120,100" fill="none" stroke="COLOR" stroke-width="2" opacity="0.55"/>
       <path d="M100,130 L100,250" stroke="COLOR" stroke-width="3" stroke-linecap="round" opacity="0.60"/>
       <path d="M100,170 L75,200" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.60"/>
@@ -417,7 +417,7 @@ const majorSymbols: Record<string, string> = {
       <path d="M70,220 L65,240 L75,235 L68,250" stroke="COLOR" stroke-width="2" opacity="0.55"/>
       <path d="M100,250 L85,290" stroke="COLOR" stroke-width="2.5" opacity="0.55"/>
       <path d="M100,250 L115,290" stroke="COLOR" stroke-width="2.5" opacity="0.55"/>
-      <rect x="120" y="180" width="14" height="20" rx="3" fill="COLOR" opacity="0.30" stroke="COLOR" stroke-width="1.5" opacity="0.60"/>
+      <rect x="120" y="180" width="14" height="20" rx="3" fill="COLOR" fill-opacity="0.30" stroke="COLOR" stroke-width="1.5" opacity="0.60"/>
       <circle cx="127" cy="175" r="6" fill="COLOR" opacity="0.45"/>
       <circle cx="127" cy="175" r="3" fill="COLOR" opacity="0.60"/>
       <path d="M127,169 L127,165" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
@@ -566,7 +566,7 @@ const majorSymbols: Record<string, string> = {
       <path d="M150,230 L125,270" stroke="COLOR" stroke-width="2.5" opacity="0.55"/>
       <path d="M150,230 L175,270" stroke="COLOR" stroke-width="2.5" opacity="0.55"/>
       <path d="M115,95 Q150,75 185,95 Q150,115 115,95 Z" fill="none" stroke="COLOR" stroke-width="2" opacity="0.55"/>
-      <polygon points="150,140 143,155 157,155" fill="COLOR" opacity="0.35" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
+      <polygon points="150,140 143,155 157,155" fill="COLOR" fill-opacity="0.35" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
       <path d="M100,170 L95,165 Q90,160 95,155 L100,150" fill="none" stroke="COLOR" stroke-width="2" opacity="0.60"/>
       <ellipse cx="95" cy="165" rx="10" ry="8" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
       <path d="M200,170 L205,165 Q210,160 205,155 L200,150" fill="none" stroke="COLOR" stroke-width="2" opacity="0.60"/>
@@ -613,9 +613,9 @@ const majorSymbols: Record<string, string> = {
 
   '高塔': `
     <g>
-      <rect x="120" y="120" width="60" height="200" fill="COLOR" opacity="0.13" stroke="COLOR" stroke-width="2.5" opacity="0.60"/>
+      <rect x="120" y="120" width="60" height="200" fill="COLOR" fill-opacity="0.13" stroke="COLOR" stroke-width="2.5" opacity="0.60"/>
       <rect x="125" y="125" width="50" height="195" fill="none" stroke="COLOR" stroke-width="1" opacity="0.30"/>
-      <path d="M115,120 L150,90 L185,120" fill="COLOR" opacity="0.15" stroke="COLOR" stroke-width="2.5" opacity="0.60"/>
+      <path d="M115,120 L150,90 L185,120" fill="COLOR" fill-opacity="0.15" stroke="COLOR" stroke-width="2.5" opacity="0.60"/>
       <rect x="140" y="140" width="20" height="25" rx="2" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
       <path d="M145,140 L150,135 L155,140" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
       <rect x="140" y="180" width="20" height="25" rx="2" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
@@ -664,7 +664,7 @@ const majorSymbols: Record<string, string> = {
       <path d="M120,250 Q115,275 108,300" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.45"/>
       <path d="M180,250 Q190,270 200,290" fill="none" stroke="COLOR" stroke-width="2" opacity="0.55"/>
       <path d="M180,250 Q185,275 192,300" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.45"/>
-      <ellipse cx="150" cy="310" rx="50" ry="15" fill="COLOR" opacity="0.13" stroke="COLOR" stroke-width="1.5" opacity="0.45"/>
+      <ellipse cx="150" cy="310" rx="50" ry="15" fill="COLOR" fill-opacity="0.13" stroke="COLOR" stroke-width="1.5" opacity="0.45"/>
       <path d="M100,310 Q110,305 120,310" fill="none" stroke="COLOR" stroke-width="1" opacity="0.30"/>
       <path d="M180,310 Q190,305 200,310" fill="none" stroke="COLOR" stroke-width="1" opacity="0.30"/>
       <path d="M80,280 L90,270 L95,275" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.45"/>
@@ -690,7 +690,7 @@ const majorSymbols: Record<string, string> = {
       <path d="M100,280 Q150,260 200,280" fill="none" stroke="COLOR" stroke-width="2" opacity="0.55"/>
       <path d="M110,290 Q150,270 190,290" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.45"/>
       <path d="M120,300 Q150,285 180,300" fill="none" stroke="COLOR" stroke-width="1" opacity="0.30"/>
-      <ellipse cx="150" cy="330" rx="30" ry="15" fill="COLOR" opacity="0.13" stroke="COLOR" stroke-width="1.5" opacity="0.45"/>
+      <ellipse cx="150" cy="330" rx="30" ry="15" fill="COLOR" fill-opacity="0.13" stroke="COLOR" stroke-width="1.5" opacity="0.45"/>
       <path d="M140,320 Q145,310 150,320 Q155,310 160,320" fill="none" stroke="COLOR" stroke-width="2" opacity="0.55"/>
       <circle cx="140" cy="318" r="2" fill="COLOR" opacity="0.45"/>
       <circle cx="160" cy="318" r="2" fill="COLOR" opacity="0.45"/>
@@ -752,8 +752,8 @@ const majorSymbols: Record<string, string> = {
       <path d="M180,170 L185,165 L190,180" stroke="COLOR" stroke-width="2.5" opacity="0.60"/>
       <path d="M110,180 L105,175 L100,185" stroke="COLOR" stroke-width="2" opacity="0.55"/>
       <path d="M190,180 L195,175 L200,185" stroke="COLOR" stroke-width="2" opacity="0.55"/>
-      <rect x="100" y="165" width="12" height="8" rx="1" fill="COLOR" opacity="0.30" stroke="COLOR" stroke-width="1" opacity="0.45"/>
-      <rect x="188" y="165" width="12" height="8" rx="1" fill="COLOR" opacity="0.30" stroke="COLOR" stroke-width="1" opacity="0.45"/>
+      <rect x="100" y="165" width="12" height="8" rx="1" fill="COLOR" fill-opacity="0.30" stroke="COLOR" stroke-width="1" opacity="0.45"/>
+      <rect x="188" y="165" width="12" height="8" rx="1" fill="COLOR" fill-opacity="0.30" stroke="COLOR" stroke-width="1" opacity="0.45"/>
       <path d="M100,185 L95,180" stroke="COLOR" stroke-width="1.5" opacity="0.45"/>
       <path d="M200,185 L205,180" stroke="COLOR" stroke-width="1.5" opacity="0.45"/>
       <rect x="90" y="260" width="35" height="50" rx="3" fill="none" stroke="COLOR" stroke-width="2" opacity="0.55"/>
@@ -827,8 +827,8 @@ const courtSymbols: Record<string, string> = {
       <path d="M150,250 L170,290" stroke="COLOR" stroke-width="2.5" opacity="0.55"/>
       <path d="M115,220 L105,215" stroke="COLOR" stroke-width="2" opacity="0.5"/>
       <path d="M185,220 L195,215" stroke="COLOR" stroke-width="2" opacity="0.5"/>
-      <rect x="100" y="210" width="12" height="16" rx="2" fill="COLOR" opacity="0.15" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
-      <rect x="188" y="210" width="12" height="16" rx="2" fill="COLOR" opacity="0.15" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
+      <rect x="100" y="210" width="12" height="16" rx="2" fill="COLOR" fill-opacity="0.15" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
+      <rect x="188" y="210" width="12" height="16" rx="2" fill="COLOR" fill-opacity="0.15" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
     </g>`,
 
   '骑士': `
@@ -854,7 +854,7 @@ const courtSymbols: Record<string, string> = {
       <path d="M150,175 L175,195" stroke="COLOR" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
       <path d="M125,195 L118,215" stroke="COLOR" stroke-width="2.5" opacity="0.6"/>
       <path d="M175,195 L182,215" stroke="COLOR" stroke-width="2.5" opacity="0.6"/>
-      <rect x="135" y="190" width="30" height="25" rx="3" fill="COLOR" opacity="0.12" stroke="COLOR" stroke-width="2" opacity="0.6"/>
+      <rect x="135" y="190" width="30" height="25" rx="3" fill="COLOR" fill-opacity="0.12" stroke="COLOR" stroke-width="2" opacity="0.6"/>
       <path d="M175,155 L195,120 L200,115" stroke="COLOR" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
       <path d="M195,120 L190,118 L200,115 L198,125" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.7"/>
       <line x1="193" y1="140" x2="180" y2="143" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
@@ -885,26 +885,27 @@ const courtSymbols: Record<string, string> = {
 
   '国王': `
     <g>
-      <rect x="110" y="180" width="80" height="100" rx="4" fill="COLOR" opacity="0.12" stroke="COLOR" stroke-width="2.5" opacity="0.55"/>
-      <path d="M110,180 L110,170 Q150,150 190,170 L190,180" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.7"/>
-      <path d="M110,280 L100,300" stroke="COLOR" stroke-width="2.5" opacity="0.55"/>
-      <path d="M190,280 L200,300" stroke="COLOR" stroke-width="2.5" opacity="0.55"/>
-      <path d="M150,130 L150,180" stroke="COLOR" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
-      <path d="M150,160 L125,180" stroke="COLOR" stroke-width="2.5" opacity="0.65"/>
-      <path d="M150,160 L175,180" stroke="COLOR" stroke-width="2.5" opacity="0.65"/>
-      <circle cx="150" cy="118" r="16" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.7"/>
-      <path d="M138,110 L143,90 L148,105 L150,85 L152,105 L157,90 L162,110" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.7"/>
-      <path d="M125,180 L120,200" stroke="COLOR" stroke-width="2" opacity="0.55"/>
-      <path d="M175,180 L180,200" stroke="COLOR" stroke-width="2" opacity="0.55"/>
-      <circle cx="120" cy="195" r="4" fill="COLOR" opacity="0.45"/>
-      <circle cx="180" cy="195" r="4" fill="COLOR" opacity="0.45"/>
-      <path d="M140,220 L160,220" stroke="COLOR" stroke-width="2" opacity="0.45"/>
-      <path d="M150,220 L150,250" stroke="COLOR" stroke-width="2" opacity="0.45"/>
-      <line x1="135" y1="250" x2="165" y2="250" stroke="COLOR" stroke-width="2" opacity="0.45"/>
-      <path d="M100,300 L90,310" stroke="COLOR" stroke-width="2" opacity="0.45"/>
-      <path d="M200,300 L210,310" stroke="COLOR" stroke-width="2" opacity="0.45"/>
-      <rect x="85" y="310" width="20" height="8" rx="1" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.45"/>
-      <rect x="195" y="310" width="20" height="8" rx="1" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.45"/>
+      <rect x="110" y="175" width="80" height="100" rx="4" fill="COLOR" opacity="0.12" stroke="COLOR" stroke-width="2.5"/>
+      <path d="M110,175 L110,165 Q150,145 190,165 L190,175" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.7"/>
+      <path d="M110,275 L105,290" stroke="COLOR" stroke-width="2.5" opacity="0.6"/>
+      <path d="M190,275 L195,290" stroke="COLOR" stroke-width="2.5" opacity="0.6"/>
+      <path d="M150,125 L150,175" stroke="COLOR" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+      <path d="M150,155 L125,175" stroke="COLOR" stroke-width="2.5" opacity="0.7"/>
+      <path d="M150,155 L175,175" stroke="COLOR" stroke-width="2.5" opacity="0.7"/>
+      <circle cx="150" cy="112" r="16" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.75"/>
+      <circle cx="150" cy="112" r="12" fill="COLOR" opacity="0.15"/>
+      <path d="M138,104 L143,84 L148,99 L150,79 L152,99 L157,84 L162,104" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.75"/>
+      <path d="M125,175 L120,195" stroke="COLOR" stroke-width="2" opacity="0.6"/>
+      <path d="M175,175 L180,195" stroke="COLOR" stroke-width="2" opacity="0.6"/>
+      <circle cx="120" cy="190" r="4" fill="COLOR" opacity="0.5"/>
+      <circle cx="180" cy="190" r="4" fill="COLOR" opacity="0.5"/>
+      <path d="M140,215 L160,215" stroke="COLOR" stroke-width="2" opacity="0.5"/>
+      <path d="M150,215 L150,245" stroke="COLOR" stroke-width="2" opacity="0.5"/>
+      <line x1="135" y1="245" x2="165" y2="245" stroke="COLOR" stroke-width="2" opacity="0.5"/>
+      <path d="M105,290 L98,295" stroke="COLOR" stroke-width="2" opacity="0.5"/>
+      <path d="M195,290 L202,295" stroke="COLOR" stroke-width="2" opacity="0.5"/>
+      <rect x="92" y="293" width="16" height="6" rx="1" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.5"/>
+      <rect x="192" y="293" width="16" height="6" rx="1" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.5"/>
     </g>`,
 };
 
@@ -957,8 +958,8 @@ export function TarotCardArt({ card }: TarotCardArtProps) {
       const courtSvg = (courtSymbols[courtKey] || '').replace(/COLOR/g, colors.primary);
       centralContent = courtSvg;
       if (drawFn) {
-        centralContent += drawFn(100, 310, 0.55);
-        centralContent += drawFn(200, 310, 0.55);
+        centralContent += drawFn(80, 340, 0.5);
+        centralContent += drawFn(220, 340, 0.5);
       }
       topContent = `<text x="150" y="42" text-anchor="middle" font-size="14" fill="${colors.accent}" font-weight="300" letter-spacing="3" opacity="0.7">${card.name.replace(courtKey, '').trim()}</text>`;
     } else {
