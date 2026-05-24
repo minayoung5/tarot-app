@@ -1240,9 +1240,9 @@ export function Home() {
                   <div className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{
                     background: 'linear-gradient(90deg, transparent, rgba(196, 181, 253, 0.3), transparent)',
                   }} />
-                  <div className="relative">
-                    <div className="h-18 sm:h-24 mb-5 sm:mb-8 flex items-center justify-center">
-                      <svg viewBox="0 0 80 100" className="w-14 h-18 sm:w-20 sm:h-24 transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
+                  <div className="relative flex flex-col items-center">
+                    <div className="w-16 h-20 sm:w-20 sm:h-24 mb-5 sm:mb-8 flex items-center justify-center">
+                      <svg viewBox="0 0 80 100" className="w-full h-full transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
                         <defs>
                           <linearGradient id="singleCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stopColor="#c4b5fd" />
@@ -1287,9 +1287,9 @@ export function Home() {
                   <div className="absolute top-0 left-0 right-0 h-px opacity-0 group-hover:opacity-100 transition-opacity duration-700" style={{
                     background: 'linear-gradient(90deg, transparent, rgba(103, 232, 249, 0.3), transparent)',
                   }} />
-                  <div className="relative">
-                    <div className="h-18 sm:h-24 mb-5 sm:mb-8 flex items-center justify-center">
-                      <svg viewBox="0 0 100 100" className="w-18 h-18 sm:w-24 sm:h-24 transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
+                  <div className="relative flex flex-col items-center">
+                    <div className="w-16 h-20 sm:w-20 sm:h-24 mb-5 sm:mb-8 flex items-center justify-center">
+                      <svg viewBox="0 0 100 100" className="w-full h-full transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
                         <defs>
                           <linearGradient id="threeCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stopColor="#22d3ee" />
