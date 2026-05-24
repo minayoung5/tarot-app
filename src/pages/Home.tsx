@@ -777,19 +777,73 @@ export function Home() {
 
       const mainReading = relevantKeywords.map(buildReading).join('。');
 
-      const positionContext = position ? `在「${position}」的位置上，` : '';
+      if (modelType === 'relationship') {
+        return interpretRelationshipCard(card, isReversed, position, relevantKeywords, mainReading, suitIntro);
+      }
 
       if (style === 'gentle') {
         if (isReversed) {
-          return `${positionContext}${card.name}以逆位出现。${suitIntro}${mainReading}。这并不意味着坏事，而是提醒你——现在的状态需要一些调整。给自己一点时间和耐心，事情会慢慢好转的。`;
+          return `${positionLabel}${card.name}以逆位出现。${suitIntro}${mainReading}。这并不意味着坏事，而是提醒你——现在的状态需要一些调整。给自己一点时间和耐心，事情会慢慢好转的。`;
         } else {
-          return `${positionContext}${card.name}以正位出现，带来了积极的能量。${suitIntro}${mainReading}。这是一个好的信号，相信自己的感受，顺着这股能量前行吧。`;
+          return `${positionLabel}${card.name}以正位出现，带来了积极的能量。${suitIntro}${mainReading}。这是一个好的信号，相信自己的感受，顺着这股能量前行吧。`;
         }
       } else {
         if (isReversed) {
-          return `${positionContext}${card.name}逆位。${suitIntro}${mainReading}。别再骗自己了，正视问题才能解决问题。`;
+          return `${positionLabel}${card.name}逆位。${suitIntro}${mainReading}。别再骗自己了，正视问题才能解决问题。`;
         } else {
-          return `${positionContext}${card.name}正位。${suitIntro}${mainReading}。机会就在眼前，别犹豫了。`;
+          return `${positionLabel}${card.name}正位。${suitIntro}${mainReading}。机会就在眼前，别犹豫了。`;
+        }
+      }
+    };
+
+    const interpretRelationshipCard = (
+      card: TarotCard, isReversed: boolean, position: string,
+      keywords: string[], mainReading: string, suitIntro: string
+    ): string => {
+      const kw = keywords.join('、');
+      const posIndex = positions.indexOf(position);
+
+      if (posIndex === 0) {
+        if (style === 'gentle') {
+          if (isReversed) {
+            return `在「你的状态」的位置上，${card.name}逆位出现。${suitIntro}在这段关系中，你目前的状态是${kw}。也许你正在经历一些内心的挣扎，或者你的付出方式需要调整。这不是说你做错了什么，而是提醒你——先照顾好自己的感受，才能更好地面对这段关系。`;
+          } else {
+            return `在「你的状态」的位置上，${card.name}正位出现。${suitIntro}在这段关系中，你目前的状态是${kw}。你对这段感情有着真实的投入和期待，${mainReading}。这份能量是真诚的，但也要注意不要过度消耗自己。`;
+          }
+        } else {
+          if (isReversed) {
+            return `在「你的状态」的位置上，${card.name}逆位。${suitIntro}你现在${kw}。别再自欺欺人了，你在关系中的状态并不健康。要么你太被动，要么你在逃避真正的问题。`;
+          } else {
+            return `在「你的状态」的位置上，${card.name}正位。${suitIntro}你现在的状态是${kw}。你的感受是真实的，但光有感受不够，得看看对方什么情况。`;
+          }
+        }
+      } else if (posIndex === 1) {
+        if (style === 'gentle') {
+          if (isReversed) {
+            return `在「对方状态」的位置上，${card.name}逆位出现。${suitIntro}对方目前的状态是${kw}。对方可能正在经历一些内心的矛盾或隐藏的情绪，也许他/她并没有完全向你敞开心扉。这不一定是恶意的，有时候人需要时间来面对自己的真实感受。`;
+          } else {
+            return `在「对方状态」的位置上，${card.name}正位出现。${suitIntro}对方目前的状态是${kw}。${mainReading}。对方对这段关系有着自己的态度和立场，理解他/她的真实想法，是你们沟通的关键。`;
+          }
+        } else {
+          if (isReversed) {
+            return `在「对方状态」的位置上，${card.name}逆位。${suitIntro}对方现在${kw}。他/她心里有事没说，或者在逃避什么。别替对方找借口了，看清现实。`;
+          } else {
+            return `在「对方状态」的位置上，${card.name}正位。${suitIntro}对方的状态是${kw}。他/她有自己的想法，但未必和你一致。别光看你想看的。`;
+          }
+        }
+      } else {
+        if (style === 'gentle') {
+          if (isReversed) {
+            return `在「关系动态」的位置上，${card.name}逆位出现。${suitIntro}你们的关系目前呈现出${kw}的状态。这段关系可能正处于一个需要调整的阶段，但这并不意味着结束。有时候，暂时的停滞是为了更好地重新出发。`;
+          } else {
+            return `在「关系动态」的位置上，${card.name}正位出现。${suitIntro}你们的关系目前呈现出${kw}的能量。${mainReading}。这段关系有着它独特的节奏和方向，顺应这个能量去理解彼此，会比强求更有效。`;
+          }
+        } else {
+          if (isReversed) {
+            return `在「关系动态」的位置上，${card.name}逆位。${suitIntro}你们的关系${kw}。别美化现状了，这段关系现在有问题。不面对就永远解决不了。`;
+          } else {
+            return `在「关系动态」的位置上，${card.name}正位。${suitIntro}关系动态是${kw}。能量在这里，但能不能用好，看你们自己。`;
+          }
         }
       }
     };
@@ -802,6 +856,101 @@ export function Home() {
       return 'neutral';
     };
 
+    const generateRelationshipSummary = (
+      tendency: string, isYesNoQuestion: boolean, cardNames: string, uniqueKeywords: string[]
+    ): string => {
+      const yourCard = cards[0];
+      const theirCard = cards[1];
+      const relCard = cards[2];
+      const yourKw = pickRelevantKeywords(getCardKeywords(yourCard.card, yourCard.isReversed), themes).slice(0, 2).join('、');
+      const theirKw = pickRelevantKeywords(getCardKeywords(theirCard.card, theirCard.isReversed), themes).slice(0, 2).join('、');
+      const relKw = pickRelevantKeywords(getCardKeywords(relCard.card, relCard.isReversed), themes).slice(0, 2).join('、');
+
+      const isBreakupQ = /分手|离婚|分开|复合|挽回|前任|和好/.test(question);
+      const isFutureQ = /未来|发展|结果|走向|会不会/.test(question);
+      const isShouldQ = /该不该|要不要|是否|应该/.test(question);
+
+      if (style === 'gentle') {
+        if (tendency === 'positive') {
+          let s = `综合三张牌的能量来看，你目前${yourKw}，对方${theirKw}，你们的关系动态是${relKw}。`;
+          s += '整体而言，这段关系中仍然有着积极的能量在流动。';
+          if (isBreakupQ) {
+            s += '关于你们能否和好——牌面显示可能性是存在的，但需要双方都愿意面对之前的问题。和好不是回到过去，而是以新的方式重新开始。';
+          } else if (isFutureQ) {
+            s += '这段关系的发展方向是积极的，但需要你们双方持续地投入和理解。好的关系不是等来的，是一起经营出来的。';
+          } else if (isShouldQ) {
+            s += '我的建议是：可以尝试。但请记住，好的结果需要好的方式去实现。用真诚和耐心去面对，比急于求成更有效。';
+          } else {
+            s += '相信你们之间的连接，但也要保持清醒。感情需要两个人的共同努力，先做好自己能做的部分。';
+          }
+          return s;
+        } else if (tendency === 'negative') {
+          let s = `综合三张牌的能量来看，你目前${yourKw}，对方${theirKw}，你们的关系动态是${relKw}。`;
+          s += '目前这段关系确实面临着一些挑战和困难。';
+          if (isBreakupQ) {
+            s += '关于能否和好——现在的时机可能还不够成熟。双方都还需要时间去消化和成长。不要急于求一个结果，有时候等待本身就是一种答案。';
+          } else if (isFutureQ) {
+            s += '这段关系目前可能处于一个低谷期，但低谷不代表终点。给自己和对方一些空间，当双方都准备好面对的时候，转机自然会出现。';
+          } else if (isShouldQ) {
+            s += '我的建议是：暂时放一放。现在不是做重大决定的好时机，先把自己的状态调整好，再来看这段关系值不值得继续。';
+          } else {
+            s += '现在最重要的是照顾好自己。不要为了维系关系而委屈自己，真正好的关系不会让你一直感到疲惫。';
+          }
+          return s;
+        } else {
+          let s = `综合三张牌的能量来看，你${yourKw}，对方${theirKw}，关系动态${relKw}。正逆位交织，说明这段关系正处于一个不确定的阶段。`;
+          if (isBreakupQ) {
+            s += '能否和好，目前还没有一个明确的答案。关键在于你们双方是否都还有继续的意愿，以及是否愿意为之前的问题做出改变。';
+          } else if (isFutureQ) {
+            s += '关系的走向还在变化中，不要太早下结论。保持开放的心态，同时也要保护好自己的感受。';
+          } else if (isShouldQ) {
+            s += '我的建议是：不急于做决定。给自己一些时间观察，当答案足够清晰的时候，你自然会知道该怎么做。';
+          } else {
+            s += '这段关系需要更多的沟通和理解。不要猜测对方的想法，试着真诚地表达自己的感受，也倾听对方的声音。';
+          }
+          return s;
+        }
+      } else {
+        if (tendency === 'positive') {
+          let s = `${yourKw}、${theirKw}、${relKw}——能量整体偏正。`;
+          if (isBreakupQ) {
+            s += '能和好，但前提是你们都愿意面对之前的问题。和好不是假装什么都没发生，是真正解决问题。做不到就别浪费彼此时间。';
+          } else if (isFutureQ) {
+            s += '关系有戏，但别躺着等。好的关系是经营出来的，不是等来的。';
+          } else if (isShouldQ) {
+            s += '可以去做，但别冲动。想清楚了再行动，别到时候后悔。';
+          } else {
+            s += '有机会，但别掉以轻心。感情这东西，不进则退。';
+          }
+          return s;
+        } else if (tendency === 'negative') {
+          let s = `${yourKw}、${theirKw}、${relKw}——信号不太好。`;
+          if (isBreakupQ) {
+            s += '现在和不了。双方都没准备好，硬凑在一起只会更痛苦。先把自己搞好再说。';
+          } else if (isFutureQ) {
+            s += '关系在走下坡路，别装看不见。要么正视问题，要么趁早止损。';
+          } else if (isShouldQ) {
+            s += '不建议。现在不是时候，别硬撑。';
+          } else {
+            s += '这段关系在消耗你。先想清楚自己想要什么，别被感情冲昏头。';
+          }
+          return s;
+        } else {
+          let s = `${yourKw}、${theirKw}、${relKw}——正逆参半，看不透。`;
+          if (isBreakupQ) {
+            s += '不确定能不能和好。关键看你们俩到底还想不想在一起，光想没用，得行动。';
+          } else if (isFutureQ) {
+            s += '走向不明，别急着下结论。再看看，时间会给你答案。';
+          } else if (isShouldQ) {
+            s += '先别做决定。等等看，别冲动。';
+          } else {
+            s += '你们之间有话没说开。别猜了，直接谈。';
+          }
+          return s;
+        }
+      }
+    };
+
     const generateSummary = () => {
       const tendency = calculateOverallTendency();
       const isYesNoQuestion = /吗|是否|该不该|要不要|能不能|会不会/.test(question);
@@ -809,6 +958,10 @@ export function Home() {
       const cardNames = cards.map(c => `${c.card.name}${c.isReversed ? '（逆位）' : '（正位）'}`).join('、');
       const allKeywords = cards.flatMap(c => pickRelevantKeywords(getCardKeywords(c.card, c.isReversed), themes));
       const uniqueKeywords = [...new Set(allKeywords)].slice(0, 5);
+
+      if (modelType === 'relationship') {
+        return generateRelationshipSummary(tendency, isYesNoQuestion, cardNames, uniqueKeywords);
+      }
 
       let summary = '';
 
