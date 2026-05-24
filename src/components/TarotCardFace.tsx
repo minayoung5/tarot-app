@@ -1,5 +1,6 @@
 import type { TarotCard } from '../data/tarotCards';
 import { type Lang, t } from '../i18n';
+import { TarotCardArt } from './TarotCardArt';
 
 interface TarotCardFaceProps {
   card: TarotCard;
@@ -24,12 +25,12 @@ export function TarotCardFace({ card, isReversed, position, lang, size = 'full' 
   if (size === 'compact') {
     return (
       <div className="relative h-full rounded-2xl overflow-hidden border border-white/10">
-        <img
-          src={card.image}
-          alt={card.name}
-          className="w-full h-full object-cover"
+        <div
+          className="w-full h-full"
           style={{ transform: isReversed ? 'rotate(180deg)' : 'rotate(0deg)' }}
-        />
+        >
+          <TarotCardArt card={card} />
+        </div>
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-transparent" />
         <div className={`absolute inset-0 ${overlayGradient}`} />
 
@@ -53,11 +54,7 @@ export function TarotCardFace({ card, isReversed, position, lang, size = 'full' 
       style={{ transform: isReversed ? 'rotate(180deg)' : 'rotate(0deg)' }}
     >
       <div className="flex-1 relative">
-        <img
-          src={card.image}
-          alt={card.name}
-          className="w-full h-full object-cover"
-        />
+        <TarotCardArt card={card} />
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-transparent" />
         <div className={`absolute inset-0 ${overlayGradient}`} />
 
