@@ -5,7 +5,7 @@ import { traeBadgePlugin } from 'vite-plugin-trae-solo-badge';
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/tarot-app/',
+  base: process.env.NODE_ENV === 'production' ? '/tarot-app/' : '/',
   build: {
     sourcemap: 'hidden',
   },
