@@ -1529,8 +1529,231 @@ export function Home() {
       return summary;
     };
 
+    const generateDecisionReading = (
+      decisionCards: Array<{ card: TarotCard; isReversed: boolean }>,
+      decisionPositions: string[],
+      decisionQuestion: string,
+      decisionStyle: 'gentle' | 'direct'
+    ): string => {
+      const goodCards = ['太阳', '星星', '世界', '愚者', '魔术师', '女皇', '命运之轮', '战车', '力量', '节制', '审判',
+        '权杖六', '权杖九', '圣杯二', '圣杯三', '圣杯十', '星币三', '星币十', '星币九', '宝剑一'];
+      const badCards = ['高塔', '死神', '恶魔', '月亮', '宝剑十', '宝剑三', '宝剑九', '宝剑七', '宝剑五',
+        '圣杯五', '圣杯七', '权杖十', '权杖七', '星币五'];
+      const neutralCards = ['正义', '隐士', '倒吊人', '教皇', '恋人', '皇帝', '女祭司'];
+
+      const getCardTendency = (card: TarotCard, isReversed: boolean): 'good' | 'neutral' | 'bad' => {
+        if (goodCards.includes(card.name)) {
+          return isReversed ? 'neutral' : 'good';
+        }
+        if (badCards.includes(card.name)) {
+          return isReversed ? 'good' : 'bad';
+        }
+        if (neutralCards.includes(card.name)) {
+          return isReversed ? 'bad' : 'neutral';
+        }
+        if (card.type === 'minor') {
+          if (isReversed) return 'bad';
+          const suit = card.suit;
+          const num = card.number || 1;
+          if (suit === 'wands' || suit === 'pentacles') {
+            return num >= 7 ? 'good' : num >= 4 ? 'neutral' : 'good';
+          }
+          if (suit === 'cups') {
+            return num >= 8 ? 'good' : num >= 4 ? 'neutral' : 'good';
+          }
+          if (suit === 'swords') {
+            return num >= 7 ? 'bad' : num >= 4 ? 'neutral' : 'good';
+          }
+        }
+        return isReversed ? 'bad' : 'neutral';
+      };
+
+      const getElement = (card: TarotCard): string => {
+        if (card.element) return card.element;
+        const suitElementMap: Record<string, string> = { wands: '火', cups: '水', swords: '风', pentacles: '土' };
+        return suitElementMap[card.suit || ''] || '风';
+      };
+
+      const tendencies = decisionCards.map(c => getCardTendency(c.card, c.isReversed));
+      const elements = decisionCards.map(c => getElement(c.card));
+
+      const sameElementCount: Record<string, number> = {};
+      elements.forEach(e => { sameElementCount[e] = (sameElementCount[e] || 0) + 1; });
+      const dominantElement = Object.entries(sameElementCount).sort((a, b) => b[1] - a[1])[0];
+
+      const majorCount = decisionCards.filter(c => c.card.type === 'major').length;
+
+      const resultTendency = tendencies[2];
+      const actionTendency = tendencies[1];
+      const situationTendency = tendencies[0];
+
+      let overallScore = 0;
+      tendencies.forEach((t, i) => {
+        const weight = i === 2 ? 3 : i === 1 ? 2 : 1;
+        if (t === 'good') overallScore += weight;
+        if (t === 'bad') overallScore -= weight;
+      });
+      if (majorCount >= 2) overallScore = Math.round(overallScore * 1.3);
+
+      const overallVerdict: 'good' | 'bad' | 'mixed' =
+        overallScore >= 3 ? 'good' : overallScore <= -3 ? 'bad' : 'mixed';
+
+      const positionLabels = ['现状', '行动', '结果'];
+
+      let result = '';
+
+      decisionCards.forEach((item, index) => {
+        const card = item.card;
+        const isReversed = item.isReversed;
+        const position = decisionPositions[index] || positionLabels[index];
+        const tendency = tendencies[index];
+        const keywords = pickRelevantKeywords(getCardKeywords(card, isReversed), themes);
+        const kw = keywords.slice(0, 3).join('、');
+        const suitIntro = card.suit ? '' : '';
+        const tendencyLabel = tendency === 'good' ? '积极' : tendency === 'bad' ? '挑战' : '需权衡';
+
+        let reading = '';
+
+        if (decisionStyle === 'gentle') {
+          if (index === 0) {
+            if (tendency === 'good') {
+              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——这说明你当前的处境是有利的，外部条件在支持你。`;
+            } else if (tendency === 'bad') {
+              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——这意味着你目前的处境确实有些困难，但认清现状本身就是做出正确决策的第一步。`;
+            } else {
+              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——现状并非非黑即白，有些条件对你有利，有些需要你留心。`;
+            }
+          } else if (index === 1) {
+            if (tendency === 'good') {
+              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——建议你采取的行动方向是明确的，大胆去做。`;
+            } else if (tendency === 'bad') {
+              if (isReversed && badCards.includes(card.name)) {
+                reading = `在「${position}」的位置上，${card.name}逆位出现。虽然这张牌本身代表困难，但逆位意味着最坏的情况正在过去。${kw}——建议你趁这个转机，调整行动方向。`;
+              } else {
+                reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——这意味着你计划中的行动方式可能需要调整，不要硬碰硬。`;
+              }
+            } else {
+              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——行动上需要你权衡利弊，不急不躁地推进。`;
+            }
+          } else {
+            if (tendency === 'good') {
+              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——结果牌给出了积极的信号，这个决策的前景是看好的。`;
+            } else if (tendency === 'bad') {
+              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——结果牌提示了风险，这个决策可能不会如你预期的那样顺利。但这不代表没有出路，可能需要换一种方式。`;
+            } else {
+              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——结果还在两可之间，最终走向取决于你的行动质量。`;
+            }
+          }
+        } else {
+          if (index === 0) {
+            reading = `「${position}」：${card.name}${isReversed ? '逆位' : '正位'}，${tendencyLabel}。${kw}。`;
+          } else if (index === 1) {
+            if (isReversed && badCards.includes(card.name)) {
+              reading = `「${position}」：${card.name}逆位——坏牌逆位，最坏已过。${kw}。调整行动方向，别再走老路。`;
+            } else {
+              reading = `「${position}」：${card.name}${isReversed ? '逆位' : '正位'}，${tendencyLabel}。${kw}。`;
+            }
+          } else {
+            reading = `「${position}」：${card.name}${isReversed ? '逆位' : '正位'}，${tendencyLabel}。${kw}。`;
+          }
+        }
+
+        result += `【${position}】\n${reading}\n\n`;
+      });
+
+      result += '---\n\n';
+
+      const elementInsight = dominantElement[1] >= 2
+        ? `三张牌中有${dominantElement[1]}张${dominantElement[0]}元素，能量非常聚焦。${
+            dominantElement[0] === '火' ? '火元素主导意味着冲动和热情，注意别让情绪替你做决定。' :
+            dominantElement[0] === '水' ? '水元素主导意味着情感驱动强烈，决策可能不够理性。' :
+            dominantElement[0] === '风' ? '风元素主导意味着过度依赖理性分析，可能忽略了直觉和感受。' :
+            '土元素主导意味着务实稳重，但可能过于保守，错失机会。'
+          }`
+        : '';
+
+      const majorInsight = majorCount >= 2
+        ? `三张牌中有${majorCount}张大阿卡纳，说明这个决策对你的人生影响深远，不是小事。`
+        : '';
+
+      const isYesNoQuestion = /吗|是否|该不该|要不要|能不能|会不会/.test(decisionQuestion);
+
+      if (decisionStyle === 'gentle') {
+        result += `【综合指引】\n`;
+        if (elementInsight) result += elementInsight + '\n\n';
+        if (majorInsight) result += majorInsight + '\n\n';
+
+        if (overallVerdict === 'good') {
+          result += `综合三张牌来看，结果牌的权重最大，而结果牌倾向积极。`;
+          if (tendencies[0] === 'bad' || tendencies[1] === 'bad') {
+            result += `虽然前路有些波折，但终点是好的。建议你行动时多留个心眼，但不必因为这个决策而犹豫。`;
+          } else {
+            result += `整体信号是支持你做这个决策的。`;
+          }
+          if (isYesNoQuestion) result += `我的建议是：可以去做，但保持觉察。`;
+        } else if (overallVerdict === 'bad') {
+          result += `综合三张牌来看，整体倾向偏负面，尤其是结果牌不太理想。`;
+          if (tendencies[2] === 'bad' && !decisionCards[2].isReversed && badCards.includes(decisionCards[2].card.name)) {
+            result += `结果牌是${decisionCards[2].card.name}，这是一个比较强烈的警告信号。建议你慎重考虑，或者换一种完全不同的方式去推进。`;
+          } else {
+            result += `这不代表完全没有希望，但建议你先解决当前的问题，再考虑推进这个决策。`;
+          }
+          if (isYesNoQuestion) result += `我的建议是：暂时不要，或者换一种方式。`;
+        } else {
+          result += `综合三张牌来看，好坏参半，这个决策本身就是两难选择。`;
+          result += `塔罗不是直接告诉你"做还是不做"，而是帮你看清每个选项的后果。`;
+          if (resultTendency === 'good') {
+            result += `不过，结果牌倾向积极，说明如果你行动得当，前景是可以期待的。`;
+          } else if (resultTendency === 'bad') {
+            result += `但结果牌提示了风险，你需要更清晰地评估可能的代价。`;
+          } else {
+            result += `最终走向取决于你如何行动。建议你列出每个选项的长期后果，再做决定。`;
+          }
+          if (isYesNoQuestion) result += `不急着做决定，再观察一下。`;
+        }
+      } else {
+        result += `【综合指引】\n`;
+        if (elementInsight) result += elementInsight + '\n\n';
+        if (majorInsight) result += majorInsight + '\n\n';
+
+        if (overallVerdict === 'good') {
+          result += `结果牌权重最大，倾向积极。`;
+          if (tendencies[0] === 'bad' || tendencies[1] === 'bad') {
+            result += `前面有坑，但终点没问题。注意行动方式就行。`;
+          } else {
+            result += `整体可行。`;
+          }
+          if (isYesNoQuestion) result += `答案：可以。`;
+        } else if (overallVerdict === 'bad') {
+          result += `整体偏负面。`;
+          if (tendencies[2] === 'bad' && !decisionCards[2].isReversed && badCards.includes(decisionCards[2].card.name)) {
+            result += `结果牌${decisionCards[2].card.name}是强烈警告。别硬上，换个方式或者先退一步。`;
+          } else {
+            result += `风险大于收益，建议暂缓。`;
+          }
+          if (isYesNoQuestion) result += `答案：不建议。`;
+        } else {
+          result += `好坏参半，两难选择。`;
+          if (resultTendency === 'good') {
+            result += `但结果牌偏正，行动得当的话可以做。`;
+          } else if (resultTendency === 'bad') {
+            result += `结果牌偏负，代价可能不小。`;
+          } else {
+            result += `自己权衡，别指望塔罗替你做决定。`;
+          }
+          if (isYesNoQuestion) result += `信号不明确，再想想。`;
+        }
+      }
+
+      return result;
+    };
+
     if (cards.length === 1) {
       return interpretCard(cards[0].card, cards[0].isReversed, '', question);
+    }
+
+    if (modelType === 'decision' && cards.length === 3) {
+      return generateDecisionReading(cards, positions, question, style);
     }
 
     let result = '';
