@@ -1590,7 +1590,7 @@ export function Home() {
       localStorage.setItem('tarot-history', JSON.stringify(updatedHistory));
 
       setPhase('result');
-    }, 2000);
+    }, 300);
   };
 
   const handleReset = () => {
