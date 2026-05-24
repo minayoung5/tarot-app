@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useId } from 'react';
 import type { TarotCard } from '../data/tarotCards';
 import { type Lang, t } from '../i18n';
 import { TarotCardFace } from './TarotCardFace';
@@ -15,8 +15,70 @@ interface FlipCardProps {
   compact?: boolean;
 }
 
+function CardBack({ uniqueId, compact }: { uniqueId: string; compact?: boolean }) {
+  const uid = uniqueId;
+  return (
+    <div className="w-full h-full rounded-2xl sm:rounded-3xl bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 border-2 sm:border-4 border-white/20 overflow-hidden relative">
+      <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
+
+      <svg viewBox="0 0 300 450" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
+        <defs>
+          <linearGradient id={`sg-${uid}`} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#c0c0c0" />
+            <stop offset="25%" stopColor="#e8e8e8" />
+            <stop offset="50%" stopColor="#ffffff" />
+            <stop offset="75%" stopColor="#d0d0d0" />
+            <stop offset="100%" stopColor="#c0c0c0" />
+          </linearGradient>
+          <linearGradient id={`ss-${uid}`} x1="0%" y1="0%" x2="100%" y2="0%">
+            <stop offset="0%" stopColor="#a0a0a0" />
+            <stop offset="50%" stopColor="#ffffff" />
+            <stop offset="100%" stopColor="#a0a0a0" />
+          </linearGradient>
+          <radialGradient id={`cg-${uid}`} cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.6" />
+            <stop offset="50%" stopColor="#e0e0e0" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#c0c0c0" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        <circle cx="150" cy="225" r="120" fill={`url(#cg-${uid})`} />
+        <rect x="20" y="20" width="260" height="410" rx="25" stroke={`url(#ss-${uid})`} strokeWidth="4" fill="none" />
+        <rect x="35" y="35" width="230" height="380" rx="20" stroke={`url(#ss-${uid})`} strokeWidth="2" fill="none" opacity="0.7" />
+
+        <g transform="translate(150, 225)">
+          <circle r="90" stroke={`url(#ss-${uid})`} strokeWidth="3" fill="none" opacity="0.8" />
+          <circle r="80" stroke={`url(#ss-${uid})`} strokeWidth="2" fill="none" opacity="0.6" />
+          <circle r="70" stroke={`url(#ss-${uid})`} strokeWidth="1.5" fill="none" opacity="0.5" />
+          <path d="M0,-60 L52,30 L-52,30 Z" stroke={`url(#ss-${uid})`} strokeWidth="3" fill="none" opacity="0.7" />
+          <path d="M0,60 L52,-30 L-52,-30 Z" stroke={`url(#ss-${uid})`} strokeWidth="3" fill="none" opacity="0.7" />
+          <ellipse rx="40" ry="25" stroke={`url(#ss-${uid})`} strokeWidth="2" fill="none" opacity="0.8" />
+          <circle r="8" fill={`url(#sg-${uid})`} />
+          <polygon points="0,-45 4,-15 15,-15 6,-4 15,7 4,7 0,30 -4,7 -15,7 -6,-4 -15,-15 -4,-15" fill={`url(#sg-${uid})`} opacity="0.9" />
+          <polygon points="45,0 15,4 15,15 4,6 7,15 0,4 -7,15 -4,6 -15,15 -15,4 -45,0 -15,-4 -15,-15 -4,-6 -7,-15 0,-4 7,-15 4,-6 15,-15 15,-4" fill={`url(#sg-${uid})`} opacity="0.9" />
+        </g>
+
+        <circle cx="50" cy="50" r="15" stroke={`url(#ss-${uid})`} strokeWidth="2" fill="none" opacity="0.6" />
+        <circle cx="250" cy="50" r="15" stroke={`url(#ss-${uid})`} strokeWidth="2" fill="none" opacity="0.6" />
+        <circle cx="50" cy="400" r="15" stroke={`url(#ss-${uid})`} strokeWidth="2" fill="none" opacity="0.6" />
+        <circle cx="250" cy="400" r="15" stroke={`url(#ss-${uid})`} strokeWidth="2" fill="none" opacity="0.6" />
+        <polygon points="50,35 53,47 65,47 56,54 59,65 50,58 41,65 44,54 35,47 47,47" fill={`url(#sg-${uid})`} opacity="0.7" />
+        <polygon points="250,35 253,47 265,47 256,54 259,65 250,58 241,65 244,54 235,47 247,47" fill={`url(#sg-${uid})`} opacity="0.7" />
+        <polygon points="50,385 53,403 65,403 56,406 59,415 50,408 41,415 44,406 35,403 47,403" fill={`url(#sg-${uid})`} opacity="0.7" />
+        <polygon points="250,385 253,403 265,403 256,406 259,415 250,408 241,415 244,406 235,403 247,403" fill={`url(#sg-${uid})`} opacity="0.7" />
+      </svg>
+
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent animate-shimmer" />
+      </div>
+    </div>
+  );
+}
+
 export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed, lang, compact }: FlipCardProps) {
   const [canFlip, setCanFlip] = useState(false);
+  const reactId = useId();
+  const uniqueId = reactId.replace(/:/g, '');
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -41,9 +103,7 @@ export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed,
       }}
     >
       <div
-        className={`relative w-full h-full transition-transform duration-1000 transform-style-preserve-3d ${
-          isFlipped ? 'rotate-y-180' : ''
-        }`}
+        className="relative w-full h-full transition-transform duration-1000"
         style={{
           transformStyle: 'preserve-3d',
           transform: isFlipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
@@ -55,71 +115,18 @@ export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed,
             backfaceVisibility: 'hidden',
           }}
         >
-          <div className={`w-full h-full rounded-2xl sm:rounded-3xl bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 border-2 sm:border-4 border-white/20 overflow-hidden relative`}>
-            <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
+          <CardBack uniqueId={uniqueId} compact={compact} />
 
-            <svg viewBox="0 0 300 450" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
-              <defs>
-                <linearGradient id="silverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#c0c0c0" />
-                  <stop offset="25%" stopColor="#e8e8e8" />
-                  <stop offset="50%" stopColor="#ffffff" />
-                  <stop offset="75%" stopColor="#d0d0d0" />
-                  <stop offset="100%" stopColor="#c0c0c0" />
-                </linearGradient>
-                <linearGradient id="silverStroke" x1="0%" y1="0%" x2="100%" y2="0%">
-                  <stop offset="0%" stopColor="#a0a0a0" />
-                  <stop offset="50%" stopColor="#ffffff" />
-                  <stop offset="100%" stopColor="#a0a0a0" />
-                </linearGradient>
-                <radialGradient id="centerGlow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#ffffff" stopOpacity="0.6" />
-                  <stop offset="50%" stopColor="#e0e0e0" stopOpacity="0.3" />
-                  <stop offset="100%" stopColor="#c0c0c0" stopOpacity="0" />
-                </radialGradient>
-              </defs>
-
-              <circle cx="150" cy="225" r="120" fill="url(#centerGlow)" />
-              <rect x="20" y="20" width="260" height="410" rx="25" stroke="url(#silverStroke)" strokeWidth="4" fill="none" />
-              <rect x="35" y="35" width="230" height="380" rx="20" stroke="url(#silverStroke)" strokeWidth="2" fill="none" opacity="0.7" />
-
-              <g transform="translate(150, 225)">
-                <circle r="90" stroke="url(#silverStroke)" strokeWidth="3" fill="none" opacity="0.8" />
-                <circle r="80" stroke="url(#silverStroke)" strokeWidth="2" fill="none" opacity="0.6" />
-                <circle r="70" stroke="url(#silverStroke)" strokeWidth="1.5" fill="none" opacity="0.5" />
-                <path d="M0,-60 L52,30 L-52,30 Z" stroke="url(#silverStroke)" strokeWidth="3" fill="none" opacity="0.7" />
-                <path d="M0,60 L52,-30 L-52,-30 Z" stroke="url(#silverStroke)" strokeWidth="3" fill="none" opacity="0.7" />
-                <ellipse rx="40" ry="25" stroke="url(#silverStroke)" strokeWidth="2" fill="none" opacity="0.8" />
-                <circle r="8" fill="url(#silverGradient)" />
-                <polygon points="0,-45 4,-15 15,-15 6,-4 15,7 4,7 0,30 -4,7 -15,7 -6,-4 -15,-15 -4,-15" fill="url(#silverGradient)" opacity="0.9" />
-                <polygon points="45,0 15,4 15,15 4,6 7,15 0,4 -7,15 -4,6 -15,15 -15,4 -45,0 -15,-4 -15,-15 -4,-6 -7,-15 0,-4 7,-15 4,-6 15,-15 15,-4" fill="url(#silverGradient)" opacity="0.9" />
-              </g>
-
-              <circle cx="50" cy="50" r="15" stroke="url(#silverStroke)" strokeWidth="2" fill="none" opacity="0.6" />
-              <circle cx="250" cy="50" r="15" stroke="url(#silverStroke)" strokeWidth="2" fill="none" opacity="0.6" />
-              <circle cx="50" cy="400" r="15" stroke="url(#silverStroke)" strokeWidth="2" fill="none" opacity="0.6" />
-              <circle cx="250" cy="400" r="15" stroke="url(#silverStroke)" strokeWidth="2" fill="none" opacity="0.6" />
-              <polygon points="50,35 53,47 65,47 56,54 59,65 50,58 41,65 44,54 35,47 47,47" fill="url(#silverGradient)" opacity="0.7" />
-              <polygon points="250,35 253,47 265,47 256,54 259,65 250,58 241,65 244,54 235,47 247,47" fill="url(#silverGradient)" opacity="0.7" />
-              <polygon points="50,385 53,403 65,403 56,406 59,415 50,408 41,415 44,406 35,403 47,403" fill="url(#silverGradient)" opacity="0.7" />
-              <polygon points="250,385 253,403 265,403 256,406 259,415 250,408 241,415 244,406 235,403 247,403" fill="url(#silverGradient)" opacity="0.7" />
-            </svg>
-
-            <div className="absolute inset-0 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/15 to-transparent animate-shimmer" />
-            </div>
-
-            {canFlip && !isFlipped && (
-              <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 to-transparent">
-                <div className="text-center">
-                  <div className={`glass-icon animate-bounce ${compact ? 'text-2xl mb-1' : 'text-3xl sm:text-6xl mb-2 sm:mb-4'}`}>👆</div>
-                  <span className={`text-white font-semibold tracking-widest ${compact ? 'text-xs' : 'text-sm sm:text-xl'}`}>
-                    {t('clickToReveal', lang)}
-                  </span>
-                </div>
+          {canFlip && !isFlipped && (
+            <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 to-transparent rounded-2xl sm:rounded-3xl">
+              <div className="text-center">
+                <div className={`glass-icon animate-bounce ${compact ? 'text-2xl mb-1' : 'text-3xl sm:text-6xl mb-2 sm:mb-4'}`}>👆</div>
+                <span className={`text-white font-semibold tracking-widest ${compact ? 'text-xs' : 'text-sm sm:text-xl'}`}>
+                  {t('clickToReveal', lang)}
+                </span>
               </div>
-            )}
-          </div>
+            </div>
+          )}
         </div>
 
         <div
