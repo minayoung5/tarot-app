@@ -1125,6 +1125,7 @@ export function Home() {
           '圆满结局': '牌面说好结局',
         };
 
+        const smallReading = relevantKeywords.map(kw => smallKeywordPhrases[kw] || keywordPhrases[kw] || kw).join('，');
         const smallDirectReading = relevantKeywords.map(kw => smallDirectKeywordPhrases[kw] || smallKeywordPhrases[kw] || keywordPhrases[kw] || kw).join('。');
 
         const gentleOpeners = [
@@ -1567,30 +1568,37 @@ export function Home() {
     setQuestion(q);
     setIsInterpreting(true);
 
-    const positions = spreadType === 'three' ? modelConfigs[modelType].positions : [''];
-    const interpretation = generateInterpretation(drawnCards, q, positions, modelType, style);
-    setCurrentInterpretation(interpretation);
+    try {
+      const positions = spreadType === 'three' ? modelConfigs[modelType].positions : [''];
+      const interpretation = generateInterpretation(drawnCards, q, positions, modelType, style);
+      setCurrentInterpretation(interpretation);
 
-    setTimeout(() => {
+      setTimeout(() => {
+        setIsInterpreting(false);
+
+        const newHistoryItem: ReadingHistoryItem = {
+          id: Date.now().toString(),
+          timestamp: Date.now(),
+          spreadType,
+          cards: drawnCards.map((item) => item.card),
+          isReversedList: drawnCards.map((item) => item.isReversed),
+          positions,
+          question: q,
+          interpretation,
+        };
+
+        const updatedHistory = [newHistoryItem, ...history];
+        setHistory(updatedHistory);
+        localStorage.setItem('tarot-history', JSON.stringify(updatedHistory));
+
+        setPhase('result');
+      }, 300);
+    } catch (e) {
+      console.error('Interpretation error:', e);
       setIsInterpreting(false);
-
-      const newHistoryItem: ReadingHistoryItem = {
-        id: Date.now().toString(),
-        timestamp: Date.now(),
-        spreadType,
-        cards: drawnCards.map((item) => item.card),
-        isReversedList: drawnCards.map((item) => item.isReversed),
-        positions,
-        question: q,
-        interpretation,
-      };
-
-      const updatedHistory = [newHistoryItem, ...history];
-      setHistory(updatedHistory);
-      localStorage.setItem('tarot-history', JSON.stringify(updatedHistory));
-
+      setCurrentInterpretation('解读生成出现问题，请重新尝试。');
       setPhase('result');
-    }, 300);
+    }
   };
 
   const handleReset = () => {
