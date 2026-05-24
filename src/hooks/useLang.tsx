@@ -16,7 +16,9 @@ const LanguageContext = createContext<LanguageContextType>({
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLang] = useState<Lang>(() => {
     const saved = localStorage.getItem('tarot-lang');
-    return (saved === 'en' || saved === 'zh') ? saved : 'zh';
+    if (saved === 'en' || saved === 'zh') return saved;
+    localStorage.setItem('tarot-lang', 'zh');
+    return 'zh';
   });
 
   useEffect(() => {
