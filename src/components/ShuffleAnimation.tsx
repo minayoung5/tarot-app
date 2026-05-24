@@ -31,7 +31,7 @@ export function ShuffleAnimation({ onComplete, onBack, cardCount, lang }: Shuffl
         <p className="text-gray-500 text-sm sm:text-base">{t('readyShuffleSub', lang)}</p>
       </div>
 
-      <div className="relative flex items-center justify-center w-[260px] h-[200px] sm:w-[420px] sm:h-[320px]">
+      <div className="relative flex items-center justify-center w-[340px] h-[260px] sm:w-[420px] sm:h-[320px]">
         {[...Array(cardCount)].map((_, i) => {
           const offset = i - Math.floor(cardCount / 2);
           const rotateBase = offset * 3;
@@ -41,8 +41,8 @@ export function ShuffleAnimation({ onComplete, onBack, cardCount, lang }: Shuffl
               key={i}
               className="absolute"
               style={{
-                width: '100px',
-                height: '150px',
+                width: '130px',
+                height: '195px',
                 transform: isShuffling
                   ? `translateX(${(Math.random() - 0.5) * 60}px) translateY(${(Math.random() - 0.5) * 30}px) rotate(${(Math.random() - 0.5) * 20}deg)`
                   : `translateX(${translateX}px) rotate(${rotateBase}deg)`,
@@ -71,7 +71,7 @@ export function ShuffleAnimation({ onComplete, onBack, cardCount, lang }: Shuffl
 
                 <div className="absolute inset-0 flex items-center justify-center">
                   <div className="relative">
-                    <svg viewBox="0 0 80 80" className="w-12 h-12 sm:w-20 sm:h-20 opacity-60">
+                    <svg viewBox="0 0 80 80" className="w-14 h-14 sm:w-20 sm:h-20 opacity-60">
                       <defs>
                         <linearGradient id={`cardBack${i}`} x1="0%" y1="0%" x2="100%" y2="100%">
                           <stop offset="0%" stopColor="#22d3ee" />

@@ -32,7 +32,7 @@ export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed,
 
   return (
     <div
-      className="relative cursor-pointer group perspective-1000 w-[200px] h-[280px] sm:w-80 sm:h-[450px]"
+      className="relative cursor-pointer group perspective-1000 w-80 h-[450px]"
       onClick={handleClick}
       style={{
         opacity: canFlip ? 1 : 0.5,
@@ -214,7 +214,7 @@ export function CardSpread({
         <p className="text-slate-400 text-sm sm:text-2xl">{t('clickToFlipSub', lang)}</p>
       </div>
 
-      <div className={`flex gap-3 sm:gap-10 justify-center flex-wrap ${cards.length === 3 ? '' : ''}`}>
+      <div className={`flex gap-6 sm:gap-10 justify-center overflow-x-auto pb-4 ${cards.length === 3 ? '' : ''}`}>
         {cards.map((item, i) => (
           <div
             key={item.card.id}

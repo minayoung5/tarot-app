@@ -556,10 +556,10 @@ export function Home() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-3 sm:gap-6 max-w-3xl mx-auto">
+              <div className="grid grid-cols-2 gap-4 sm:gap-6 max-w-3xl mx-auto">
                 <button
                   onClick={() => handleSpreadChange('single')}
-                  className="group relative py-8 sm:py-16 px-4 sm:px-8 rounded-xl sm:rounded-2xl transition-all duration-500 hover:scale-[1.03] animate-hero-card-1 overflow-hidden"
+                  className="group relative py-10 sm:py-16 px-4 sm:px-8 rounded-xl sm:rounded-2xl transition-all duration-500 hover:scale-[1.03] animate-hero-card-1 overflow-hidden"
                   style={{
                     background: 'rgba(255, 255, 255, 0.03)',
                     backdropFilter: 'blur(40px) saturate(1.5)',
@@ -575,8 +575,8 @@ export function Home() {
                     background: 'linear-gradient(90deg, transparent, rgba(196, 181, 253, 0.3), transparent)',
                   }} />
                   <div className="relative">
-                    <div className="h-16 sm:h-24 mb-4 sm:mb-8 flex items-center justify-center">
-                      <svg viewBox="0 0 80 100" className="w-12 h-16 sm:w-20 sm:h-24 transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
+                    <div className="h-18 sm:h-24 mb-5 sm:mb-8 flex items-center justify-center">
+                      <svg viewBox="0 0 80 100" className="w-14 h-18 sm:w-20 sm:h-24 transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
                         <defs>
                           <linearGradient id="singleCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stopColor="#c4b5fd" />
@@ -606,7 +606,7 @@ export function Home() {
 
                 <button
                   onClick={() => handleSpreadChange('three')}
-                  className="group relative py-8 sm:py-16 px-4 sm:px-8 rounded-xl sm:rounded-2xl transition-all duration-500 hover:scale-[1.03] animate-hero-card-2 overflow-hidden"
+                  className="group relative py-10 sm:py-16 px-4 sm:px-8 rounded-xl sm:rounded-2xl transition-all duration-500 hover:scale-[1.03] animate-hero-card-2 overflow-hidden"
                   style={{
                     background: 'rgba(255, 255, 255, 0.03)',
                     backdropFilter: 'blur(40px) saturate(1.5)',
@@ -622,8 +622,8 @@ export function Home() {
                     background: 'linear-gradient(90deg, transparent, rgba(103, 232, 249, 0.3), transparent)',
                   }} />
                   <div className="relative">
-                    <div className="h-16 sm:h-24 mb-4 sm:mb-8 flex items-center justify-center">
-                      <svg viewBox="0 0 100 100" className="w-16 h-16 sm:w-24 sm:h-24 transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
+                    <div className="h-18 sm:h-24 mb-5 sm:mb-8 flex items-center justify-center">
+                      <svg viewBox="0 0 100 100" className="w-18 h-18 sm:w-24 sm:h-24 transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
                         <defs>
                           <linearGradient id="threeCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stopColor="#22d3ee" />
@@ -673,12 +673,12 @@ export function Home() {
                 <p className="text-gray-500 font-light">{t('selectModelSub', lang)}</p>
               </div>
 
-              <div className="grid grid-cols-3 gap-2 sm:gap-6 max-w-4xl mx-auto">
+              <div className="grid grid-cols-3 gap-3 sm:gap-6 max-w-4xl mx-auto">
                 {(Object.keys(modelConfigs) as ModelType[]).map((type) => (
                   <button
                     key={type}
                     onClick={() => handleModelChange(type)}
-                    className="group relative py-6 sm:py-12 px-2 sm:px-6 rounded-xl sm:rounded-2xl transition-all duration-500 hover:scale-[1.03] overflow-hidden"
+                    className="group relative py-8 sm:py-12 px-3 sm:px-6 rounded-xl sm:rounded-2xl transition-all duration-500 hover:scale-[1.03] overflow-hidden"
                     style={{
                       background: 'rgba(255, 255, 255, 0.03)',
                       backdropFilter: 'blur(40px) saturate(1.5)',
@@ -693,13 +693,13 @@ export function Home() {
                       background: 'linear-gradient(90deg, transparent, rgba(196, 181, 253, 0.25), transparent)',
                     }} />
                     <div className="relative">
-                      <div className="h-10 sm:h-16 mb-3 sm:mb-6 flex items-center justify-center">
+                      <div className="h-12 sm:h-16 mb-4 sm:mb-6 flex items-center justify-center">
                         {modelConfigs[type].icon}
                       </div>
                       <h3 className="text-sm sm:text-lg font-semibold text-white/90 mb-2 sm:mb-3 text-center tracking-wide">{modelConfigs[type].name}</h3>
-                      <div className="space-y-0.5 sm:space-y-1.5">
+                      <div className="space-y-1 sm:space-y-1.5">
                         {modelConfigs[type].positions.map((pos, idx) => (
-                          <p key={idx} className="text-gray-500 text-[10px] sm:text-xs text-center font-light">{pos}</p>
+                          <p key={idx} className="text-gray-500 text-[11px] sm:text-xs text-center font-light">{pos}</p>
                         ))}
                       </div>
                     </div>
