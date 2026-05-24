@@ -363,6 +363,7 @@ const minorArcana: TarotCard[] = [
     reversedMeaning: '坏消息、不成熟、冲动、缺乏方向',
     image: '',
     type: 'minor',
+    number: 11,
     suit: 'wands',
     element: '火'
   },
@@ -374,6 +375,7 @@ const minorArcana: TarotCard[] = [
     reversedMeaning: '冲突、鲁莽、急躁、破坏性行动',
     image: '',
     type: 'minor',
+    number: 12,
     suit: 'wands',
     element: '火'
   },
@@ -385,6 +387,7 @@ const minorArcana: TarotCard[] = [
     reversedMeaning: '嫉妒、控制欲、暴躁、情绪化',
     image: '',
     type: 'minor',
+    number: 13,
     suit: 'wands',
     element: '火'
   },
@@ -396,6 +399,7 @@ const minorArcana: TarotCard[] = [
     reversedMeaning: '专制、傲慢、不耐烦、事业受挫',
     image: '',
     type: 'minor',
+    number: 14,
     suit: 'wands',
     element: '火'
   },
@@ -527,6 +531,7 @@ const minorArcana: TarotCard[] = [
     reversedMeaning: '情绪不稳、不成熟、失望、缺乏创意',
     image: '',
     type: 'minor',
+    number: 11,
     suit: 'cups',
     element: '水'
   },
@@ -538,6 +543,7 @@ const minorArcana: TarotCard[] = [
     reversedMeaning: '情绪波动、欺骗、逃避承诺、不靠谱',
     image: '',
     type: 'minor',
+    number: 12,
     suit: 'cups',
     element: '水'
   },
@@ -549,6 +555,7 @@ const minorArcana: TarotCard[] = [
     reversedMeaning: '多愁善感、情绪勒索、依赖、不安全感',
     image: '',
     type: 'minor',
+    number: 13,
     suit: 'cups',
     element: '水'
   },
@@ -560,6 +567,7 @@ const minorArcana: TarotCard[] = [
     reversedMeaning: '情绪操控、冷暴力、压抑情感、不忠',
     image: '',
     type: 'minor',
+    number: 14,
     suit: 'cups',
     element: '水'
   },
@@ -691,6 +699,7 @@ const minorArcana: TarotCard[] = [
     reversedMeaning: '八卦、轻率、攻击性言语、多疑',
     image: '',
     type: 'minor',
+    number: 11,
     suit: 'swords',
     element: '风'
   },
@@ -702,6 +711,7 @@ const minorArcana: TarotCard[] = [
     reversedMeaning: '冲动、鲁莽言语、冲突升级、失控',
     image: '',
     type: 'minor',
+    number: 12,
     suit: 'swords',
     element: '风'
   },
@@ -713,6 +723,7 @@ const minorArcana: TarotCard[] = [
     reversedMeaning: '冷酷、尖酸、偏见、情感隔绝',
     image: '',
     type: 'minor',
+    number: 13,
     suit: 'swords',
     element: '风'
   },
@@ -724,6 +735,7 @@ const minorArcana: TarotCard[] = [
     reversedMeaning: '独断、滥用逻辑、残酷、思想控制',
     image: '',
     type: 'minor',
+    number: 14,
     suit: 'swords',
     element: '风'
   },
@@ -855,6 +867,7 @@ const minorArcana: TarotCard[] = [
     reversedMeaning: '懒惰、缺乏务实、浪费机会、不专注',
     image: '',
     type: 'minor',
+    number: 11,
     suit: 'pentacles',
     element: '土'
   },
@@ -866,6 +879,7 @@ const minorArcana: TarotCard[] = [
     reversedMeaning: '懒惰、固执、毫无进展、财务拖延',
     image: '',
     type: 'minor',
+    number: 12,
     suit: 'pentacles',
     element: '土'
   },
@@ -877,6 +891,7 @@ const minorArcana: TarotCard[] = [
     reversedMeaning: '过度节俭、控制、财务焦虑、忽视自我',
     image: '',
     type: 'minor',
+    number: 13,
     suit: 'pentacles',
     element: '土'
   },
@@ -888,6 +903,7 @@ const minorArcana: TarotCard[] = [
     reversedMeaning: '贪婪、物质主义、守财、事业失败',
     image: '',
     type: 'minor',
+    number: 14,
     suit: 'pentacles',
     element: '土'
   }
