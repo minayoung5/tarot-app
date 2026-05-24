@@ -161,6 +161,285 @@ export function Home() {
 
     const themes = detectTheme(question);
 
+    const detectDomain = (q: string): string => {
+      const lq = q.toLowerCase();
+      if (/分手|离婚|复合|挽回|前任|暗恋|表白|在一起|恋爱|结婚|感情|喜欢|暧昧|出轨|另一半|对象|男友|女友|老公|老婆|相亲|脱单|他|她|追|爱/.test(lq)) return 'love';
+      if (/辞职|换工作|跳槽|离职|转行|升职|加薪|面试|求职|工作|事业|创业|职场|老板|项目|升迁|上班|入职|转正/.test(lq)) return 'career';
+      if (/考试|学习|考研|考公|上岸|成绩|录取|复习|备考|学业|论文|毕业|答辩|读书|课程|培训/.test(lq)) return 'study';
+      if (/钱|投资|理财|债务|贷款|赚钱|股票|基金|财务|还债|存款|房价|买房|租金|还钱|借款/.test(lq)) return 'finance';
+      if (/健康|病|手术|康复|身体|医院|治疗|体检|症状|减肥|失眠|焦虑症|抑郁/.test(lq)) return 'health';
+      if (/朋友|人际|同事|领导|合作|社交|室友|婆媳|亲子|家人|家庭关系|沟通|吵架|和好/.test(lq)) return 'relationship';
+      if (/选择|决定|该不该|要不要|是否|能不能|会不会|应不应该|值不值得|还是/.test(lq)) return 'decision';
+      return 'general';
+    };
+
+    const domain = detectDomain(question);
+
+    const domainLabel: Record<string, string> = {
+      love: '感情', career: '事业', study: '学业', finance: '财务',
+      health: '健康', relationship: '人际关系', decision: '抉择', general: '当前处境',
+    };
+
+    const domainPhrases: Record<string, Record<string, string>> = {
+      love: {
+        '新开始': '这段感情可能迎来新的开始', '冒险': '在感情中需要勇气迈出那一步',
+        '行动': '在感情方面需要主动一些', '专注': '把注意力放在这段感情上',
+        '直觉': '在感情中相信你的直觉', '内在智慧': '你内心其实知道这段感情该何去何从',
+        '丰盛': '感情生活是丰盈的', '创造力': '用创意的方式经营感情',
+        '权威': '在这段关系中你有主导权', '稳定': '感情基础是稳固的',
+        '爱': '爱的能量是真实的', '和谐': '你们的感情是和谐的',
+        '选择': '你在感情上面临一个重要的选择', '意志力': '凭借坚定的意志力经营这段感情',
+        '决心': '对这段感情下定决心', '胜利': '感情上的胜利是可能的',
+        '勇气': '面对感情需要勇气', '耐心': '感情需要耐心等待',
+        '内省': '审视你在感情中的真实需求', '转变': '感情正在发生变化',
+        '好运': '感情运势在好转', '公正': '感情中需要公平对待彼此',
+        '清晰': '对感情看得更清楚了', '暂停': '感情需要暂时放慢脚步',
+        '放手': '该放手的感情就放手', '结束': '这段感情可能正在画上句号',
+        '平衡': '在感情中寻找平衡', '希望': '感情还有希望',
+        '疗愈': '感情的伤痛正在愈合', '快乐': '感情中会有快乐',
+        '成功': '感情能成功', '活力': '感情中的热情正在恢复',
+        '完成': '感情的一个阶段即将完成', '满足': '在感情中得到满足',
+        '冲突': '你们之间存在矛盾', '失控': '感情似乎失控了',
+        '鲁莽': '感情中不要冲动行事', '停滞': '感情陷入了停滞',
+        '欺骗': '小心感情中的欺骗', '束缚': '这段关系让你感到窒息',
+        '依赖': '对对方的过度依赖正在消耗你', '新机会': '感情上可能出现新的机会',
+        '结合': '你们有可能走到一起', '吸引': '你们之间有吸引力',
+        '沟通不良': '你们之间的沟通出了问题', '关系破裂': '关系出现了裂痕',
+        '心碎': '心碎是真实的', '痛苦': '感情中的痛苦是暂时的',
+        '背叛': '小心感情中的背叛', '新感情': '一段新的感情可能正在萌芽',
+        '重生前奏': '感情的结束可能是新恋情的开始', '必然改变': '感情的变化是不可避免的',
+        '觉醒': '对感情的认知正在觉醒', '挣脱束缚': '正在从一段让你窒息的关系中挣脱',
+        '释放痛苦': '释放感情中的痛苦才能拥抱未来', '原谅': '原谅是给自己最好的礼物',
+        '接纳': '接纳感情的现实是疗愈的开始', '走出悲伤': '感情的悲伤终会过去',
+        '看见希望': '感情的希望就在身边', '开始前进': '是时候在感情上向前走了',
+        '自我控制': '控制好自己的情绪才能经营好感情', '通过挑战': '感情的挑战是成长的契机',
+        '能力': '你有能力处理好这段感情', '资源具足': '你身边有足够的支持来面对感情',
+        '远见': '对感情要有长远的眼光', '领导力': '在这段关系中需要你主动引导',
+        '价值观结合': '价值观的契合比表面的一致更重要', '温柔力量': '温柔也是一种经营感情的力量',
+        '共情': '站在对方的角度感受', '倾听': '倾听对方的心声是改善感情的关键',
+        '情感成熟': '用成熟的态度面对感情', '慈悲': '用慈悲的心对待彼此',
+        '家庭和谐': '家庭关系的和谐是珍贵的', '幸福': '幸福就在这段感情中',
+        '归属感': '你在这段感情中寻找归属感', '浪漫': '浪漫的能量正在流动',
+        '邀请': '一个关于感情的邀请正在等待你', '理想情人': '你心中有一个理想的伴侣形象',
+        '温柔行动': '用温柔的方式对待感情', '情绪波动': '情绪的起伏正在影响你的感情',
+        '不安全感': '感情中的不安全感需要被面对', '情绪操控': '警惕感情中的情绪操控',
+        '冷暴力': '冷暴力也是伤害', '不忠': '不忠的阴影需要被正视',
+        '孤独': '感情中的孤独感需要被看见', '牺牲': '有些东西需要为感情让步',
+        '新视角': '换个角度看这段感情', '命运': '有些感情是命运的安排',
+        '转折点': '感情正站在一个转折点上', '因果': '感情中的因果自有安排',
+        '圆满结局': '感情的圆满结局是可能的', '成就': '感情中的成就即将到来',
+      },
+      career: {
+        '新开始': '工作上可能迎来新的起点', '冒险': '在职业上需要勇气去尝试新方向',
+        '行动': '在职场上是时候采取行动了', '专注': '把精力集中在职业发展上',
+        '直觉': '在职业选择上相信你的直觉', '内在智慧': '你内心其实知道自己该走哪条职业道路',
+        '丰盛': '事业上的收获是丰厚的', '创造力': '在工作中发挥创意会有突破',
+        '权威': '你在职场上有话语权', '稳定': '工作基础是稳固的',
+        '爱': '对工作的热爱是你的动力', '和谐': '工作环境是和谐的',
+        '选择': '职业方向上你需要做出选择', '意志力': '凭借坚定的意志力克服职场困难',
+        '决心': '对职业发展下定决心', '胜利': '职场上的胜利是可能的',
+        '勇气': '面对职业挑战需要勇气', '耐心': '职业发展需要耐心',
+        '内省': '审视你的职业规划是否正确', '转变': '职业方向正在发生变化',
+        '好运': '事业运势在好转', '公正': '职场中会得到公正的对待',
+        '清晰': '对职业方向看得更清楚了', '暂停': '职业发展需要暂时放慢脚步',
+        '放手': '该放手的工作就放手', '结束': '当前的工作阶段可能即将结束',
+        '平衡': '在工作中寻找平衡', '希望': '事业前景是光明的',
+        '疗愈': '职场的伤痛正在愈合', '快乐': '工作中会有快乐',
+        '成功': '事业能成功', '活力': '工作热情正在恢复',
+        '完成': '工作的一个阶段即将完成', '满足': '在工作中得到满足',
+        '冲突': '职场中存在矛盾', '失控': '工作似乎失控了',
+        '鲁莽': '职场上不要冲动行事', '停滞': '职业发展陷入了停滞',
+        '欺骗': '小心职场中的欺骗', '束缚': '当前的工作环境让你感到受限',
+        '依赖': '对工作的过度依赖正在消耗你', '新机会': '工作上可能出现新的机会',
+        '结合': '团队合作是成功的关键', '吸引': '你的能力正在吸引机会',
+        '沟通不良': '职场沟通出了问题', '领导力': '是时候展现你的领导力了',
+        '能力': '你具备应对工作挑战的能力', '远见': '在职业规划上需要更长远的眼光',
+        '认可': '你的工作会得到认可', '重生前奏': '工作的结束可能是更好机会的开始',
+        '必然改变': '职业的变化是不可避免的', '觉醒': '对职业的认知正在觉醒',
+        '挣脱束缚': '正在从让你受限的工作中挣脱', '结构': '需要建立更稳固的工作框架',
+        '秩序': '建立工作秩序会让事情更顺畅', '传统': '有时候遵循行业传统是明智的',
+        '教育': '保持学习的心态提升职业技能', '精神指引': '寻求职业导师的指引',
+        '化想法为现实': '你的职业想法有落地的可能', '资源具足': '你身边有足够的职业资源',
+        '初步成功': '工作上取得了初步成果', '事业成就': '事业上的成就即将到来',
+        '成熟激情': '用成熟的热情投入工作', '务实领导': '务实的领导风格是有效的',
+        '商业头脑': '商业的直觉正在起作用', '长期成功': '长期的事业成功正在建立',
+        '财富': '事业的财富正在积累', '竞争': '职场竞争带来成长',
+        '策略': '职场策略性的行动是必要的', '独立': '独立工作也是一种力量',
+        '快速行动': '工作上需要快速行动', '计划': '职业规划是必要的',
+        '勤奋': '勤奋是职业成功的基石', '务实': '务实的职业态度是必要的',
+        '责任': '承担起你的职业责任', '稳定前进': '稳步推进比急躁更有效',
+        '家族财富': '家族的支持对事业有帮助', '传承': '传承的力量在事业中起作用',
+      },
+      study: {
+        '新开始': '学业上可能开启新的阶段', '冒险': '在学习上需要尝试新的方法',
+        '行动': '是时候在学习上付诸行动了', '专注': '把精力集中在学习上',
+        '直觉': '在考试中相信你的第一直觉', '内在智慧': '你其实已经掌握了关键知识',
+        '丰盛': '学习上的收获是丰厚的', '创造力': '用创意的方式学习会更有效',
+        '权威': '你在学习领域有话语权', '稳定': '学习基础是稳固的',
+        '选择': '学业方向上你需要做出选择', '意志力': '凭借坚定的意志力坚持学习',
+        '决心': '对学业目标下定决心', '胜利': '考试能取得好成绩',
+        '勇气': '面对学业挑战需要勇气', '耐心': '学习需要耐心',
+        '内省': '审视你的学习方法是否正确', '转变': '学习方向正在发生变化',
+        '好运': '考试运势不错', '公正': '考试结果会是公正的',
+        '清晰': '对学习方向看得更清楚了', '暂停': '学习需要适当休息',
+        '结束': '当前的学习阶段即将结束', '平衡': '在学习中寻找平衡',
+        '希望': '学业前景是光明的', '成功': '学业能成功',
+        '活力': '学习动力正在恢复', '完成': '学业目标即将完成',
+        '冲突': '学习中遇到困难', '停滞': '学习进度陷入停滞',
+        '新机会': '学业上可能出现新的机会', '精进': '在学习上精益求精',
+        '智力突破': '学习上会有突破', '决断': '在学业选择上需要果断',
+        '深思熟虑': '想清楚再决定学习方向', '新想法': '新的学习思路正在萌芽',
+        '观察': '先观察再行动', '好奇心': '好奇心是学习的最好动力',
+        '注重细节': '考试中细节决定成败', '务实': '务实地制定学习计划',
+        '勤奋': '勤奋是学业成功的基石', '规划': '学习规划是成功的基础',
+        '初步成果': '学习的初步成果正在显现', '收成': '努力的学习终会有收获',
+        '投资回报': '投入的学习时间终会有回报', '重生前奏': '当前的困难是突破的前奏',
+        '能力': '你具备应对学业挑战的能力', '资源具足': '你有足够的学习资源',
+        '化想法为现实': '你的学习计划可以落地', '远见': '对学业要有长远规划',
+        '教育': '保持学习的心态', '传统': '有时候传统的学习方法最有效',
+        '结构': '建立系统的学习框架', '秩序': '有序的学习安排更高效',
+        '责任': '承担起你的学业责任', '稳定前进': '稳步推进学习进度',
+        '竞争': '学业竞争带来成长', '策略': '讲究学习策略',
+        '独立': '独立思考是学习的关键', '快速行动': '抓紧时间复习',
+        '计划': '制定详细的学习计划', '自我控制': '管住自己专心学习',
+        '通过挑战': '学业的挑战是成长的契机', '清晰判断': '清晰的判断力帮助你选对方向',
+      },
+      finance: {
+        '新开始': '财务上可能迎来新的起点', '冒险': '在投资上需要谨慎评估风险',
+        '行动': '是时候在财务上采取行动了', '专注': '把精力集中在财务管理上',
+        '丰盛': '财务状况是丰厚的', '权威': '你在财务决策上有主导权',
+        '稳定': '财务基础是稳固的', '选择': '财务方向上你需要做出选择',
+        '意志力': '凭借坚定的意志力控制开支', '胜利': '财务上的胜利是可能的',
+        '勇气': '面对财务挑战需要勇气', '耐心': '财务回报需要耐心等待',
+        '转变': '财务状况正在发生变化', '好运': '财运在好转',
+        '公正': '财务结果会是公正的', '清晰': '对财务方向看得更清楚了',
+        '暂停': '财务决策需要暂时放慢', '放手': '该放手的投资就放手',
+        '结束': '当前的财务阶段可能即将结束', '平衡': '在收支中寻找平衡',
+        '希望': '财务前景是光明的', '成功': '财务目标能实现',
+        '完成': '财务目标即将完成', '满足': '在财务上得到满足',
+        '冲突': '财务上存在矛盾', '失控': '财务似乎失控了',
+        '鲁莽': '财务决策不要冲动', '停滞': '财务状况陷入停滞',
+        '欺骗': '小心财务中的欺骗', '束缚': '财务压力让你感到受限',
+        '新机会': '财务上可能出现新的机会', '财富': '财富正在向你流动',
+        '投资回报': '投资终会有回报', '收成': '收获的季节正在到来',
+        '贪婪': '贪婪会让你失去更多', '超支': '控制开支是当务之急',
+        '债务': '债务需要被正视', '分享': '分享让财富流动',
+        '慷慨': '慷慨是丰盛的表现', '公平': '财务上的公平是重要的',
+        '评估': '评估是必要的', '务实': '务实的理财态度是必要的',
+        '规划': '财务规划是成功的基础', '初步成果': '理财的初步成果正在显现',
+        '自足': '财务上的自足是一种力量', '享受': '享受财务自由带来的安心',
+        '物质独立': '物质的独立带来自由', '长期成功': '长期的财务成功正在建立',
+        '商业头脑': '商业的直觉正在起作用', '能力': '你具备理财的能力',
+        '资源具足': '你有足够的财务资源', '结构': '建立稳固的财务框架',
+        '秩序': '有序的财务管理更高效', '责任': '承担起你的财务责任',
+        '稳定前进': '稳步推进财务目标', '竞争': '财务竞争带来成长',
+        '策略': '讲究理财策略', '独立': '财务独立是一种力量',
+        '计划': '制定详细的理财计划', '勤奋': '勤奋是积累财富的基石',
+        '重生前奏': '当前的财务困境是转机的前奏', '觉醒': '对财务状况的认知正在觉醒',
+      },
+      health: {
+        '新开始': '健康状况可能迎来转机', '行动': '是时候采取行动改善健康了',
+        '专注': '把精力集中在身体恢复上', '丰盛': '身体的恢复力是强大的',
+        '稳定': '健康状况是稳定的', '耐心': '康复需要耐心',
+        '转变': '健康状况正在发生变化', '希望': '健康前景是光明的',
+        '疗愈': '身体正在愈合', '平静': '内心的平静有助于康复',
+        '成功': '康复是可能的', '活力': '生命力正在恢复',
+        '完成': '治疗的一个阶段即将完成', '冲突': '身体存在不适',
+        '停滞': '康复进度陷入停滞', '休息': '休息是最好的疗愈',
+        '恢复': '正在恢复中', '平衡': '身心需要平衡',
+        '恐惧': '对健康的恐惧需要被面对', '焦虑': '焦虑正在影响你的身体',
+        '重生前奏': '当前的病痛是重生的前奏', '觉醒': '对身体状况的认知正在觉醒',
+        '内省': '倾听身体的声音', '直觉': '相信身体给你的信号',
+        '清晰': '对健康状况看得更清楚了', '暂停': '需要暂停下来休养',
+        '结束': '当前的病痛阶段即将结束', '能力': '你的身体有自愈的能力',
+        '资源具足': '你有足够的医疗资源', '自我控制': '管住自己按时治疗',
+        '通过挑战': '健康的挑战让你更珍惜身体', '释放痛苦': '释放身体的紧张和痛苦',
+        '原谅': '原谅自己对身体的忽视', '接纳': '接纳身体的现状是疗愈的开始',
+        '走出悲伤': '走出对健康的焦虑', '看见希望': '康复的希望就在眼前',
+        '开始前进': '是时候积极面对健康问题了', '逐渐平静': '身体正在慢慢平静下来',
+        '疗愈之旅': '康复是一段旅程', '情况好转': '健康状况正在好转',
+        '绝处逢生': '最困难的时候已经过去', '坚强': '你的身体比你想象的更坚强',
+        '坚韧': '你的韧性帮你度过健康难关', '成长': '这次健康挑战让你成长',
+        '突破': '健康状况即将突破', '新视角': '换个角度看待健康问题',
+        '命运': '有些健康问题是命运的考验', '转折点': '健康正站在一个转折点上',
+      },
+      relationship: {
+        '新开始': '人际关系可能迎来新的开始', '行动': '在人际交往中需要主动一些',
+        '专注': '把精力放在改善关系上', '和谐': '人际关系是和谐的',
+        '选择': '在人际交往中面临选择', '勇气': '面对人际冲突需要勇气',
+        '耐心': '改善关系需要耐心', '转变': '人际关系正在发生变化',
+        '希望': '关系还有改善的希望', '疗愈': '关系的伤痛正在愈合',
+        '成功': '关系能改善', '冲突': '人际之间存在矛盾',
+        '失控': '关系似乎失控了', '沟通不良': '沟通是问题的关键',
+        '束缚': '这段关系让你感到受限', '新机会': '可能结识新的朋友',
+        '分享': '分享让关系更紧密', '合作': '合作是改善关系的关键',
+        '公平': '关系中需要公平对待', '倾听': '倾听是最好的改善方式',
+        '共情': '站在对方的角度感受', '温柔力量': '温柔的方式更有效',
+        '情感成熟': '用成熟的态度处理关系', '慈悲': '用慈悲的心对待他人',
+        '家庭和谐': '家庭关系的和谐是珍贵的', '幸福': '关系中的幸福是可能的',
+        '归属感': '你在这段关系中寻找归属感', '结合': '关系中的结合力量大于个体',
+        '吸引': '你散发着吸引力', '庆祝': '关系中的进步值得庆祝',
+        '慷慨': '慷慨是改善关系的良方', '给予与接受': '给予和接受需要平衡',
+        '直觉': '在人际交往中相信你的直觉', '内在智慧': '你内心知道该如何处理这段关系',
+        '丰盛': '人际关系是丰盈的', '创造力': '用创意的方式改善关系',
+        '权威': '在这段关系中你有话语权', '稳定': '关系基础是稳固的',
+        '意志力': '凭借坚定的意志力改善关系', '决心': '对改善关系下定决心',
+        '胜利': '关系中的胜利是可能的', '内省': '审视你在关系中的角色',
+        '好运': '人际关系运势在好转', '公正': '关系中需要公平对待',
+        '清晰': '对关系看得更清楚了', '暂停': '关系需要暂时放慢脚步',
+        '放手': '该放手的关系就放手', '结束': '这段关系可能正在画上句号',
+        '平衡': '在关系中寻找平衡', '快乐': '关系中会有快乐',
+        '活力': '关系中的热情正在恢复', '完成': '关系的一个阶段即将完成',
+        '满足': '在关系中得到满足', '鲁莽': '关系中不要冲动行事',
+        '停滞': '关系陷入了停滞', '欺骗': '小心关系中的欺骗',
+        '依赖': '对这段关系的过度依赖正在消耗你', '重生前奏': '关系的结束可能是新关系的开始',
+        '觉醒': '对关系的认知正在觉醒', '挣脱束缚': '正在从让你窒息的关系中挣脱',
+        '新视角': '换个角度看这段关系', '命运': '有些关系是命运的安排',
+        '转折点': '关系正站在一个转折点上', '圆满结局': '关系的圆满结局是可能的',
+      },
+      decision: {
+        '新开始': '这个决定可能开启新的篇章', '冒险': '做这个决定需要勇气',
+        '行动': '是时候付诸行动了', '专注': '把注意力集中在这个决定上',
+        '直觉': '在做决定时相信你的直觉', '内在智慧': '你内心其实已经知道答案',
+        '选择': '你正面临一个重要的选择', '决心': '下定决心，不再摇摆',
+        '胜利': '这个决定会带来好结果', '勇气': '做这个决定需要勇气',
+        '耐心': '不急着做决定，再等等', '清晰': '方向已经清晰，可以做决定',
+        '暂停': '暂时不要做决定', '放手': '有些选项需要放弃',
+        '结束': '一个阶段的选择即将结束', '平衡': '权衡利弊再做决定',
+        '希望': '有希望做出好的选择', '成功': '这个决定能成功',
+        '冲突': '内心在两个选项间挣扎', '停滞': '犹豫不决，需要推动',
+        '新视角': '换个角度看这个决定', '命运': '有些选择是命中注定的',
+        '转折点': '这个决定是一个转折点', '重生前奏': '放弃某个选项可能是新开始的前奏',
+        '觉醒': '对这个决定的认知正在觉醒', '必然改变': '改变是不可避免的',
+        '公正': '公正地评估每个选项', '因果': '每个选择都有后果',
+        '责任': '承担起做决定的责任', '牺牲': '有些选择需要放弃其他可能',
+        '好运': '运气在你这边', '疗愈': '做出决定后会感到释然',
+        '快乐': '正确的决定会带来快乐', '活力': '做决定的动力正在恢复',
+        '完成': '决定即将做出', '满足': '做出正确的决定会得到满足',
+        '失控': '局势似乎失控了', '鲁莽': '不要冲动做决定',
+        '欺骗': '小心被表象迷惑', '束缚': '你感到被某些东西束缚着无法决定',
+        '依赖': '过度依赖他人的意见', '新机会': '新的选择可能出现',
+        '意志力': '凭借坚定的意志力做出决定', '内省': '向内看，答案在你心中',
+        '深思熟虑': '想清楚再决定', '僵局': '僵局需要被打破',
+        '内心矛盾': '内心的矛盾需要被调和', '放下防御': '放下防御才能看清真相',
+        '接受真相': '接受真相是做出正确决定的前提', '挣脱束缚': '挣脱束缚做出自己的选择',
+        '能力': '你有能力做出正确的决定', '资源具足': '你有足够的信息做决定',
+        '远见': '用长远的眼光做决定', '领导力': '在这个决定中需要你主导',
+        '结构': '建立决策框架', '秩序': '有序地分析每个选项',
+        '策略': '策略性地做出决定', '独立': '独立思考做出自己的决定',
+        '快速行动': '需要快速做出决定', '计划': '先规划再决定',
+        '务实': '务实地评估每个选项', '稳定前进': '稳步推进决策',
+        '竞争': '竞争环境下的决策需要更谨慎', '勤奋': '认真地收集信息再做决定',
+        '责任': '承担起做决定的责任', '圆满结局': '正确的决定会带来圆满结局',
+      },
+    };
+
+    const getDomainPhrase = (keyword: string): string => {
+      const domainMap = domainPhrases[domain];
+      if (domainMap && domainMap[keyword]) return domainMap[keyword];
+      return keywordPhrases[keyword] || keyword;
+    };
+
     const getCardKeywords = (card: TarotCard, isReversed: boolean): string[] => {
       const meaningText = isReversed ? card.reversedMeaning : card.meaning;
       return meaningText.split('、').filter(k => k.trim().length > 0);
@@ -784,10 +1063,12 @@ export function Home() {
       };
 
       const buildReading = (kw: string, idx: number): string => {
-        return keywordPhrases[kw] || kw;
+        return getDomainPhrase(kw);
       };
 
       const mainReading = relevantKeywords.map(buildReading).join('。');
+
+      const questionRef = `关于你问的「${question}」——`;
 
       if (modelType === 'relationship') {
         return interpretRelationshipCard(card, isReversed, position, relevantKeywords, mainReading, suitIntro);
@@ -1125,8 +1406,8 @@ export function Home() {
           '圆满结局': '牌面说好结局',
         };
 
-        const smallReading = relevantKeywords.map(kw => smallKeywordPhrases[kw] || keywordPhrases[kw] || kw).join('，');
-        const smallDirectReading = relevantKeywords.map(kw => smallDirectKeywordPhrases[kw] || smallKeywordPhrases[kw] || keywordPhrases[kw] || kw).join('。');
+        const smallReading = relevantKeywords.map(kw => getDomainPhrase(kw)).join('，');
+        const smallDirectReading = relevantKeywords.map(kw => getDomainPhrase(kw)).join('。');
 
         const gentleOpeners = [
           '我看到的信号是：', '这张牌在告诉你：', '牌面传递的信息是：',
@@ -1165,16 +1446,16 @@ export function Home() {
           const opener = gentleOpeners[openerIdx];
           if (isReversed) {
             const closer = gentleClosersNegative[closerIdx];
-            return `${positionLabel}${card.name}逆位。${opener}${smallReading}。${closer}`;
+            return `${questionRef}${positionLabel}${card.name}逆位。${opener}${smallReading}。${closer}`;
           } else {
             const closer = gentleClosersPositive[closerIdx];
-            return `${positionLabel}${card.name}正位。${opener}${smallReading}。${closer}`;
+            return `${questionRef}${positionLabel}${card.name}正位。${opener}${smallReading}。${closer}`;
           }
         } else {
           if (isReversed) {
-            return `${positionLabel}${card.name}逆位。${smallDirectReading}。建议调整方向，别硬来。`;
+            return `${questionRef}${positionLabel}${card.name}逆位。${smallDirectReading}。建议调整方向，别硬来。`;
           } else {
-            return `${positionLabel}${card.name}正位。${smallDirectReading}。可以照这个方向走。`;
+            return `${questionRef}${positionLabel}${card.name}正位。${smallDirectReading}。可以照这个方向走。`;
           }
         }
       }
@@ -1216,16 +1497,16 @@ export function Home() {
         const opener = gentleOpeners[openerIdx];
         if (isReversed) {
           const closer = gentleClosersNegative[closerIdx];
-          return `${positionLabel}${card.name}以逆位出现。${suitIntro}${opener}${mainReading}。${closer}`;
+          return `${questionRef}${positionLabel}${card.name}以逆位出现。${suitIntro}${opener}${mainReading}。${closer}`;
         } else {
           const closer = gentleClosersPositive[closerIdx];
-          return `${positionLabel}${card.name}以正位出现。${suitIntro}${opener}${mainReading}。${closer}`;
+          return `${questionRef}${positionLabel}${card.name}以正位出现。${suitIntro}${opener}${mainReading}。${closer}`;
         }
       } else {
         if (isReversed) {
-          return `${positionLabel}${card.name}逆位。${suitIntro}${mainReading}。别再骗自己了，正视问题才能解决问题。`;
+          return `${questionRef}${positionLabel}${card.name}逆位。${suitIntro}${mainReading}。别再骗自己了，正视问题才能解决问题。`;
         } else {
-          return `${positionLabel}${card.name}正位。${suitIntro}${mainReading}。机会就在眼前，别犹豫了。`;
+          return `${questionRef}${positionLabel}${card.name}正位。${suitIntro}${mainReading}。机会就在眼前，别犹豫了。`;
         }
       }
     };
@@ -1240,43 +1521,43 @@ export function Home() {
       if (posIndex === 0) {
         if (style === 'gentle') {
           if (isReversed) {
-            return `在「你的状态」的位置上，${card.name}逆位出现。${suitIntro}在这段关系中，你目前的状态是${kw}。也许你正在经历一些内心的挣扎，或者你的付出方式需要调整。这不是说你做错了什么，而是提醒你——先照顾好自己的感受，才能更好地面对这段关系。`;
+            return `${questionRef}在「你的状态」的位置上，${card.name}逆位出现。${suitIntro}在这段关系中，你目前的状态是${kw}。也许你正在经历一些内心的挣扎，或者你的付出方式需要调整。这不是说你做错了什么，而是提醒你——先照顾好自己的感受，才能更好地面对这段关系。`;
           } else {
-            return `在「你的状态」的位置上，${card.name}正位出现。${suitIntro}在这段关系中，你目前的状态是${kw}。你对这段感情有着真实的投入和期待，${mainReading}。这份能量是真诚的，但也要注意不要过度消耗自己。`;
+            return `${questionRef}在「你的状态」的位置上，${card.name}正位出现。${suitIntro}在这段关系中，你目前的状态是${kw}。你对这段感情有着真实的投入和期待，${mainReading}。这份能量是真诚的，但也要注意不要过度消耗自己。`;
           }
         } else {
           if (isReversed) {
-            return `在「你的状态」的位置上，${card.name}逆位。${suitIntro}你现在${kw}。别再自欺欺人了，你在关系中的状态并不健康。要么你太被动，要么你在逃避真正的问题。`;
+            return `${questionRef}在「你的状态」的位置上，${card.name}逆位。${suitIntro}你现在${kw}。别再自欺欺人了，你在关系中的状态并不健康。要么你太被动，要么你在逃避真正的问题。`;
           } else {
-            return `在「你的状态」的位置上，${card.name}正位。${suitIntro}你现在的状态是${kw}。你的感受是真实的，但光有感受不够，得看看对方什么情况。`;
+            return `${questionRef}在「你的状态」的位置上，${card.name}正位。${suitIntro}你现在的状态是${kw}。你的感受是真实的，但光有感受不够，得看看对方什么情况。`;
           }
         }
       } else if (posIndex === 1) {
         if (style === 'gentle') {
           if (isReversed) {
-            return `在「对方状态」的位置上，${card.name}逆位出现。${suitIntro}对方目前的状态是${kw}。对方可能正在经历一些内心的矛盾或隐藏的情绪，也许他/她并没有完全向你敞开心扉。这不一定是恶意的，有时候人需要时间来面对自己的真实感受。`;
+            return `${questionRef}在「对方状态」的位置上，${card.name}逆位出现。${suitIntro}对方目前的状态是${kw}。对方可能正在经历一些内心的矛盾或隐藏的情绪，也许他/她并没有完全向你敞开心扉。这不一定是恶意的，有时候人需要时间来面对自己的真实感受。`;
           } else {
-            return `在「对方状态」的位置上，${card.name}正位出现。${suitIntro}对方目前的状态是${kw}。${mainReading}。对方对这段关系有着自己的态度和立场，理解他/她的真实想法，是你们沟通的关键。`;
+            return `${questionRef}在「对方状态」的位置上，${card.name}正位出现。${suitIntro}对方目前的状态是${kw}。${mainReading}。对方对这段关系有着自己的态度和立场，理解他/她的真实想法，是你们沟通的关键。`;
           }
         } else {
           if (isReversed) {
-            return `在「对方状态」的位置上，${card.name}逆位。${suitIntro}对方现在${kw}。他/她心里有事没说，或者在逃避什么。别替对方找借口了，看清现实。`;
+            return `${questionRef}在「对方状态」的位置上，${card.name}逆位。${suitIntro}对方现在${kw}。他/她心里有事没说，或者在逃避什么。别替对方找借口了，看清现实。`;
           } else {
-            return `在「对方状态」的位置上，${card.name}正位。${suitIntro}对方的状态是${kw}。他/她有自己的想法，但未必和你一致。别光看你想看的。`;
+            return `${questionRef}在「对方状态」的位置上，${card.name}正位。${suitIntro}对方的状态是${kw}。他/她有自己的想法，但未必和你一致。别光看你想看的。`;
           }
         }
       } else {
         if (style === 'gentle') {
           if (isReversed) {
-            return `在「关系动态」的位置上，${card.name}逆位出现。${suitIntro}你们的关系目前呈现出${kw}的状态。这段关系可能正处于一个需要调整的阶段，但这并不意味着结束。有时候，暂时的停滞是为了更好地重新出发。`;
+            return `${questionRef}在「关系动态」的位置上，${card.name}逆位出现。${suitIntro}你们的关系目前呈现出${kw}的状态。这段关系可能正处于一个需要调整的阶段，但这并不意味着结束。有时候，暂时的停滞是为了更好地重新出发。`;
           } else {
-            return `在「关系动态」的位置上，${card.name}正位出现。${suitIntro}你们的关系目前呈现出${kw}的能量。${mainReading}。这段关系有着它独特的节奏和方向，顺应这个能量去理解彼此，会比强求更有效。`;
+            return `${questionRef}在「关系动态」的位置上，${card.name}正位出现。${suitIntro}你们的关系目前呈现出${kw}的能量。${mainReading}。这段关系有着它独特的节奏和方向，顺应这个能量去理解彼此，会比强求更有效。`;
           }
         } else {
           if (isReversed) {
-            return `在「关系动态」的位置上，${card.name}逆位。${suitIntro}你们的关系${kw}。别美化现状了，这段关系现在有问题。不面对就永远解决不了。`;
+            return `${questionRef}在「关系动态」的位置上，${card.name}逆位。${suitIntro}你们的关系${kw}。别美化现状了，这段关系现在有问题。不面对就永远解决不了。`;
           } else {
-            return `在「关系动态」的位置上，${card.name}正位。${suitIntro}关系动态是${kw}。能量在这里，但能不能用好，看你们自己。`;
+            return `${questionRef}在「关系动态」的位置上，${card.name}正位。${suitIntro}关系动态是${kw}。能量在这里，但能不能用好，看你们自己。`;
           }
         }
       }
@@ -1296,9 +1577,9 @@ export function Home() {
       const yourCard = cards[0];
       const theirCard = cards[1];
       const relCard = cards[2];
-      const yourKw = pickRelevantKeywords(getCardKeywords(yourCard.card, yourCard.isReversed), themes).slice(0, 2).join('、');
-      const theirKw = pickRelevantKeywords(getCardKeywords(theirCard.card, theirCard.isReversed), themes).slice(0, 2).join('、');
-      const relKw = pickRelevantKeywords(getCardKeywords(relCard.card, relCard.isReversed), themes).slice(0, 2).join('、');
+      const yourKw = pickRelevantKeywords(getCardKeywords(yourCard.card, yourCard.isReversed), themes).slice(0, 2).map(kw => getDomainPhrase(kw)).join('，');
+      const theirKw = pickRelevantKeywords(getCardKeywords(theirCard.card, theirCard.isReversed), themes).slice(0, 2).map(kw => getDomainPhrase(kw)).join('，');
+      const relKw = pickRelevantKeywords(getCardKeywords(relCard.card, relCard.isReversed), themes).slice(0, 2).map(kw => getDomainPhrase(kw)).join('，');
 
       const isBreakupQ = /分手|离婚|分开|复合|挽回|前任|和好/.test(question);
       const isFutureQ = /未来|发展|结果|走向|会不会/.test(question);
@@ -1306,7 +1587,7 @@ export function Home() {
 
       if (style === 'gentle') {
         if (tendency === 'positive') {
-          let s = `综合三张牌的能量来看，你目前${yourKw}，对方${theirKw}，你们的关系动态是${relKw}。`;
+          let s = `关于你问的「${question}」——综合三张牌的能量来看，你目前${yourKw}，对方${theirKw}，你们的关系动态是${relKw}。`;
           s += '整体而言，这段关系中仍然有着积极的能量在流动。';
           if (isBreakupQ) {
             s += '关于你们能否和好——牌面显示可能性是存在的，但需要双方都愿意面对之前的问题。和好不是回到过去，而是以新的方式重新开始。';
@@ -1319,7 +1600,7 @@ export function Home() {
           }
           return s;
         } else if (tendency === 'negative') {
-          let s = `综合三张牌的能量来看，你目前${yourKw}，对方${theirKw}，你们的关系动态是${relKw}。`;
+          let s = `关于你问的「${question}」——综合三张牌的能量来看，你目前${yourKw}，对方${theirKw}，你们的关系动态是${relKw}。`;
           s += '目前这段关系确实面临着一些挑战和困难。';
           if (isBreakupQ) {
             s += '关于能否和好——现在的时机可能还不够成熟。双方都还需要时间去消化和成长。不要急于求一个结果，有时候等待本身就是一种答案。';
@@ -1332,7 +1613,7 @@ export function Home() {
           }
           return s;
         } else {
-          let s = `综合三张牌的能量来看，你${yourKw}，对方${theirKw}，关系动态${relKw}。正逆位交织，说明这段关系正处于一个不确定的阶段。`;
+          let s = `关于你问的「${question}」——综合三张牌的能量来看，你${yourKw}，对方${theirKw}，关系动态${relKw}。正逆位交织，说明这段关系正处于一个不确定的阶段。`;
           if (isBreakupQ) {
             s += '能否和好，目前还没有一个明确的答案。关键在于你们双方是否都还有继续的意愿，以及是否愿意为之前的问题做出改变。';
           } else if (isFutureQ) {
@@ -1346,7 +1627,7 @@ export function Home() {
         }
       } else {
         if (tendency === 'positive') {
-          let s = `${yourKw}、${theirKw}、${relKw}——能量整体偏正。`;
+          let s = `关于你问的「${question}」——${yourKw}；${theirKw}；${relKw}——能量整体偏正。`;
           if (isBreakupQ) {
             s += '能和好，但前提是你们都愿意面对之前的问题。和好不是假装什么都没发生，是真正解决问题。做不到就别浪费彼此时间。';
           } else if (isFutureQ) {
@@ -1358,7 +1639,7 @@ export function Home() {
           }
           return s;
         } else if (tendency === 'negative') {
-          let s = `${yourKw}、${theirKw}、${relKw}——信号不太好。`;
+          let s = `关于你问的「${question}」——${yourKw}；${theirKw}；${relKw}——信号不太好。`;
           if (isBreakupQ) {
             s += '现在和不了。双方都没准备好，硬凑在一起只会更痛苦。先把自己搞好再说。';
           } else if (isFutureQ) {
@@ -1370,7 +1651,7 @@ export function Home() {
           }
           return s;
         } else {
-          let s = `${yourKw}、${theirKw}、${relKw}——正逆参半，看不透。`;
+          let s = `关于你问的「${question}」——${yourKw}；${theirKw}；${relKw}——正逆参半，看不透。`;
           if (isBreakupQ) {
             s += '不确定能不能和好。关键看你们俩到底还想不想在一起，光想没用，得行动。';
           } else if (isFutureQ) {
@@ -1392,13 +1673,14 @@ export function Home() {
       const cardNames = cards.map(c => `${c.card.name}${c.isReversed ? '（逆位）' : '（正位）'}`).join('、');
       const allKeywords = cards.flatMap(c => pickRelevantKeywords(getCardKeywords(c.card, c.isReversed), themes));
       const uniqueKeywords = [...new Set(allKeywords)].slice(0, 5);
+      const domainKeywords = uniqueKeywords.map(kw => getDomainPhrase(kw));
 
       if (modelType === 'relationship') {
         return generateRelationshipSummary(tendency, isYesNoQuestion, cardNames, uniqueKeywords);
       }
 
       if (questionScale === 'small') {
-        const kwStr = uniqueKeywords.length > 0 ? uniqueKeywords.slice(0, 3).join('、') : '';
+        const kwStr = domainKeywords.length > 0 ? domainKeywords.slice(0, 3).join('，') : '';
         const summaryClosersPositive = [
           '整体来看，牌面是支持你的。', '综合来看，方向是积极的。',
           '总的来说，信号是正面的。', '综合这几张牌来看，可以放心。',
@@ -1414,11 +1696,13 @@ export function Home() {
         const summaryIdx = Date.now() % 4;
         if (tendency === 'positive') {
           if (style === 'gentle') {
-            let s = kwStr ? `我看到的信号是${kwStr}，` : '';
+            let s = `关于你问的「${question}」——`;
+            s += kwStr ? `我看到的信号是${kwStr}，` : '';
             s += isYesNoQuestion ? '可以去做。' : summaryClosersPositive[summaryIdx];
             return s;
           } else {
-            let s = kwStr ? `牌面显示${kwStr}，` : '牌面偏正，';
+            let s = `关于你问的「${question}」——`;
+            s += kwStr ? `牌面显示${kwStr}，` : '牌面偏正，';
             if (isYesNoQuestion) {
               s += '可以。';
             } else {
@@ -1428,11 +1712,13 @@ export function Home() {
           }
         } else if (tendency === 'negative') {
           if (style === 'gentle') {
-            let s = kwStr ? `牌面提示${kwStr}，` : '';
+            let s = `关于你问的「${question}」——`;
+            s += kwStr ? `牌面提示${kwStr}，` : '';
             s += isYesNoQuestion ? '可能再等等比较好。' : summaryClosersNegative[summaryIdx];
             return s;
           } else {
-            let s = kwStr ? `牌面提示${kwStr}，` : '牌面偏逆，';
+            let s = `关于你问的「${question}」——`;
+            s += kwStr ? `牌面提示${kwStr}，` : '牌面偏逆，';
             if (isYesNoQuestion) {
               s += '不建议。';
             } else {
@@ -1442,11 +1728,13 @@ export function Home() {
           }
         } else {
           if (style === 'gentle') {
-            let s = kwStr ? `牌面显示${kwStr}同时存在，` : '';
+            let s = `关于你问的「${question}」——`;
+            s += kwStr ? `牌面显示${kwStr}同时存在，` : '';
             s += isYesNoQuestion ? '信号不太明确，不急的话可以再观察一下。' : summaryClosersNeutral[summaryIdx];
             return s;
           } else {
-            let s = kwStr ? `牌面显示${kwStr}同时存在，` : '牌面正逆参半，';
+            let s = `关于你问的「${question}」——`;
+            s += kwStr ? `牌面显示${kwStr}同时存在，` : '牌面正逆参半，';
             if (isYesNoQuestion) {
               s += '信号不明确，再观察一下。';
             } else {
@@ -1457,7 +1745,7 @@ export function Home() {
         }
       }
 
-      let summary = '';
+      let summary = `关于你问的「${question}」——`;
 
       const bigSummaryClosersPositive = [
         '综合来看，牌面给出的方向是值得信赖的。',
@@ -1481,45 +1769,45 @@ export function Home() {
 
       if (tendency === 'positive') {
         if (style === 'gentle') {
-          const kwPart = uniqueKeywords.length > 0
-            ? `我看到的信号是${uniqueKeywords.join('、')}。`
+          const kwPart = domainKeywords.length > 0
+            ? `我看到的信号是${domainKeywords.join('；')}。`
             : '';
-          summary = `${cardNames}——${kwPart}${bigSummaryClosersPositive[bigSummaryIdx]}`;
+          summary += `${cardNames}——${kwPart}${bigSummaryClosersPositive[bigSummaryIdx]}`;
           if (isYesNoQuestion) summary += '可以尝试，但保持觉察。';
         } else {
-          summary = `${cardNames}——`;
-          summary += uniqueKeywords.length > 0
-            ? `${uniqueKeywords.join('、')}，信号很明确。`
+          summary += `${cardNames}——`;
+          summary += domainKeywords.length > 0
+            ? `${domainKeywords.join('；')}，信号很明确。`
             : '信号很明确。';
           if (isYesNoQuestion) summary += '答案：是。别磨蹭了。';
           else summary += '该做就做，别等了。';
         }
       } else if (tendency === 'negative') {
         if (style === 'gentle') {
-          const kwPart = uniqueKeywords.length > 0
-            ? `牌面提示${uniqueKeywords.join('、')}。`
+          const kwPart = domainKeywords.length > 0
+            ? `牌面提示${domainKeywords.join('；')}。`
             : '';
-          summary = `${cardNames}——${kwPart}${bigSummaryClosersNegative[bigSummaryIdx]}`;
+          summary += `${cardNames}——${kwPart}${bigSummaryClosersNegative[bigSummaryIdx]}`;
           if (isYesNoQuestion) summary += '暂时放缓脚步，等时机成熟再行动。';
         } else {
-          summary = `${cardNames}——`;
-          summary += uniqueKeywords.length > 0
-            ? `${uniqueKeywords.join('、')}，别装看不见。`
+          summary += `${cardNames}——`;
+          summary += domainKeywords.length > 0
+            ? `${domainKeywords.join('；')}，别装看不见。`
             : '别装看不见。';
           if (isYesNoQuestion) summary += '答案：否。现在不是时候。';
           else summary += '别硬撑，先稳住。';
         }
       } else {
         if (style === 'gentle') {
-          const kwPart = uniqueKeywords.length > 0
-            ? `${uniqueKeywords.join('与')}同时存在。`
+          const kwPart = domainKeywords.length > 0
+            ? `${domainKeywords.join('与')}同时存在。`
             : '';
-          summary = `${cardNames}——${kwPart}${bigSummaryClosersNeutral[bigSummaryIdx]}`;
+          summary += `${cardNames}——${kwPart}${bigSummaryClosersNeutral[bigSummaryIdx]}`;
           if (isYesNoQuestion) summary += '不急做决定，再观察一下。';
         } else {
-          summary = `${cardNames}——正逆参半，局势不明。`;
-          summary += uniqueKeywords.length > 0
-            ? `${uniqueKeywords.join('和')}在拉扯，别急着站队。`
+          summary += `${cardNames}——正逆参半，局势不明。`;
+          summary += domainKeywords.length > 0
+            ? `${domainKeywords.join('和')}在拉扯，别急着站队。`
             : '别急着站队。';
           if (isYesNoQuestion) summary += '答案：不确定，再等等。';
           else summary += '先别动，看清楚再说。';
@@ -1600,7 +1888,7 @@ export function Home() {
 
       const positionLabels = ['现状', '行动', '结果'];
 
-      let result = '';
+      let result = `关于你问的「${decisionQuestion}」——\n\n`;
 
       decisionCards.forEach((item, index) => {
         const card = item.card;
@@ -1608,7 +1896,7 @@ export function Home() {
         const position = decisionPositions[index] || positionLabels[index];
         const tendency = tendencies[index];
         const keywords = pickRelevantKeywords(getCardKeywords(card, isReversed), themes);
-        const kw = keywords.slice(0, 3).join('、');
+        const domainKw = keywords.slice(0, 3).map(kw => getDomainPhrase(kw)).join('；');
         const suitIntro = card.suit ? '' : '';
         const tendencyLabel = tendency === 'good' ? '积极' : tendency === 'bad' ? '挑战' : '需权衡';
 
@@ -1617,44 +1905,44 @@ export function Home() {
         if (decisionStyle === 'gentle') {
           if (index === 0) {
             if (tendency === 'good') {
-              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——这说明你当前的处境是有利的，外部条件在支持你。`;
+              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${domainKw}——这说明你当前的处境是有利的，外部条件在支持你。`;
             } else if (tendency === 'bad') {
-              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——这意味着你目前的处境确实有些困难，但认清现状本身就是做出正确决策的第一步。`;
+              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${domainKw}——这意味着你目前的处境确实有些困难，但认清现状本身就是做出正确决策的第一步。`;
             } else {
-              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——现状并非非黑即白，有些条件对你有利，有些需要你留心。`;
+              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${domainKw}——现状并非非黑即白，有些条件对你有利，有些需要你留心。`;
             }
           } else if (index === 1) {
             if (tendency === 'good') {
-              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——建议你采取的行动方向是明确的，大胆去做。`;
+              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${domainKw}——建议你采取的行动方向是明确的，大胆去做。`;
             } else if (tendency === 'bad') {
               if (isReversed && badCards.includes(card.name)) {
-                reading = `在「${position}」的位置上，${card.name}逆位出现。虽然这张牌本身代表困难，但逆位意味着最坏的情况正在过去。${kw}——建议你趁这个转机，调整行动方向。`;
+                reading = `在「${position}」的位置上，${card.name}逆位出现。虽然这张牌本身代表困难，但逆位意味着最坏的情况正在过去。${domainKw}——建议你趁这个转机，调整行动方向。`;
               } else {
-                reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——这意味着你计划中的行动方式可能需要调整，不要硬碰硬。`;
+                reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${domainKw}——这意味着你计划中的行动方式可能需要调整，不要硬碰硬。`;
               }
             } else {
-              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——行动上需要你权衡利弊，不急不躁地推进。`;
+              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${domainKw}——行动上需要你权衡利弊，不急不躁地推进。`;
             }
           } else {
             if (tendency === 'good') {
-              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——结果牌给出了积极的信号，这个决策的前景是看好的。`;
+              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${domainKw}——结果牌给出了积极的信号，这个决策的前景是看好的。`;
             } else if (tendency === 'bad') {
-              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——结果牌提示了风险，这个决策可能不会如你预期的那样顺利。但这不代表没有出路，可能需要换一种方式。`;
+              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${domainKw}——结果牌提示了风险，这个决策可能不会如你预期的那样顺利。但这不代表没有出路，可能需要换一种方式。`;
             } else {
-              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${kw}——结果还在两可之间，最终走向取决于你的行动质量。`;
+              reading = `在「${position}」的位置上，${card.name}${isReversed ? '逆位' : '正位'}出现，倾向${tendencyLabel}。${domainKw}——结果还在两可之间，最终走向取决于你的行动质量。`;
             }
           }
         } else {
           if (index === 0) {
-            reading = `「${position}」：${card.name}${isReversed ? '逆位' : '正位'}，${tendencyLabel}。${kw}。`;
+            reading = `「${position}」：${card.name}${isReversed ? '逆位' : '正位'}，${tendencyLabel}。${domainKw}。`;
           } else if (index === 1) {
             if (isReversed && badCards.includes(card.name)) {
-              reading = `「${position}」：${card.name}逆位——坏牌逆位，最坏已过。${kw}。调整行动方向，别再走老路。`;
+              reading = `「${position}」：${card.name}逆位——坏牌逆位，最坏已过。${domainKw}。调整行动方向，别再走老路。`;
             } else {
-              reading = `「${position}」：${card.name}${isReversed ? '逆位' : '正位'}，${tendencyLabel}。${kw}。`;
+              reading = `「${position}」：${card.name}${isReversed ? '逆位' : '正位'}，${tendencyLabel}。${domainKw}。`;
             }
           } else {
-            reading = `「${position}」：${card.name}${isReversed ? '逆位' : '正位'}，${tendencyLabel}。${kw}。`;
+            reading = `「${position}」：${card.name}${isReversed ? '逆位' : '正位'}，${tendencyLabel}。${domainKw}。`;
           }
         }
 
