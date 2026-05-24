@@ -817,19 +817,27 @@ const majorSymbols: Record<string, string> = {
 const courtSymbols: Record<string, string> = {
   '侍从': `
     <g>
-      <circle cx="150" cy="120" r="18" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.7"/>
-      <circle cx="150" cy="120" r="14" fill="COLOR" opacity="0.28"/>
-      <path d="M150,138 L150,250" stroke="COLOR" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
-      <path d="M150,170 L120,200" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
-      <path d="M150,170 L180,200" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
-      <path d="M120,200 L115,220" stroke="COLOR" stroke-width="2" opacity="0.55"/>
-      <path d="M180,200 L185,220" stroke="COLOR" stroke-width="2" opacity="0.55"/>
-      <path d="M150,250 L130,290" stroke="COLOR" stroke-width="2.5" opacity="0.55"/>
-      <path d="M150,250 L170,290" stroke="COLOR" stroke-width="2.5" opacity="0.55"/>
-      <path d="M115,220 L105,215" stroke="COLOR" stroke-width="2" opacity="0.5"/>
-      <path d="M185,220 L195,215" stroke="COLOR" stroke-width="2" opacity="0.5"/>
-      <rect x="100" y="210" width="12" height="16" rx="2" fill="COLOR" fill-opacity="0.28" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
-      <rect x="188" y="210" width="12" height="16" rx="2" fill="COLOR" fill-opacity="0.28" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
+      <ellipse cx="150" cy="310" rx="40" ry="6" fill="COLOR" opacity="0.10"/>
+      <circle cx="150" cy="115" r="20" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.75"/>
+      <circle cx="150" cy="115" r="15" fill="COLOR" fill-opacity="0.28"/>
+      <path d="M140,105 Q145,92 150,98 Q155,92 160,105" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.70"/>
+      <path d="M150,135 L150,255" stroke="COLOR" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+      <path d="M150,170 L118,205" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.70"/>
+      <path d="M150,170 L182,205" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.70"/>
+      <path d="M150,255 L125,305" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
+      <path d="M150,255 L175,305" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
+      <path d="M118,205 L108,225" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.60"/>
+      <path d="M182,205 L192,225" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.60"/>
+      <rect x="95" y="218" width="18" height="24" rx="3" fill="COLOR" fill-opacity="0.28" stroke="COLOR" stroke-width="2" opacity="0.65"/>
+      <rect x="187" y="218" width="18" height="24" rx="3" fill="COLOR" fill-opacity="0.28" stroke="COLOR" stroke-width="2" opacity="0.65"/>
+      <path d="M150,135 L140,155 L160,155 Z" fill="COLOR" fill-opacity="0.22" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
+      <path d="M130,255 Q150,262 170,255" fill="none" stroke="COLOR" stroke-width="2" opacity="0.50"/>
+      <circle cx="104" cy="215" r="3" fill="COLOR" opacity="0.40"/>
+      <circle cx="196" cy="215" r="3" fill="COLOR" opacity="0.40"/>
+      <path d="M125,305 L120,310" stroke="COLOR" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+      <path d="M175,305 L180,310" stroke="COLOR" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+      <path d="M108,225 L104,228 L112,230" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.50"/>
+      <path d="M192,225 L196,228 L188,230" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.50"/>
     </g>`,
 
   '骑士': `
@@ -868,23 +876,28 @@ const courtSymbols: Record<string, string> = {
 
   '王后': `
     <g>
-      <circle cx="150" cy="130" r="18" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.7"/>
-      <path d="M136,122 L141,105 L146,118 L150,100 L154,118 L159,105 L164,122" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.7"/>
-      <circle cx="141" cy="103" r="3" fill="COLOR" opacity="0.45"/>
-      <circle cx="150" cy="98" r="3" fill="COLOR" opacity="0.45"/>
-      <circle cx="159" cy="103" r="3" fill="COLOR" opacity="0.45"/>
-      <path d="M150,148 L150,260" stroke="COLOR" stroke-width="3" stroke-linecap="round" opacity="0.7"/>
-      <path d="M150,180 L120,210" stroke="COLOR" stroke-width="2.5" opacity="0.65"/>
-      <path d="M150,180 L180,210" stroke="COLOR" stroke-width="2.5" opacity="0.65"/>
-      <path d="M120,210 L115,230" stroke="COLOR" stroke-width="2" opacity="0.55"/>
-      <path d="M180,210 L185,230" stroke="COLOR" stroke-width="2" opacity="0.55"/>
-      <path d="M150,260 L130,300" stroke="COLOR" stroke-width="2.5" opacity="0.55"/>
-      <path d="M150,260 L170,300" stroke="COLOR" stroke-width="2.5" opacity="0.55"/>
-      <rect x="110" y="260" width="80" height="10" rx="2" fill="none" stroke="COLOR" stroke-width="2" opacity="0.55"/>
-      <path d="M115,230 L105,225 L100,235" stroke="COLOR" stroke-width="2" opacity="0.5"/>
-      <path d="M185,230 L195,225 L200,235" stroke="COLOR" stroke-width="2" opacity="0.5"/>
-      <ellipse cx="103" cy="232" rx="8" ry="6" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.5"/>
-      <ellipse cx="197" cy="232" rx="8" ry="6" fill="none" stroke="COLOR" stroke-width="1.5" opacity="0.5"/>
+      <ellipse cx="150" cy="310" rx="40" ry="6" fill="COLOR" opacity="0.10"/>
+      <circle cx="150" cy="120" r="20" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.75"/>
+      <circle cx="150" cy="120" r="15" fill="COLOR" fill-opacity="0.28"/>
+      <path d="M136,112 L141,95 L146,108 L150,90 L154,108 L159,95 L164,112" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.75"/>
+      <circle cx="141" cy="93" r="3.5" fill="COLOR" opacity="0.50"/>
+      <circle cx="150" cy="88" r="3.5" fill="COLOR" opacity="0.50"/>
+      <circle cx="159" cy="93" r="3.5" fill="COLOR" opacity="0.50"/>
+      <path d="M150,140 L150,260" stroke="COLOR" stroke-width="3" stroke-linecap="round" opacity="0.75"/>
+      <path d="M150,170 L118,210" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.70"/>
+      <path d="M150,170 L182,210" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.70"/>
+      <path d="M118,210 L108,235" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.60"/>
+      <path d="M182,210 L192,235" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.60"/>
+      <path d="M150,260 L128,305" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
+      <path d="M150,260 L172,305" stroke="COLOR" stroke-width="2.5" stroke-linecap="round" opacity="0.65"/>
+      <ellipse cx="103" cy="238" rx="10" ry="7" fill="none" stroke="COLOR" stroke-width="2" opacity="0.55"/>
+      <ellipse cx="197" cy="238" rx="10" ry="7" fill="none" stroke="COLOR" stroke-width="2" opacity="0.55"/>
+      <path d="M108,235 L103,238" stroke="COLOR" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+      <path d="M192,235 L197,238" stroke="COLOR" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+      <path d="M140,260 Q150,268 160,260" fill="none" stroke="COLOR" stroke-width="2" opacity="0.50"/>
+      <path d="M150,140 L138,162 L162,162 Z" fill="COLOR" fill-opacity="0.22" stroke="COLOR" stroke-width="1.5" opacity="0.55"/>
+      <path d="M128,305 L123,310" stroke="COLOR" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
+      <path d="M172,305 L177,310" stroke="COLOR" stroke-width="2" stroke-linecap="round" opacity="0.55"/>
     </g>`,
 
   '国王': `
@@ -897,7 +910,7 @@ const courtSymbols: Record<string, string> = {
       <path d="M150,155 L125,175" stroke="COLOR" stroke-width="2.5" opacity="0.7"/>
       <path d="M150,155 L175,175" stroke="COLOR" stroke-width="2.5" opacity="0.7"/>
       <circle cx="150" cy="112" r="16" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.75"/>
-      <circle cx="150" cy="112" r="12" fill="COLOR" opacity="0.28"/>
+      <circle cx="150" cy="112" r="12" fill="COLOR" fill-opacity="0.28"/>
       <path d="M138,104 L143,84 L148,99 L150,79 L152,99 L157,84 L162,104" fill="none" stroke="COLOR" stroke-width="2.5" opacity="0.75"/>
       <path d="M125,175 L120,195" stroke="COLOR" stroke-width="2" opacity="0.6"/>
       <path d="M175,175 L180,195" stroke="COLOR" stroke-width="2" opacity="0.6"/>
