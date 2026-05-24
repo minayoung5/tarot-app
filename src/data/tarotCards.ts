@@ -13,68 +13,13 @@ export interface TarotCard {
 
 const cardImageStyle = 'vintage%20tarot%20card%20illustration%20ornate%20gold%20border%20dark%20cosmic%20background%20mystical%20ethereal%20art%20nouveau%20style%20high%20detail';
 
-const createMinorArcana = (): TarotCard[] => {
-  const suits = [
-    { name: '权杖', en: 'Wands', element: '火', color: 'orange' },
-    { name: '圣杯', en: 'Cups', element: '水', color: 'blue' },
-    { name: '宝剑', en: 'Swords', element: '风', color: 'purple' },
-    { name: '星币', en: 'Pentacles', element: '土', color: 'green' }
-  ];
-
-  const numbers = ['首牌', '二', '三', '四', '五', '六', '七', '八', '九', '十'];
-  const courtCards = [
-    { name: '侍从', en: 'Page' },
-    { name: '骑士', en: 'Knight' },
-    { name: '王后', en: 'Queen' },
-    { name: '国王', en: 'King' }
-  ];
-
-  const cards: TarotCard[] = [];
-  let id = 23;
-
-  for (const suit of suits) {
-    for (let i = 0; i < numbers.length; i++) {
-      cards.push({
-        id,
-        name: `${suit.name}${numbers[i]}`,
-        nameEn: `${numbers[i]} of ${suit.en}`,
-        meaning: `${suit.name}牌组代表${suit.element}元素的能量，${numbers[i]}号带来平衡与发展的力量。`,
-        reversedMeaning: `${suit.name}牌组逆位时能量受阻，${numbers[i]}号暗示需要重新评估当前的局面。`,
-        image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=${suit.en}%20${numbers[i]}%20tarot%20card%20${suit.color}%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
-        type: 'minor',
-        suit: suit.en.toLowerCase() as any,
-        number: i + 1,
-        element: suit.element
-      });
-      id++;
-    }
-
-    for (const court of courtCards) {
-      cards.push({
-        id,
-        name: `${suit.name}${court.name}`,
-        nameEn: `${court.en} of ${suit.en}`,
-        meaning: `${suit.name}${court.name}代表${suit.element}元素的成熟与掌控，带来稳定的能量。`,
-        reversedMeaning: `${suit.name}${court.name}逆位时暗示不成熟或失去方向，需要重新找回平衡。`,
-        image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=${court.en}%20of%20${suit.en}%20tarot%20card%20${suit.color}%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
-        type: 'minor',
-        suit: suit.en.toLowerCase() as any,
-        element: suit.element
-      });
-      id++;
-    }
-  }
-
-  return cards;
-};
-
 const majorArcana: TarotCard[] = [
   {
     id: 1,
     name: '愚者',
     nameEn: 'The Fool',
-    meaning: '新的开始、纯真、冒险精神、无限可能。代表着放下过去，勇敢地迈向未知的旅程。',
-    reversedMeaning: '鲁莽、冒险失败、缺乏计划、误入歧途。提醒你在行动前要深思熟虑。',
+    meaning: '开始、冒险、天真、活在当下、无限可能',
+    reversedMeaning: '鲁莽、轻率、逃避现实、停滞不前、不负责任',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=The%20Fool%20tarot%20card%20young%20person%20on%20cliff%20white%20rose%20small%20dog%20sunrise%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '风'
@@ -83,8 +28,8 @@ const majorArcana: TarotCard[] = [
     id: 2,
     name: '魔术师',
     nameEn: 'The Magician',
-    meaning: '创造力、技能、意志力、资源整合。你拥有实现梦想所需的一切能力。',
-    reversedMeaning: '欺骗、操纵、能力未发挥、过度自信。警惕虚假的表象和自我膨胀。',
+    meaning: '能力、专注、行动、资源具足、化想法为现实',
+    reversedMeaning: '欺骗、花招、才能误用、缺乏动力、不自信',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=The%20Magician%20tarot%20card%20man%20at%20table%20four%20suit%20symbols%20infinity%20symbol%20above%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '风'
@@ -93,18 +38,18 @@ const majorArcana: TarotCard[] = [
     id: 3,
     name: '女祭司',
     nameEn: 'The High Priestess',
-    meaning: '直觉、神秘、内在智慧、潜意识。倾听内心的声音，相信你的直觉。',
-    reversedMeaning: '隐藏的动机、表面化、拒绝倾听直觉。需要深入探索自己的内心世界。',
+    meaning: '直觉、奥秘、潜意识、内在智慧、静默',
+    reversedMeaning: '忽视直觉、压抑情感、秘密暴露、肤浅',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=The%20High%20Priestess%20tarot%20card%20woman%20between%20two%20pillars%20moon%20crown%20scroll%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '水'
   },
   {
     id: 4,
-    name: '皇后',
+    name: '女皇',
     nameEn: 'The Empress',
-    meaning: '丰饶、创造力、母性、滋养。代表着生命的丰盛和情感的满足。',
-    reversedMeaning: '依赖、过度保护、缺乏自律、不安全感。需要建立健康的界限。',
+    meaning: '丰盛、母性、创造力、感官享受、自然滋养',
+    reversedMeaning: '依赖、缺乏成长、创造力受阻、过度追求物质',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=The%20Empress%20tarot%20card%20woman%20on%20throne%20flowers%20wheat%20crown%20of%20stars%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '土'
@@ -113,8 +58,8 @@ const majorArcana: TarotCard[] = [
     id: 5,
     name: '皇帝',
     nameEn: 'The Emperor',
-    meaning: '权威、稳定、父性、结构。代表着建立秩序和掌控局面的能力。',
-    reversedMeaning: '专制、僵化、过度控制、缺乏灵活性。需要学会变通和放手。',
+    meaning: '权威、秩序、领导力、结构、稳定',
+    reversedMeaning: '独裁、控制欲过强、缺乏纪律、不成熟',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=The%20Emperor%20tarot%20card%20man%20on%20throne%20ram%20horns%20scepter%20armor%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '火'
@@ -123,8 +68,8 @@ const majorArcana: TarotCard[] = [
     id: 6,
     name: '教皇',
     nameEn: 'The Hierophant',
-    meaning: '传统、信仰、导师、智慧传承。代表着寻求更高的真理和精神指引。',
-    reversedMeaning: '非传统、挑战权威、独立思考、拒绝教条。需要走自己的道路。',
+    meaning: '传统、教育、信仰体系、精神指引、遵循规则',
+    reversedMeaning: '挑战传统、非正统、限制性信念、盲目服从',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=The%20Hierophant%20tarot%20card%20priest%20on%20throne%20two%20disciples%20cross%20keys%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '土'
@@ -133,8 +78,8 @@ const majorArcana: TarotCard[] = [
     id: 7,
     name: '恋人',
     nameEn: 'The Lovers',
-    meaning: '爱情、和谐、选择、灵魂连接。代表着重要的关系和关键的人生抉择。',
-    reversedMeaning: '不和谐、错误的选择、关系问题、诱惑。需要重新审视你的关系和选择。',
+    meaning: '爱、和谐、选择、关系、价值观结合',
+    reversedMeaning: '冲突、不和谐、失衡选择、分离、沟通不良',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=The%20Lovers%20tarot%20card%20man%20and%20woman%20angel%20above%20tree%20of%20knowledge%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '风'
@@ -143,8 +88,8 @@ const majorArcana: TarotCard[] = [
     id: 8,
     name: '战车',
     nameEn: 'The Chariot',
-    meaning: '胜利、意志力、决心、克服障碍。代表着坚定地朝着目标前进。',
-    reversedMeaning: '失控、缺乏方向、攻击性、失败。需要重新调整方向和策略。',
+    meaning: '意志力、决心、胜利、自我控制、通过挑战',
+    reversedMeaning: '失控、冲突内耗、缺乏方向、鲁莽行动',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=The%20Chariot%20tarot%20card%20warrior%20in%20chariot%20two%20sphinxes%20crown%20canopy%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '水'
@@ -153,8 +98,8 @@ const majorArcana: TarotCard[] = [
     id: 9,
     name: '力量',
     nameEn: 'Strength',
-    meaning: '内在力量、勇气、耐心、温柔的力量。真正的力量来自内心的平静和自信。',
-    reversedMeaning: '软弱、自我怀疑、滥用力量、缺乏耐心。需要找回内在的力量和自信。',
+    meaning: '勇气、耐心、柔软控制、韧性、以柔克刚',
+    reversedMeaning: '自我怀疑、软弱、失控、情绪化、缺乏内在力量',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Strength%20tarot%20card%20woman%20taming%20lion%20infinity%20symbol%20flowers%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '火'
@@ -163,8 +108,8 @@ const majorArcana: TarotCard[] = [
     id: 10,
     name: '隐士',
     nameEn: 'The Hermit',
-    meaning: '内省、孤独、智慧、自我发现。需要退隐独处，倾听内心的声音。',
-    reversedMeaning: '孤独、拒绝帮助、孤立、害怕社交。需要走出孤独，与他人连接。',
+    meaning: '内省、指引、寻求真理、孤独、深思熟虑',
+    reversedMeaning: '孤立、逃避人群、拒绝指引、过度封闭',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=The%20Hermit%20tarot%20card%20old%20man%20with%20lantern%20mountain%20peak%20cloak%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '土'
@@ -173,8 +118,8 @@ const majorArcana: TarotCard[] = [
     id: 11,
     name: '命运之轮',
     nameEn: 'Wheel of Fortune',
-    meaning: '命运、转折点、机遇、无常。代表着生活的起伏和命运的转变。',
-    reversedMeaning: '厄运、抗拒变化、错过机会、命运不顺。需要学会接受和顺应变化。',
+    meaning: '转变、命运、转折点、好运、自然流动',
+    reversedMeaning: '坏运、抗拒变化、中断、失控的局势',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Wheel%20of%20Fortune%20tarot%20card%20spinning%20wheel%20sphinx%20snake%20angel%20eagle%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '火'
@@ -183,8 +128,8 @@ const majorArcana: TarotCard[] = [
     id: 12,
     name: '正义',
     nameEn: 'Justice',
-    meaning: '公正、真相、因果、道德。代表着公平和真理终将显现。',
-    reversedMeaning: '不公正、偏见、逃避责任、不诚实。需要面对真相并承担责任。',
+    meaning: '公正、因果、法律、责任、清晰决策',
+    reversedMeaning: '不公、推卸责任、偏袒、失衡裁决',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Justice%20tarot%20card%20woman%20with%20scales%20and%20sword%20crown%20throne%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '风'
@@ -193,8 +138,8 @@ const majorArcana: TarotCard[] = [
     id: 13,
     name: '倒吊人',
     nameEn: 'The Hanged Man',
-    meaning: '牺牲、等待、放下、新视角。有时候放手是为了获得更高的智慧。',
-    reversedMeaning: '拖延、抗拒、牺牲不值得、缺乏耐心。需要做出决定并采取行动。',
+    meaning: '暂停、换位思考、牺牲、新视角、放手',
+    reversedMeaning: '无谓牺牲、拖延、固执己见、无法行动',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=The%20Hanged%20Man%20tarot%20card%20man%20hanging%20upside%20down%20halo%20tree%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '水'
@@ -203,8 +148,8 @@ const majorArcana: TarotCard[] = [
     id: 14,
     name: '死神',
     nameEn: 'Death',
-    meaning: '结束、转变、重生、蜕变。代表着旧事物的结束和新事物的开始。',
-    reversedMeaning: '抗拒变化、停滞、恐惧结束、不愿放手。需要接受不可避免的转变。',
+    meaning: '结束、转变、放手、必然改变、重生前奏',
+    reversedMeaning: '抗拒改变、停滞、无法摆脱过去、痛苦结束',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Death%20tarot%20card%20skeleton%20on%20horse%20scythe%20rising%20sun%20white%20rose%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '水'
@@ -213,8 +158,8 @@ const majorArcana: TarotCard[] = [
     id: 15,
     name: '节制',
     nameEn: 'Temperance',
-    meaning: '平衡、耐心、调和、自我控制。代表着适度和和谐的生活态度。',
-    reversedMeaning: '失衡、过度、缺乏耐心、自我毁灭。需要找回平衡和节制。',
+    meaning: '平衡、调和、耐心、适度、结合创造整体',
+    reversedMeaning: '失衡、急躁、冲突、无法协调',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Temperance%20tarot%20card%20angel%20pouring%20water%20between%20cups%20mountain%20path%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '火'
@@ -223,18 +168,18 @@ const majorArcana: TarotCard[] = [
     id: 16,
     name: '恶魔',
     nameEn: 'The Devil',
-    meaning: '束缚、诱惑、阴影面、物质主义。代表着我们内心的恐惧和执念。',
-    reversedMeaning: '解脱、面对恐惧、打破束缚、释放。需要正视并超越自己的恐惧。',
+    meaning: '束缚、物质主义、上瘾、依赖、黑暗面',
+    reversedMeaning: '挣脱束缚、觉醒、看清本质、重获自由',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=The%20Devil%20tarot%20card%20horned%20figure%20inverted%20pentagram%20two%20chained%20figures%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '土'
   },
   {
     id: 17,
-    name: '塔',
+    name: '高塔',
     nameEn: 'The Tower',
-    meaning: '突然变化、觉醒、破坏、释放。代表着旧结构的崩塌和新的觉醒。',
-    reversedMeaning: '逃避变化、恐惧、抗拒觉醒、勉强维持。需要勇敢面对变革。',
+    meaning: '突变、崩溃、觉醒、颠覆、清除旧结构',
+    reversedMeaning: '避免灾难、压抑改变、恐惧剧变、勉强维持',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=The%20Tower%20tarot%20card%20tower%20struck%20by%20lightning%20falling%20crown%20fire%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '火'
@@ -243,8 +188,8 @@ const majorArcana: TarotCard[] = [
     id: 18,
     name: '星星',
     nameEn: 'The Star',
-    meaning: '希望、灵感、宁静、疗愈。代表着内心的平静和对未来的希望。',
-    reversedMeaning: '失望、缺乏希望、灵感枯竭、孤独。需要重新找回希望和信念。',
+    meaning: '希望、疗愈、灵感、平静、指引之光',
+    reversedMeaning: '绝望、缺乏信心、失望、创造力受阻',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=The%20Star%20tarot%20card%20woman%20pouring%20water%20eight%20stars%20bird%20in%20tree%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '风'
@@ -253,8 +198,8 @@ const majorArcana: TarotCard[] = [
     id: 19,
     name: '月亮',
     nameEn: 'The Moon',
-    meaning: '幻觉、潜意识、直觉、周期变化。代表着隐藏的情绪和深层的心理状态。',
-    reversedMeaning: '混乱、恐惧、误解、情绪波动。需要理清思路，面对真实的感受。',
+    meaning: '幻觉、恐惧、潜意识、不安、模糊不清',
+    reversedMeaning: '拨云见日、克服恐惧、隐藏真相浮现',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=The%20Moon%20tarot%20card%20full%20moon%20two%20towers%20wolf%20and%20dog%20crayfish%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '水'
@@ -263,8 +208,8 @@ const majorArcana: TarotCard[] = [
     id: 20,
     name: '太阳',
     nameEn: 'The Sun',
-    meaning: '喜悦、成功、活力、光明。代表着幸福、成就和积极的能量。',
-    reversedMeaning: '消极、延迟成功、缺乏快乐、压力。需要找回生活的乐趣和热情。',
+    meaning: '快乐、成功、活力、清晰、积极能量',
+    reversedMeaning: '暂时阴霾、缺乏热情、延迟快乐、过于乐观',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=The%20Sun%20tarot%20card%20child%20on%20white%20horse%20sunflowers%20radiant%20sun%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '火'
@@ -273,8 +218,8 @@ const majorArcana: TarotCard[] = [
     id: 21,
     name: '审判',
     nameEn: 'Judgement',
-    meaning: '重生、觉醒、召唤、自我反省。代表着深刻的转变和新的开始。',
-    reversedMeaning: '自我怀疑、拒绝召唤、缺乏自我反省、不愿改变。需要倾听内心的召唤。',
+    meaning: '召唤、觉醒、因果报应、再生、原谅过去',
+    reversedMeaning: '自我怀疑、拒绝召唤、害怕决定、无法释怀',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Judgement%20tarot%20card%20angel%20blowing%20trumpet%20rising%20dead%20red%20cross%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '火'
@@ -283,15 +228,674 @@ const majorArcana: TarotCard[] = [
     id: 22,
     name: '世界',
     nameEn: 'The World',
-    meaning: '完成、整合、成就、圆满。代表着一个周期的圆满结束。',
-    reversedMeaning: '未完成、缺乏 closure、拖延、不完整。需要完成未竟之事，寻求圆满。',
+    meaning: '完成、完整、成就、旅行、圆满结局',
+    reversedMeaning: '未完成、缺乏闭环、延迟成功、还需努力',
     image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=The%20World%20tarot%20card%20dancing%20woman%20laurel%20wreath%20four%20living%20creatures%20${cardImageStyle}&image_size=portrait_4_3`,
     type: 'major',
     element: '土'
   }
 ];
 
-export const tarotCards: TarotCard[] = [...majorArcana, ...createMinorArcana()];
+const minorArcana: TarotCard[] = [
+  {
+    id: 23,
+    name: '权杖一',
+    nameEn: 'Ace of Wands',
+    meaning: '新开始、行动、创造力、机会、热情',
+    reversedMeaning: '延迟、犹豫、缺乏方向、机会落空',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Wands%20首牌%20tarot%20card%20orange%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'wands',
+    number: 1,
+    element: '火'
+  },
+  {
+    id: 24,
+    name: '权杖二',
+    nameEn: 'Two of Wands',
+    meaning: '计划、决定、展望未来、个人力量',
+    reversedMeaning: '恐惧未知、计划停滞、退缩、犹豫不决',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Wands%20二%20tarot%20card%20orange%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'wands',
+    number: 2,
+    element: '火'
+  },
+  {
+    id: 25,
+    name: '权杖三',
+    nameEn: 'Three of Wands',
+    meaning: '远见、领导、贸易、初步成功、探索',
+    reversedMeaning: '延误、过度自负、缺乏合作、看不到全局',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Wands%20三%20tarot%20card%20orange%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'wands',
+    number: 3,
+    element: '火'
+  },
+  {
+    id: 26,
+    name: '权杖四',
+    nameEn: 'Four of Wands',
+    meaning: '庆祝、稳定、和谐、回家、里程碑',
+    reversedMeaning: '不稳定、家庭冲突、过渡期、缺乏庆祝',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Wands%20四%20tarot%20card%20orange%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'wands',
+    number: 4,
+    element: '火'
+  },
+  {
+    id: 27,
+    name: '权杖五',
+    nameEn: 'Five of Wands',
+    meaning: '冲突、竞争、分歧、混乱、较劲',
+    reversedMeaning: '内部冲突、避免争执、达成共识、暴力化解',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Wands%20五%20tarot%20card%20orange%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'wands',
+    number: 5,
+    element: '火'
+  },
+  {
+    id: 28,
+    name: '权杖六',
+    nameEn: 'Six of Wands',
+    meaning: '胜利、认可、自信、好消息、前进',
+    reversedMeaning: '失败、骄傲、叛变、消息延迟',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Wands%20六%20tarot%20card%20orange%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'wands',
+    number: 6,
+    element: '火'
+  },
+  {
+    id: 29,
+    name: '权杖七',
+    nameEn: 'Seven of Wands',
+    meaning: '坚守立场、防御、挑战、勇气、不放弃',
+    reversedMeaning: '放弃、压力过大、被击垮、优柔寡断',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Wands%20七%20tarot%20card%20orange%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'wands',
+    number: 7,
+    element: '火'
+  },
+  {
+    id: 30,
+    name: '权杖八',
+    nameEn: 'Eight of Wands',
+    meaning: '迅速行动、信息到达、旅行、进展飞速',
+    reversedMeaning: '延迟、急刹车、混乱、失控加速',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Wands%20八%20tarot%20card%20orange%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'wands',
+    number: 8,
+    element: '火'
+  },
+  {
+    id: 31,
+    name: '权杖九',
+    nameEn: 'Nine of Wands',
+    meaning: '坚守、警觉、边界、最后一搏、受伤但未倒',
+    reversedMeaning: '偏执、防御过当、疲惫放弃、疑心重',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Wands%20九%20tarot%20card%20orange%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'wands',
+    number: 9,
+    element: '火'
+  },
+  {
+    id: 32,
+    name: '权杖十',
+    nameEn: 'Ten of Wands',
+    meaning: '负担、压力、责任、承担过多、耗尽',
+    reversedMeaning: '崩溃、卸下责任、逃避、无法承担',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Wands%20十%20tarot%20card%20orange%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'wands',
+    number: 10,
+    element: '火'
+  },
+  {
+    id: 33,
+    name: '权杖侍从',
+    nameEn: 'Page of Wands',
+    meaning: '新消息、热情青年、探索、好奇心',
+    reversedMeaning: '坏消息、不成熟、冲动、缺乏方向',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Page%20of%20Wands%20tarot%20card%20orange%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'wands',
+    element: '火'
+  },
+  {
+    id: 34,
+    name: '权杖骑士',
+    nameEn: 'Knight of Wands',
+    meaning: '行动力、冒险、热情、旅行、变化',
+    reversedMeaning: '冲突、鲁莽、急躁、破坏性行动',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Knight%20of%20Wands%20tarot%20card%20orange%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'wands',
+    element: '火'
+  },
+  {
+    id: 35,
+    name: '权杖王后',
+    nameEn: 'Queen of Wands',
+    meaning: '自信、活力、独立、吸引力、热情领导',
+    reversedMeaning: '嫉妒、控制欲、暴躁、情绪化',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Queen%20of%20Wands%20tarot%20card%20orange%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'wands',
+    element: '火'
+  },
+  {
+    id: 36,
+    name: '权杖国王',
+    nameEn: 'King of Wands',
+    meaning: '领导力、远见、事业成就、成熟激情',
+    reversedMeaning: '专制、傲慢、不耐烦、事业受挫',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=King%20of%20Wands%20tarot%20card%20orange%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'wands',
+    element: '火'
+  },
+  {
+    id: 37,
+    name: '圣杯一',
+    nameEn: 'Ace of Cups',
+    meaning: '爱、新感情、喜悦、直觉、丰沛情感',
+    reversedMeaning: '情感受阻、空虚、压抑、关系萌芽夭折',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cups%20首牌%20tarot%20card%20blue%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'cups',
+    number: 1,
+    element: '水'
+  },
+  {
+    id: 38,
+    name: '圣杯二',
+    nameEn: 'Two of Cups',
+    meaning: '平等关系、恋情、友谊、结合、吸引',
+    reversedMeaning: '失衡、误解、关系破裂、沟通不畅',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cups%20二%20tarot%20card%20blue%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'cups',
+    number: 2,
+    element: '水'
+  },
+  {
+    id: 39,
+    name: '圣杯三',
+    nameEn: 'Three of Cups',
+    meaning: '庆祝、友谊、聚会、合作、喜悦',
+    reversedMeaning: '过度放纵、八卦、孤立、三角关系',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cups%20三%20tarot%20card%20blue%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'cups',
+    number: 3,
+    element: '水'
+  },
+  {
+    id: 40,
+    name: '圣杯四',
+    nameEn: 'Four of Cups',
+    meaning: '厌倦、冷漠、不满足、思虑、错过机会',
+    reversedMeaning: '新可能、自我觉醒、打破停滞、接受邀请',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cups%20四%20tarot%20card%20blue%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'cups',
+    number: 4,
+    element: '水'
+  },
+  {
+    id: 41,
+    name: '圣杯五',
+    nameEn: 'Five of Cups',
+    meaning: '悲伤、失落、后悔、聚焦失去',
+    reversedMeaning: '走出悲伤、接纳、看见希望、开始前进',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cups%20五%20tarot%20card%20blue%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'cups',
+    number: 5,
+    element: '水'
+  },
+  {
+    id: 42,
+    name: '圣杯六',
+    nameEn: 'Six of Cups',
+    meaning: '回忆、童年、单纯、赠予、保护',
+    reversedMeaning: '活在过去、依恋、不成熟、无法前进',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cups%20六%20tarot%20card%20blue%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'cups',
+    number: 6,
+    element: '水'
+  },
+  {
+    id: 43,
+    name: '圣杯七',
+    nameEn: 'Seven of Cups',
+    meaning: '幻想、选择多、迷惑、白日梦、混乱',
+    reversedMeaning: '清醒、做决定、摆脱幻想、现实面对',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cups%20七%20tarot%20card%20blue%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'cups',
+    number: 7,
+    element: '水'
+  },
+  {
+    id: 44,
+    name: '圣杯八',
+    nameEn: 'Eight of Cups',
+    meaning: '离开、寻找更高意义、勇敢前行、放手',
+    reversedMeaning: '害怕离开、困在原地、逃避变化、犹豫',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cups%20八%20tarot%20card%20blue%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'cups',
+    number: 8,
+    element: '水'
+  },
+  {
+    id: 45,
+    name: '圣杯九',
+    nameEn: 'Nine of Cups',
+    meaning: '愿望成真、满足、快乐、自我欣赏',
+    reversedMeaning: '贪婪、过度自满、愿望落空、表面满足',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cups%20九%20tarot%20card%20blue%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'cups',
+    number: 9,
+    element: '水'
+  },
+  {
+    id: 46,
+    name: '圣杯十',
+    nameEn: 'Ten of Cups',
+    meaning: '家庭和谐、幸福、情感圆满、归属感',
+    reversedMeaning: '家庭冲突、不和谐、疏离、表面幸福',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Cups%20十%20tarot%20card%20blue%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'cups',
+    number: 10,
+    element: '水'
+  },
+  {
+    id: 47,
+    name: '圣杯侍从',
+    nameEn: 'Page of Cups',
+    meaning: '感性、创意、善意消息、温柔少年',
+    reversedMeaning: '情绪不稳、不成熟、失望、缺乏创意',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Page%20of%20Cups%20tarot%20card%20blue%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'cups',
+    element: '水'
+  },
+  {
+    id: 48,
+    name: '圣杯骑士',
+    nameEn: 'Knight of Cups',
+    meaning: '浪漫、邀请、理想情人、温柔行动',
+    reversedMeaning: '情绪波动、欺骗、逃避承诺、不靠谱',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Knight%20of%20Cups%20tarot%20card%20blue%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'cups',
+    element: '水'
+  },
+  {
+    id: 49,
+    name: '圣杯王后',
+    nameEn: 'Queen of Cups',
+    meaning: '直觉、共情、滋养、倾听、温柔力量',
+    reversedMeaning: '多愁善感、情绪勒索、依赖、不安全感',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Queen%20of%20Cups%20tarot%20card%20blue%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'cups',
+    element: '水'
+  },
+  {
+    id: 50,
+    name: '圣杯国王',
+    nameEn: 'King of Cups',
+    meaning: '情感成熟、慈悲、平衡、家庭领袖',
+    reversedMeaning: '情绪操控、冷暴力、压抑情感、不忠',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=King%20of%20Cups%20tarot%20card%20blue%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'cups',
+    element: '水'
+  },
+  {
+    id: 51,
+    name: '宝剑一',
+    nameEn: 'Ace of Swords',
+    meaning: '清晰、真相、智力突破、决断、公正',
+    reversedMeaning: '混乱、残酷真相、被误解、逃避',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Swords%20首牌%20tarot%20card%20purple%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'swords',
+    number: 1,
+    element: '风'
+  },
+  {
+    id: 52,
+    name: '宝剑二',
+    nameEn: 'Two of Swords',
+    meaning: '僵局、逃避、拒绝面对、内心矛盾',
+    reversedMeaning: '放下防御、接受真相、做出决定',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Swords%20二%20tarot%20card%20purple%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'swords',
+    number: 2,
+    element: '风'
+  },
+  {
+    id: 53,
+    name: '宝剑三',
+    nameEn: 'Three of Swords',
+    meaning: '心碎、悲伤、背叛、痛苦、分离',
+    reversedMeaning: '疗愈、释放痛苦、原谅、走出阴霾',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Swords%20三%20tarot%20card%20purple%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'swords',
+    number: 3,
+    element: '风'
+  },
+  {
+    id: 54,
+    name: '宝剑四',
+    nameEn: 'Four of Swords',
+    meaning: '休息、恢复、静养、暂停思考',
+    reversedMeaning: '疲惫、焦虑无法休息、反复思考',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Swords%20四%20tarot%20card%20purple%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'swords',
+    number: 4,
+    element: '风'
+  },
+  {
+    id: 55,
+    name: '宝剑五',
+    nameEn: 'Five of Swords',
+    meaning: '冲突赢但空虚、不择手段、人际紧张',
+    reversedMeaning: '和解、放下、承认失败、吸取教训',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Swords%20五%20tarot%20card%20purple%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'swords',
+    number: 5,
+    element: '风'
+  },
+  {
+    id: 56,
+    name: '宝剑六',
+    nameEn: 'Six of Swords',
+    meaning: '过渡、离开困难、逐渐平静、疗愈之旅',
+    reversedMeaning: '困在过去、无法前进、问题拖延',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Swords%20六%20tarot%20card%20purple%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'swords',
+    number: 6,
+    element: '风'
+  },
+  {
+    id: 57,
+    name: '宝剑七',
+    nameEn: 'Seven of Swords',
+    meaning: '策略、掩饰、智取、小聪明、隐秘行动',
+    reversedMeaning: '暴露、诚实面对、策略失败、自我欺骗',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Swords%20七%20tarot%20card%20purple%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'swords',
+    number: 7,
+    element: '风'
+  },
+  {
+    id: 58,
+    name: '宝剑八',
+    nameEn: 'Eight of Swords',
+    meaning: '限制、自我束缚、无助感、被困',
+    reversedMeaning: '解放、看清出路、打破限制、接受帮助',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Swords%20八%20tarot%20card%20purple%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'swords',
+    number: 8,
+    element: '风'
+  },
+  {
+    id: 59,
+    name: '宝剑九',
+    nameEn: 'Nine of Swords',
+    meaning: '噩梦、焦虑、内疚、深夜痛苦',
+    reversedMeaning: '走出阴霾、寻求帮助、恐惧减轻',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Swords%20九%20tarot%20card%20purple%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'swords',
+    number: 9,
+    element: '风'
+  },
+  {
+    id: 60,
+    name: '宝剑十',
+    nameEn: 'Ten of Swords',
+    meaning: '终结、触底、牺牲、被迫结束',
+    reversedMeaning: '绝处逢生、恢复、慢慢好转、不愿接受结束',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Swords%20十%20tarot%20card%20purple%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'swords',
+    number: 10,
+    element: '风'
+  },
+  {
+    id: 61,
+    name: '宝剑侍从',
+    nameEn: 'Page of Swords',
+    meaning: '警觉、新想法、观察、好奇心',
+    reversedMeaning: '八卦、轻率、攻击性言语、多疑',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Page%20of%20Swords%20tarot%20card%20purple%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'swords',
+    element: '风'
+  },
+  {
+    id: 62,
+    name: '宝剑骑士',
+    nameEn: 'Knight of Swords',
+    meaning: '快速行动、直言、激烈、追求真相',
+    reversedMeaning: '冲动、鲁莽言语、冲突升级、失控',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Knight%20of%20Swords%20tarot%20card%20purple%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'swords',
+    element: '风'
+  },
+  {
+    id: 63,
+    name: '宝剑王后',
+    nameEn: 'Queen of Swords',
+    meaning: '理性、独立、清晰判断、敏锐',
+    reversedMeaning: '冷酷、尖酸、偏见、情感隔绝',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Queen%20of%20Swords%20tarot%20card%20purple%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'swords',
+    element: '风'
+  },
+  {
+    id: 64,
+    name: '宝剑国王',
+    nameEn: 'King of Swords',
+    meaning: '智力权威、公正、战略、理性领导',
+    reversedMeaning: '独断、滥用逻辑、残酷、思想控制',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=King%20of%20Swords%20tarot%20card%20purple%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'swords',
+    element: '风'
+  },
+  {
+    id: 65,
+    name: '星币一',
+    nameEn: 'Ace of Pentacles',
+    meaning: '新机会、财富、健康、安全感、实际开始',
+    reversedMeaning: '错过机会、贪心、物质匮乏、浪费',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Pentacles%20首牌%20tarot%20card%20green%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'pentacles',
+    number: 1,
+    element: '土'
+  },
+  {
+    id: 66,
+    name: '星币二',
+    nameEn: 'Two of Pentacles',
+    meaning: '平衡财务、适应变化、多任务',
+    reversedMeaning: '失衡、超支、混乱、无力应对',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Pentacles%20二%20tarot%20card%20green%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'pentacles',
+    number: 2,
+    element: '土'
+  },
+  {
+    id: 67,
+    name: '星币三',
+    nameEn: 'Three of Pentacles',
+    meaning: '团队合作、技能展现、规划、初步成果',
+    reversedMeaning: '缺乏合作、技能不足、懒散、不受认可',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Pentacles%20三%20tarot%20card%20green%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'pentacles',
+    number: 3,
+    element: '土'
+  },
+  {
+    id: 68,
+    name: '星币四',
+    nameEn: 'Four of Pentacles',
+    meaning: '控制、保守、占有、稳定但僵化',
+    reversedMeaning: '过度吝啬、不放手、财务失控、失去稳定',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Pentacles%20四%20tarot%20card%20green%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'pentacles',
+    number: 4,
+    element: '土'
+  },
+  {
+    id: 69,
+    name: '星币五',
+    nameEn: 'Five of Pentacles',
+    meaning: '贫困、孤立、不安、精神或物质匮乏',
+    reversedMeaning: '走出困境、恢复、寻找帮助、情况好转',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Pentacles%20五%20tarot%20card%20green%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'pentacles',
+    number: 5,
+    element: '土'
+  },
+  {
+    id: 70,
+    name: '星币六',
+    nameEn: 'Six of Pentacles',
+    meaning: '分享、慷慨、给予与接受、公平',
+    reversedMeaning: '不平等、债务、自私、接受不当',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Pentacles%20六%20tarot%20card%20green%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'pentacles',
+    number: 6,
+    element: '土'
+  },
+  {
+    id: 71,
+    name: '星币七',
+    nameEn: 'Seven of Pentacles',
+    meaning: '评估、收成、耐心、投资回报',
+    reversedMeaning: '急躁、回报不佳、缺乏规划、半途而废',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Pentacles%20七%20tarot%20card%20green%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'pentacles',
+    number: 7,
+    element: '土'
+  },
+  {
+    id: 72,
+    name: '星币八',
+    nameEn: 'Eight of Pentacles',
+    meaning: '专注、精进、学徒、注重细节',
+    reversedMeaning: '低质量、缺乏热情、马虎、技能不足',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Pentacles%20八%20tarot%20card%20green%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'pentacles',
+    number: 8,
+    element: '土'
+  },
+  {
+    id: 73,
+    name: '星币九',
+    nameEn: 'Nine of Pentacles',
+    meaning: '自足、享受、优雅、物质独立',
+    reversedMeaning: '过度依赖、挥霍、虚假安全、不安',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Pentacles%20九%20tarot%20card%20green%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'pentacles',
+    number: 9,
+    element: '土'
+  },
+  {
+    id: 74,
+    name: '星币十',
+    nameEn: 'Ten of Pentacles',
+    meaning: '家族财富、传承、稳定、长期成功',
+    reversedMeaning: '家族争斗、财务崩溃、表面风光',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Pentacles%20十%20tarot%20card%20green%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'pentacles',
+    number: 10,
+    element: '土'
+  },
+  {
+    id: 75,
+    name: '星币侍从',
+    nameEn: 'Page of Pentacles',
+    meaning: '学习、新工作、务实、专注目标',
+    reversedMeaning: '懒惰、缺乏务实、浪费机会、不专注',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Page%20of%20Pentacles%20tarot%20card%20green%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'pentacles',
+    element: '土'
+  },
+  {
+    id: 76,
+    name: '星币骑士',
+    nameEn: 'Knight of Pentacles',
+    meaning: '勤奋、责任、稳定前进、务实行动',
+    reversedMeaning: '懒惰、固执、毫无进展、财务拖延',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Knight%20of%20Pentacles%20tarot%20card%20green%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'pentacles',
+    element: '土'
+  },
+  {
+    id: 77,
+    name: '星币王后',
+    nameEn: 'Queen of Pentacles',
+    meaning: '务实、丰盛、滋养、居家、自然力量',
+    reversedMeaning: '过度节俭、控制、财务焦虑、忽视自我',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=Queen%20of%20Pentacles%20tarot%20card%20green%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'pentacles',
+    element: '土'
+  },
+  {
+    id: 78,
+    name: '星币国王',
+    nameEn: 'King of Pentacles',
+    meaning: '财富、成功、务实领导、商业头脑',
+    reversedMeaning: '贪婪、物质主义、守财、事业失败',
+    image: `https://trae-api-cn.mchost.guru/api/ide/v1/text_to_image?prompt=King%20of%20Pentacles%20tarot%20card%20green%20and%20gold%20${cardImageStyle}&image_size=portrait_4_3`,
+    type: 'minor',
+    suit: 'pentacles',
+    element: '土'
+  }
+];
+
+export const tarotCards: TarotCard[] = [...majorArcana, ...minorArcana];
 
 export const drawCards = (cards: TarotCard[], count: number, question?: string): TarotCard[] => {
   const timestamp = performance.now() * 1000;
