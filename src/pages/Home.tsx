@@ -1127,11 +1127,47 @@ export function Home() {
 
         const smallDirectReading = relevantKeywords.map(kw => smallDirectKeywordPhrases[kw] || smallKeywordPhrases[kw] || keywordPhrases[kw] || kw).join('。');
 
+        const gentleOpeners = [
+          '我看到的信号是：', '这张牌在告诉你：', '牌面传递的信息是：',
+          '我注意到一个重要的提示：', '这里有一个值得关注的信号：',
+          '这张牌揭示的是：', '我感受到的是：', '牌面想让你知道：',
+        ];
+        const gentleClosersPositive = [
+          '这值得你认真考虑。', '顺着这个方向走，你会找到答案的。',
+          '这是一个值得把握的时机。', '相信这个方向，你不会走错的。',
+          '这给了你一个明确的指引。', '照着这个信号去做，结果不会差。',
+          '你可以放心地迈出这一步。', '这对你来说是一个好的提示。',
+        ];
+        const gentleClosersNegative = [
+          '这听起来可能不太好受，但提前知道总比措手不及好。',
+          '别太担心，意识到问题本身就是解决问题的第一步。',
+          '这不是要吓你，而是希望你有所准备。',
+          '虽然有些难以接受，但正视它反而会让你更从容。',
+          '请相信，这个提醒是来帮你的，不是来为难你的。',
+          '知道了就好，至少你可以提前做些准备。',
+          '这未必是坏事，有时候调整方向反而能看到更好的风景。',
+          '给自己一点时间消化这个信息，你比想象中更有力量。',
+        ];
+        const gentleClosersNeutral = [
+          '两种力量在拉扯，你需要找到自己的平衡点。',
+          '这需要你仔细权衡，不急着做决定也没关系。',
+          '答案不是非黑即白的，给自己空间去感受。',
+          '先观察一下，不用急着站队。',
+          '这提醒你注意两面的可能性，再做选择。',
+          '慢慢来，等信号更清晰的时候你自然会知道怎么做。',
+        ];
+
+        const openerIdx = (card.id || 0) % gentleOpeners.length;
+        const closerIdx = (card.id || 0) % 8;
+
         if (style === 'gentle') {
+          const opener = gentleOpeners[openerIdx];
           if (isReversed) {
-            return `${positionLabel}${card.name}逆位——${smallReading}。调整一下方向就好了，不用太担心。`;
+            const closer = gentleClosersNegative[closerIdx];
+            return `${positionLabel}${card.name}逆位。${opener}${smallReading}。${closer}`;
           } else {
-            return `${positionLabel}${card.name}正位——${smallReading}。放轻松，跟着感觉走～`;
+            const closer = gentleClosersPositive[closerIdx];
+            return `${positionLabel}${card.name}正位。${opener}${smallReading}。${closer}`;
           }
         } else {
           if (isReversed) {
@@ -1142,11 +1178,47 @@ export function Home() {
         }
       }
 
+      const gentleOpeners = [
+        '我看到的信号是：', '这张牌在告诉你：', '牌面传递的信息是：',
+        '我注意到一个重要的提示：', '这里有一个值得关注的信号：',
+        '这张牌揭示的是：', '我感受到的是：', '牌面想让你知道：',
+      ];
+      const gentleClosersPositive = [
+        '这值得你认真考虑。', '顺着这个方向走，你会找到答案的。',
+        '这是一个值得把握的时机。', '相信这个方向，你不会走错的。',
+        '这给了你一个明确的指引。', '照着这个信号去做，结果不会差。',
+        '你可以放心地迈出这一步。', '这对你来说是一个好的提示。',
+      ];
+      const gentleClosersNegative = [
+        '这听起来可能不太好受，但提前知道总比措手不及好。',
+        '别太担心，意识到问题本身就是解决问题的第一步。',
+        '这不是要吓你，而是希望你有所准备。',
+        '虽然有些难以接受，但正视它反而会让你更从容。',
+        '请相信，这个提醒是来帮你的，不是来为难你的。',
+        '知道了就好，至少你可以提前做些准备。',
+        '这未必是坏事，有时候调整方向反而能看到更好的风景。',
+        '给自己一点时间消化这个信息，你比想象中更有力量。',
+      ];
+      const gentleClosersNeutral = [
+        '两种力量在拉扯，你需要找到自己的平衡点。',
+        '这需要你仔细权衡，不急着做决定也没关系。',
+        '答案不是非黑即白的，给自己空间去感受。',
+        '先观察一下，不用急着站队。',
+        '这提醒你注意两面的可能性，再做选择。',
+        '慢慢来，等信号更清晰的时候你自然会知道怎么做。',
+      ];
+
+      const openerIdx = (card.id || 0) % gentleOpeners.length;
+      const closerIdx = (card.id || 0) % 8;
+
       if (style === 'gentle') {
+        const opener = gentleOpeners[openerIdx];
         if (isReversed) {
-          return `${positionLabel}${card.name}以逆位出现。${suitIntro}${mainReading}。这并不意味着坏事，而是提醒你——现在的状态需要一些调整。给自己一点时间和耐心，事情会慢慢好转的。`;
+          const closer = gentleClosersNegative[closerIdx];
+          return `${positionLabel}${card.name}以逆位出现。${suitIntro}${opener}${mainReading}。${closer}`;
         } else {
-          return `${positionLabel}${card.name}以正位出现，带来了积极的能量。${suitIntro}${mainReading}。这是一个好的信号，相信自己的感受，顺着这股能量前行吧。`;
+          const closer = gentleClosersPositive[closerIdx];
+          return `${positionLabel}${card.name}以正位出现。${suitIntro}${opener}${mainReading}。${closer}`;
         }
       } else {
         if (isReversed) {
@@ -1326,14 +1398,23 @@ export function Home() {
 
       if (questionScale === 'small') {
         const kwStr = uniqueKeywords.length > 0 ? uniqueKeywords.slice(0, 3).join('、') : '';
+        const summaryClosersPositive = [
+          '整体来看，牌面是支持你的。', '综合来看，方向是积极的。',
+          '总的来说，信号是正面的。', '综合这几张牌来看，可以放心。',
+        ];
+        const summaryClosersNegative = [
+          '综合来看，现在需要谨慎一些。', '总的来说，时机可能还不太对。',
+          '整体来看，建议再等等。', '综合牌面来看，先别急着行动。',
+        ];
+        const summaryClosersNeutral = [
+          '综合来看，信号有正有反，需要你自己权衡。', '总的来说，利弊并存，不急着做决定。',
+          '整体来看，牌面没有给出明确倾向。', '综合来看，两边都有道理，看你更看重什么。',
+        ];
+        const summaryIdx = Date.now() % 4;
         if (tendency === 'positive') {
           if (style === 'gentle') {
-            let s = kwStr ? `${kwStr}——` : '';
-            if (isYesNoQuestion) {
-              s += '可以呀，去吧～不用想太多。';
-            } else {
-              s += '看起来挺不错的，放心去做。';
-            }
+            let s = kwStr ? `我看到的信号是${kwStr}，` : '';
+            s += isYesNoQuestion ? '可以去做。' : summaryClosersPositive[summaryIdx];
             return s;
           } else {
             let s = kwStr ? `牌面显示${kwStr}，` : '牌面偏正，';
@@ -1346,12 +1427,8 @@ export function Home() {
           }
         } else if (tendency === 'negative') {
           if (style === 'gentle') {
-            let s = kwStr ? `${kwStr}——` : '';
-            if (isYesNoQuestion) {
-              s += '可能再想想比较好，不急的话先放一放。';
-            } else {
-              s += '也许换个时间或者方式会更好哦。';
-            }
+            let s = kwStr ? `牌面提示${kwStr}，` : '';
+            s += isYesNoQuestion ? '可能再等等比较好。' : summaryClosersNegative[summaryIdx];
             return s;
           } else {
             let s = kwStr ? `牌面提示${kwStr}，` : '牌面偏逆，';
@@ -1364,12 +1441,8 @@ export function Home() {
           }
         } else {
           if (style === 'gentle') {
-            let s = kwStr ? `${kwStr}——` : '';
-            if (isYesNoQuestion) {
-              s += '随你心意吧，怎么选都行～';
-            } else {
-              s += '看你自己感觉来吧，不用太纠结。';
-            }
+            let s = kwStr ? `牌面显示${kwStr}同时存在，` : '';
+            s += isYesNoQuestion ? '信号不太明确，不急的话可以再观察一下。' : summaryClosersNeutral[summaryIdx];
             return s;
           } else {
             let s = kwStr ? `牌面显示${kwStr}同时存在，` : '牌面正逆参半，';
@@ -1385,15 +1458,33 @@ export function Home() {
 
       let summary = '';
 
+      const bigSummaryClosersPositive = [
+        '综合来看，牌面给出的方向是值得信赖的。',
+        '总的来说，这几张牌传递的信号是积极的。',
+        '整体来看，你可以对当前的方向抱有信心。',
+        '综合这几张牌来看，前路是光明的。',
+      ];
+      const bigSummaryClosersNegative = [
+        '综合来看，现在需要给自己多一点耐心。',
+        '总的来说，时机可能还需要再等等。',
+        '整体来看，谨慎行事是当前最明智的选择。',
+        '综合这几张牌来看，先稳住比冒进更合适。',
+      ];
+      const bigSummaryClosersNeutral = [
+        '综合来看，正反两面都有，需要你仔细权衡。',
+        '总的来说，局势还在变化中，不急着下结论。',
+        '整体来看，信号不够明确，再观察一段时间。',
+        '综合这几张牌来看，两边都有道理，看你更看重什么。',
+      ];
+      const bigSummaryIdx = Date.now() % 4;
+
       if (tendency === 'positive') {
         if (style === 'gentle') {
-          summary = `从${cardNames}的整体能量来看，`;
-          summary += uniqueKeywords.length > 0
-            ? `${uniqueKeywords.join('、')}的力量正在汇聚。`
-            : '积极的能量正在汇聚。';
-          summary += '整体而言，这是一个充满希望的信号。';
-          if (isYesNoQuestion) summary += '我的建议是：可以尝试，但保持觉察。';
-          else summary += '相信自己的直觉，勇敢地迈出下一步。';
+          const kwPart = uniqueKeywords.length > 0
+            ? `我看到的信号是${uniqueKeywords.join('、')}。`
+            : '';
+          summary = `${cardNames}——${kwPart}${bigSummaryClosersPositive[bigSummaryIdx]}`;
+          if (isYesNoQuestion) summary += '可以尝试，但保持觉察。';
         } else {
           summary = `${cardNames}——`;
           summary += uniqueKeywords.length > 0
@@ -1404,13 +1495,11 @@ export function Home() {
         }
       } else if (tendency === 'negative') {
         if (style === 'gentle') {
-          summary = `从${cardNames}的整体能量来看，`;
-          summary += uniqueKeywords.length > 0
-            ? `${uniqueKeywords.join('、')}的提示需要你留意。`
-            : '需要注意当前的能量状态。';
-          summary += '现在可能不是最好的时机，但这不代表没有希望。';
-          if (isYesNoQuestion) summary += '我的建议是：暂时放缓脚步，等时机成熟再行动。';
-          else summary += '给自己一些时间，调整好状态再出发也不迟。';
+          const kwPart = uniqueKeywords.length > 0
+            ? `牌面提示${uniqueKeywords.join('、')}。`
+            : '';
+          summary = `${cardNames}——${kwPart}${bigSummaryClosersNegative[bigSummaryIdx]}`;
+          if (isYesNoQuestion) summary += '暂时放缓脚步，等时机成熟再行动。';
         } else {
           summary = `${cardNames}——`;
           summary += uniqueKeywords.length > 0
@@ -1421,12 +1510,11 @@ export function Home() {
         }
       } else {
         if (style === 'gentle') {
-          summary = `从${cardNames}的整体能量来看，正逆位交织，说明局势还在变化中。`;
-          summary += uniqueKeywords.length > 0
-            ? `${uniqueKeywords.join('与')}同时存在，需要你找到平衡。`
-            : '需要你找到平衡。';
-          if (isYesNoQuestion) summary += '我的建议是：不急做决定，再观察一下。';
-          else summary += '保持耐心，让事情自然发展，答案会逐渐清晰。';
+          const kwPart = uniqueKeywords.length > 0
+            ? `${uniqueKeywords.join('与')}同时存在。`
+            : '';
+          summary = `${cardNames}——${kwPart}${bigSummaryClosersNeutral[bigSummaryIdx]}`;
+          if (isYesNoQuestion) summary += '不急做决定，再观察一下。';
         } else {
           summary = `${cardNames}——正逆参半，局势不明。`;
           summary += uniqueKeywords.length > 0
