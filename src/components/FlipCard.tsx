@@ -12,9 +12,10 @@ interface FlipCardProps {
   delay: number;
   isReversed: boolean;
   lang: Lang;
+  compact?: boolean;
 }
 
-export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed, lang }: FlipCardProps) {
+export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed, lang, compact }: FlipCardProps) {
   const [canFlip, setCanFlip] = useState(false);
 
   useEffect(() => {
@@ -32,7 +33,7 @@ export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed,
 
   return (
     <div
-      className="relative cursor-pointer group perspective-1000 w-80 h-[450px]"
+      className={`relative cursor-pointer group perspective-1000 ${compact ? 'w-[140px] h-[210px]' : 'w-80 h-[450px]'}`}
       onClick={handleClick}
       style={{
         opacity: canFlip ? 1 : 0.5,
@@ -54,7 +55,7 @@ export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed,
             backfaceVisibility: 'hidden',
           }}
         >
-          <div className="w-full h-full rounded-2xl sm:rounded-3xl bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 border-2 sm:border-4 border-white/20 overflow-hidden relative">
+          <div className={`w-full h-full rounded-2xl sm:rounded-3xl bg-gradient-to-br from-slate-800 via-slate-700 to-slate-900 border-2 sm:border-4 border-white/20 overflow-hidden relative`}>
             <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-transparent" />
 
             <svg viewBox="0 0 300 450" className="absolute inset-0 w-full h-full" preserveAspectRatio="xMidYMid slice">
@@ -111,8 +112,8 @@ export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed,
             {canFlip && !isFlipped && (
               <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-black/60 to-transparent">
                 <div className="text-center">
-                  <div className="glass-icon text-3xl sm:text-6xl mb-2 sm:mb-4 animate-bounce">👆</div>
-                  <span className="text-white text-sm sm:text-xl font-semibold tracking-widest">
+                  <div className={`glass-icon animate-bounce ${compact ? 'text-2xl mb-1' : 'text-3xl sm:text-6xl mb-2 sm:mb-4'}`}>👆</div>
+                  <span className={`text-white font-semibold tracking-widest ${compact ? 'text-xs' : 'text-sm sm:text-xl'}`}>
                     {t('clickToReveal', lang)}
                   </span>
                 </div>
@@ -138,7 +139,7 @@ export function FlipCard({ card, position, isFlipped, onFlip, delay, isReversed,
               transform: isReversed ? 'rotate(180deg)' : 'rotate(0deg)',
             }}
           >
-            <TarotCardFace card={card} isReversed={isReversed} position={position} lang={lang} size="full" />
+            <TarotCardFace card={card} isReversed={isReversed} position={position} lang={lang} size={compact ? 'compact' : 'full'} />
           </div>
         </div>
       </div>
@@ -203,6 +204,8 @@ export function CardSpread({
 
   if (!canStart) return null;
 
+  const isThreeCards = cards.length === 3;
+
   return (
     <div className="flex flex-col items-center gap-6 sm:gap-12 w-full px-2 sm:px-0">
       <div className="text-center mb-4 sm:mb-8">
@@ -214,7 +217,23 @@ export function CardSpread({
         <p className="text-slate-400 text-sm sm:text-2xl">{t('clickToFlipSub', lang)}</p>
       </div>
 
-      <div className={`flex gap-6 sm:gap-10 justify-center overflow-x-auto pb-4 ${cards.length === 3 ? '' : ''}`}>
+      {isThreeCards ? (
+        <div className="sm:hidden flex flex-col items-center">
+          <div className="flex gap-4 mb-2">
+            <div className="animate-fade-in" style={{ animationDelay: '0s' }}>
+              <FlipCard card={cards[0].card} position={''} isFlipped={flippedCards.has(0)} onFlip={() => handleFlip(0)} delay={0} isReversed={cards[0].isReversed} lang={lang} compact />
+            </div>
+            <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              <FlipCard card={cards[1].card} position={''} isFlipped={flippedCards.has(1)} onFlip={() => handleFlip(1)} delay={300} isReversed={cards[1].isReversed} lang={lang} compact />
+            </div>
+          </div>
+          <div className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <FlipCard card={cards[2].card} position={''} isFlipped={flippedCards.has(2)} onFlip={() => handleFlip(2)} delay={600} isReversed={cards[2].isReversed} lang={lang} compact />
+          </div>
+        </div>
+      ) : null}
+
+      <div className={`${isThreeCards ? 'hidden sm:flex' : 'flex'} gap-6 sm:gap-10 justify-center`}>
         {cards.map((item, i) => (
           <div
             key={item.card.id}
