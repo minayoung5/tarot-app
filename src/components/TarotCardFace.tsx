@@ -31,7 +31,7 @@ export function TarotCardFace({ card, isReversed, position, lang, size = 'full' 
         >
           <TarotCardArt card={card} />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent" />
         <div className={`absolute inset-0 ${overlayGradient}`} />
 
         <div className={`absolute top-3 right-3 px-2.5 py-1 ${badgeBg} backdrop-blur-xl rounded-full border shadow-lg`}>
@@ -40,9 +40,9 @@ export function TarotCardFace({ card, isReversed, position, lang, size = 'full' 
           </span>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 p-4">
-          <h3 className={`text-lg font-bold ${textColor}`}>{card.name}</h3>
-          <p className="text-slate-400 text-xs">{card.nameEn}</p>
+        <div className="absolute bottom-0 left-0 right-0 p-3 pb-2">
+          <h3 className={`text-base font-bold ${textColor}`}>{card.name}</h3>
+          <p className="text-slate-400 text-[10px]">{card.nameEn}</p>
         </div>
       </div>
     );
@@ -53,9 +53,9 @@ export function TarotCardFace({ card, isReversed, position, lang, size = 'full' 
       className={`w-full h-full rounded-3xl bg-gradient-to-br from-slate-800 to-slate-900 border-2 ${borderColor} overflow-hidden flex flex-col`}
       style={{ transform: isReversed ? 'rotate(180deg)' : 'rotate(0deg)' }}
     >
-      <div className="flex-1 relative">
+      <div className="flex-1 relative min-h-0">
         <TarotCardArt card={card} />
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent" />
         <div className={`absolute inset-0 ${overlayGradient}`} />
 
         {position && (
@@ -68,27 +68,27 @@ export function TarotCardFace({ card, isReversed, position, lang, size = 'full' 
           </div>
         )}
 
-        <div className="absolute bottom-0 left-0 right-0 p-5">
+        <div className="absolute bottom-0 left-0 right-0 p-5 pb-3">
           <div className="flex items-end justify-between">
             <div>
-              <h3 className={`text-2xl font-bold ${textColor}`}>{card.name}</h3>
-              <p className="text-slate-400 text-sm italic">{card.nameEn}</p>
+              <h3 className={`text-xl font-bold ${textColor}`}>{card.name}</h3>
+              <p className="text-slate-400 text-xs italic">{card.nameEn}</p>
             </div>
             {card.element && (
-              <span className="text-lg opacity-60">{card.element}</span>
+              <span className="text-sm opacity-60">{card.element}</span>
             )}
           </div>
         </div>
       </div>
 
-      <div className="flex items-center gap-3 text-slate-500 px-5 py-3">
+      <div className="flex items-center gap-3 text-slate-500 px-5 py-1.5">
         <div className={`flex-1 h-px ${dividerColor}`} />
-        <span className="text-base text-amber-400/50">✦</span>
+        <span className="text-sm text-amber-400/50">✦</span>
         <div className={`flex-1 h-px ${dividerColor}`} />
       </div>
 
-      <div className="px-5 pb-5">
-        <p className={`text-sm leading-relaxed ${labelColor}`}>
+      <div className="px-5 pb-3">
+        <p className={`text-xs leading-relaxed ${labelColor}`}>
           <span className="font-semibold">
             {isReversed ? t('reversedLabel', lang) : t('uprightLabel', lang)}
           </span>
