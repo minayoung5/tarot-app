@@ -1513,12 +1513,12 @@ export function Home() {
                             </feMerge>
                           </filter>
                         </defs>
-                        <rect x="25" y="8" width="50" height="84" rx="6" stroke="url(#singleCardGrad)" strokeWidth="1.5" fill="none" filter="url(#cardGlow)" />
-                        <rect x="32" y="16" width="36" height="68" rx="4" stroke="url(#singleCardGrad)" strokeWidth="0.8" fill="none" opacity="0.3" />
-                        <circle cx="50" cy="50" r="8" stroke="url(#singleCardGrad)" strokeWidth="1" fill="none" opacity="0.6" />
-                        <circle cx="50" cy="50" r="3" fill="url(#singleCardGrad)" opacity="0.8" />
-                        <line x1="50" y1="28" x2="50" y2="38" stroke="url(#singleCardGrad)" strokeWidth="0.5" opacity="0.4" />
-                        <line x1="50" y1="62" x2="50" y2="72" stroke="url(#singleCardGrad)" strokeWidth="0.5" opacity="0.4" />
+                        <rect x="30" y="8" width="40" height="84" rx="5" stroke="url(#singleCardGrad)" strokeWidth="1.5" fill="none" filter="url(#cardGlow)" />
+                        <rect x="36" y="16" width="28" height="68" rx="3" stroke="url(#singleCardGrad)" strokeWidth="0.8" fill="none" opacity="0.3" />
+                        <circle cx="50" cy="50" r="7" stroke="url(#singleCardGrad)" strokeWidth="1" fill="none" opacity="0.6" />
+                        <circle cx="50" cy="50" r="2.5" fill="url(#singleCardGrad)" opacity="0.8" />
+                        <line x1="50" y1="30" x2="50" y2="39" stroke="url(#singleCardGrad)" strokeWidth="0.5" opacity="0.4" />
+                        <line x1="50" y1="61" x2="50" y2="70" stroke="url(#singleCardGrad)" strokeWidth="0.5" opacity="0.4" />
                       </svg>
                     </div>
                     <h3 className="text-base sm:text-xl font-semibold text-white/90 mb-1 sm:mb-2 tracking-wide">{t('singleCard', lang)}</h3>
@@ -1560,14 +1560,14 @@ export function Home() {
                             </feMerge>
                           </filter>
                         </defs>
-                        <rect x="8" y="22" width="28" height="56" rx="4" stroke="url(#threeCardGrad)" strokeWidth="1.2" fill="none" opacity="0.4" filter="url(#cardGlow3)" />
-                        <rect x="36" y="22" width="28" height="56" rx="4" stroke="url(#threeCardGrad)" strokeWidth="1.2" fill="none" opacity="0.65" filter="url(#cardGlow3)" />
-                        <rect x="64" y="22" width="28" height="56" rx="4" stroke="url(#threeCardGrad)" strokeWidth="1.2" fill="none" opacity="0.9" filter="url(#cardGlow3)" />
-                        <circle cx="22" cy="50" r="2.5" fill="url(#threeCardGrad)" opacity="0.5" />
+                        <rect x="5" y="8" width="28" height="84" rx="4" stroke="url(#threeCardGrad)" strokeWidth="1.2" fill="none" opacity="0.4" filter="url(#cardGlow3)" />
+                        <rect x="36" y="8" width="28" height="84" rx="4" stroke="url(#threeCardGrad)" strokeWidth="1.2" fill="none" opacity="0.65" filter="url(#cardGlow3)" />
+                        <rect x="67" y="8" width="28" height="84" rx="4" stroke="url(#threeCardGrad)" strokeWidth="1.2" fill="none" opacity="0.9" filter="url(#cardGlow3)" />
+                        <circle cx="19" cy="50" r="2.5" fill="url(#threeCardGrad)" opacity="0.5" />
                         <circle cx="50" cy="50" r="3" fill="url(#threeCardGrad)" opacity="0.7" />
-                        <circle cx="78" cy="50" r="3.5" fill="url(#threeCardGrad)" opacity="0.9" />
-                        <line x1="25" y1="50" x2="34" y2="50" stroke="url(#threeCardGrad)" strokeWidth="0.5" opacity="0.3" />
-                        <line x1="53" y1="50" x2="62" y2="50" stroke="url(#threeCardGrad)" strokeWidth="0.5" opacity="0.5" />
+                        <circle cx="81" cy="50" r="3.5" fill="url(#threeCardGrad)" opacity="0.9" />
+                        <line x1="22" y1="50" x2="34" y2="50" stroke="url(#threeCardGrad)" strokeWidth="0.5" opacity="0.3" />
+                        <line x1="53" y1="50" x2="65" y2="50" stroke="url(#threeCardGrad)" strokeWidth="0.5" opacity="0.5" />
                       </svg>
                     </div>
                     <h3 className="text-base sm:text-xl font-semibold text-white/90 mb-1 sm:mb-2 tracking-wide">{t('threeCards', lang)}</h3>
