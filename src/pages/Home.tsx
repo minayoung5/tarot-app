@@ -965,9 +965,9 @@ export function Home() {
 
         if (style === 'gentle') {
           if (isReversed) {
-            return `${positionLabel}${card.name}逆位——${smallReading}。不过别太在意，小事而已，调整一下就好啦。`;
+            return `${positionLabel}${card.name}逆位——${smallReading}。调整一下方向就好了，不用太担心。`;
           } else {
-            return `${positionLabel}${card.name}正位——${smallReading}。小事一桩，放轻松～`;
+            return `${positionLabel}${card.name}正位——${smallReading}。放轻松，跟着感觉走～`;
           }
         } else {
           if (isReversed) {
@@ -1161,17 +1161,18 @@ export function Home() {
       }
 
       if (questionScale === 'small') {
+        const kwStr = uniqueKeywords.length > 0 ? uniqueKeywords.slice(0, 3).join('、') : '';
         if (tendency === 'positive') {
           if (style === 'gentle') {
-            let s = '牌面整体偏积极，';
+            let s = kwStr ? `${kwStr}——` : '';
             if (isYesNoQuestion) {
               s += '可以呀，去吧～不用想太多。';
             } else {
-              s += '看起来挺不错的，放心搞。';
+              s += '看起来挺不错的，放心去做。';
             }
             return s;
           } else {
-            let s = '牌面说可以。';
+            let s = kwStr ? `${kwStr}，` : '';
             if (isYesNoQuestion) {
               s += '行，干吧。';
             } else {
@@ -1181,7 +1182,7 @@ export function Home() {
           }
         } else if (tendency === 'negative') {
           if (style === 'gentle') {
-            let s = '牌面提示有点犹豫，';
+            let s = kwStr ? `${kwStr}——` : '';
             if (isYesNoQuestion) {
               s += '可能再想想比较好，不急的话先放一放。';
             } else {
@@ -1189,7 +1190,7 @@ export function Home() {
             }
             return s;
           } else {
-            let s = '牌面不太支持。';
+            let s = kwStr ? `${kwStr}，` : '';
             if (isYesNoQuestion) {
               s += '算了，别折腾了。';
             } else {
@@ -1199,15 +1200,15 @@ export function Home() {
           }
         } else {
           if (style === 'gentle') {
-            let s = '牌面有点模棱两可，';
+            let s = kwStr ? `${kwStr}——` : '';
             if (isYesNoQuestion) {
               s += '随你心意吧，怎么选都行～';
             } else {
-              s += '看你自己感觉来吧，小事不用太纠结。';
+              s += '看你自己感觉来吧，不用太纠结。';
             }
             return s;
           } else {
-            let s = '牌面没给明确信号。';
+            let s = kwStr ? `${kwStr}，` : '';
             if (isYesNoQuestion) {
               s += '你自己定吧。';
             } else {
@@ -1497,7 +1498,7 @@ export function Home() {
                   }} />
                   <div className="relative flex flex-col items-center">
                     <div className="w-16 h-20 sm:w-20 sm:h-24 mb-5 sm:mb-8 flex items-center justify-center">
-                      <svg viewBox="0 0 80 100" className="w-full h-full transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
+                      <svg viewBox="0 0 100 100" className="w-full h-full transition-transform duration-500 group-hover:scale-110 group-hover:-translate-y-1">
                         <defs>
                           <linearGradient id="singleCardGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stopColor="#c4b5fd" />
@@ -1512,12 +1513,12 @@ export function Home() {
                             </feMerge>
                           </filter>
                         </defs>
-                        <rect x="15" y="8" width="50" height="84" rx="6" stroke="url(#singleCardGrad)" strokeWidth="1.5" fill="none" filter="url(#cardGlow)" />
-                        <rect x="22" y="16" width="36" height="68" rx="4" stroke="url(#singleCardGrad)" strokeWidth="0.8" fill="none" opacity="0.3" />
-                        <circle cx="40" cy="50" r="8" stroke="url(#singleCardGrad)" strokeWidth="1" fill="none" opacity="0.6" />
-                        <circle cx="40" cy="50" r="3" fill="url(#singleCardGrad)" opacity="0.8" />
-                        <line x1="40" y1="28" x2="40" y2="38" stroke="url(#singleCardGrad)" strokeWidth="0.5" opacity="0.4" />
-                        <line x1="40" y1="62" x2="40" y2="72" stroke="url(#singleCardGrad)" strokeWidth="0.5" opacity="0.4" />
+                        <rect x="25" y="8" width="50" height="84" rx="6" stroke="url(#singleCardGrad)" strokeWidth="1.5" fill="none" filter="url(#cardGlow)" />
+                        <rect x="32" y="16" width="36" height="68" rx="4" stroke="url(#singleCardGrad)" strokeWidth="0.8" fill="none" opacity="0.3" />
+                        <circle cx="50" cy="50" r="8" stroke="url(#singleCardGrad)" strokeWidth="1" fill="none" opacity="0.6" />
+                        <circle cx="50" cy="50" r="3" fill="url(#singleCardGrad)" opacity="0.8" />
+                        <line x1="50" y1="28" x2="50" y2="38" stroke="url(#singleCardGrad)" strokeWidth="0.5" opacity="0.4" />
+                        <line x1="50" y1="62" x2="50" y2="72" stroke="url(#singleCardGrad)" strokeWidth="0.5" opacity="0.4" />
                       </svg>
                     </div>
                     <h3 className="text-base sm:text-xl font-semibold text-white/90 mb-1 sm:mb-2 tracking-wide">{t('singleCard', lang)}</h3>
