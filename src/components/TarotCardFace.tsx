@@ -58,15 +58,24 @@ export function TarotCardFace({ card, isReversed, position, lang, size = 'full' 
         <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/60 to-transparent" />
         <div className={`absolute inset-0 ${overlayGradient}`} />
 
-        {position && (
+        <div className="absolute top-5 left-5 flex items-center gap-2">
+          {position && (
+            <div
+              className={`px-5 py-2.5 ${badgeBg} backdrop-blur-xl rounded-full border shadow-lg`}
+            >
+              <span className="text-sm font-semibold tracking-widest text-white">
+                {position}
+              </span>
+            </div>
+          )}
           <div
-            className={`absolute top-5 left-5 px-5 py-2.5 ${badgeBg} backdrop-blur-xl rounded-full border shadow-lg`}
+            className={`px-4 py-2 ${badgeBg} backdrop-blur-xl rounded-full border shadow-lg`}
           >
-            <span className="text-sm font-semibold tracking-widest text-white">
-              {position}
+            <span className="text-sm font-semibold tracking-wider text-white">
+              {isReversed ? t('reversed', lang) : t('upright', lang)}
             </span>
           </div>
-        )}
+        </div>
 
         <div className="absolute bottom-0 left-0 right-0 p-5 pb-3">
           <div className="flex items-end justify-between">
